@@ -3,38 +3,52 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
-    [Header("플레이어 목숨")]
-    [SerializeField] private int maxLives = 3;
+    [Header("플레이어 체력")]
+    [SerializeField] private int maxHP = 3;
 
-    [Header("무적 시간")]
+    [Header("피격 후 무적 시간")]
     [SerializeField] private float invincibleTime = 2f;
 
-    private int currentLives;
+    private int currentHP;
     private bool isInvincible;
 
-    private Collider2D playerCollider;
-
-    public int CurrentLives => currentLives;
-    public bool IsDead => currentLives <= 0;
+    public int CurrentHP => currentHP;
+    public bool IsDead => currentHP <= 0;
     public bool IsInvincible => isInvincible;
 
     private void Awake()
     {
-        currentLives = maxLives;
-
-        playerCollider = GetComponent<Collider2D>();
+        currentHP = maxHP;
     }
 
-    public void TakeDamage()
+    // =========================================================
+    // 데미지 받기
+    // =========================================================
+
+    public void TakeDamage(int damage)
     {
         if (isInvincible)
             return;
 
-        currentLives--;
+        if (IsDead)
+            return;
 
-        Debug.Log("플레이어 피격! 남은 목숨 : " + currentLives);
+        // 음수 데미지 방지
+        damage = Mathf.Max(0, damage);
 
-        if (currentLives <= 0)
+        currentHP -= damage;
+
+        // HP가 0 아래로 내려가지 않도록
+        currentHP = Mathf.Max(0, currentHP);
+
+        Debug.Log(
+            "플레이어 피격! 데미지 : "
+            + damage
+            + " / 현재 HP : "
+            + currentHP
+        );
+
+        if (currentHP <= 0)
         {
             Die();
             return;
@@ -43,40 +57,61 @@ public class PlayerHealth : MonoBehaviour
         StartCoroutine(InvincibilityCoroutine());
     }
 
+    // =========================================================
+    // 무적
+    // =========================================================
+
     private IEnumerator InvincibilityCoroutine()
     {
         isInvincible = true;
 
-        // 적과의 충돌만 무시
-        Physics2D.IgnoreLayerCollision(
-            gameObject.layer,
-            LayerMask.NameToLayer("Enemy"),
-            true
-        );
-
         Debug.Log("플레이어 무적 시작");
+
+        // Enemy 레이어와의 충돌을 잠시 무시
+        int enemyLayer =
+            LayerMask.NameToLayer("Enemy");
+
+        if (enemyLayer != -1)
+        {
+            Physics2D.IgnoreLayerCollision(
+                gameObject.layer,
+                enemyLayer,
+                true
+            );
+        }
 
         yield return new WaitForSeconds(invincibleTime);
 
-        // 적과의 충돌 다시 허용
-        Physics2D.IgnoreLayerCollision(
-            gameObject.layer,
-            LayerMask.NameToLayer("Enemy"),
-            false
-        );
+        if (enemyLayer != -1)
+        {
+            Physics2D.IgnoreLayerCollision(
+                gameObject.layer,
+                enemyLayer,
+                false
+            );
+        }
 
         isInvincible = false;
 
         Debug.Log("플레이어 무적 종료");
     }
 
+    // =========================================================
+    // 기존 일반 충돌
+    // =========================================================
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Enemy"))
-        {
-            TakeDamage();
-        }
+        if (!collision.gameObject.CompareTag("Enemy"))
+            return;
+
+        // 일반 충돌에서는 기본 데미지 1
+        TakeDamage(1);
     }
+
+    // =========================================================
+    // 사망
+    // =========================================================
 
     private void Die()
     {
