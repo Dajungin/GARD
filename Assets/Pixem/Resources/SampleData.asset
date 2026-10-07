@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00753528b80def7448d9baec74b38dd1, type: 3}
+  m_Name: SampleData
+  m_EditorClassIdentifier: 
+  T_Cape: {fileID: 2800000, guid: 05c7f8531d3024f42910ed757834614c, type: 3}
+  T_Body: {fileID: 2800000, guid: 85ebd9968caaf8c438a19f2a3883de2b, type: 3}
+  T_Face: {fileID: 2800000, guid: dfc455053a35d64409568c41f0923f36, type: 3}
+  T_FaceAcc_1: {fileID: 2800000, guid: b343f69a7d341974b9a16566b6f74b8e, type: 3}
+  T_FaceAcc_2: {fileID: 2800000, guid: 54068cdd1ad9a7d44b4d8e2da750dafb, type: 3}
+  T_Hair: {fileID: 2800000, guid: 1a041d6e179b09d4b8e755ab606f9e31, type: 3}
+  T_HairAcc: {fileID: 2800000, guid: c2955abab0b95b04f8f1f090d5da676b, type: 3}
+  T_Helmet: {fileID: 2800000, guid: 3b1f17f2facff4542b9a038fd3801ada, type: 3}
+  T_Top: {fileID: 2800000, guid: ffb751aece7e386448fb091b9f67e194, type: 3}
+  T_Pants: {fileID: 2800000, guid: ad45fd6b05b319c4bbc5e41e860be630, type: 3}
+  T_RightHandWeapon: {fileID: 2800000, guid: b451a246cbe270c47a15363804ea7a95, type: 3}
+  T_Shield: {fileID: 2800000, guid: 4b41180e3a43c224d86ab18a0bd17d19, type: 3}
+  T_LeftHandWeapon: {fileID: 2800000, guid: 8874984002083e1479c530990b3c89f2, type: 3}
+  C_Body: {r: 0, g: 0, b: 0, a: 0}
+  C_Cape: {r: 1, g: 1, b: 1, a: 1}
+  C_Face: {r: 1, g: 1, b: 1, a: 1}
+  C_FaceAcc_1: {r: 1, g: 1, b: 1, a: 1}
+  C_FaceAcc_2: {r: 1, g: 1, b: 1, a: 1}
+  C_Hair: {r: 1, g: 1, b: 1, a: 1}
+  C_HairAcc: {r: 1, g: 1, b: 1, a: 1}
+  C_Helmet: {r: 1, g: 1, b: 1, a: 1}
+  C_Top: {r: 1, g: 1, b: 1, a: 1}
+  C_Pants: {r: 1, g: 1, b: 1, a: 1}
+  C_RightHandWeapon: {r: 1, g: 1, b: 1, a: 1}
+  C_Shield: {r: 1, g: 1, b: 1, a: 1}
+  C_LeftHandWeapon: {r: 1, g: 1, b: 1, a: 1}
+  P_Face: {x: 0, y: 0.000000007450581, z: 0}
+  P_FaceAcc_1: {x: 0, y: 0, z: 0}
+  P_FaceAcc_2: {x: 0, y: 0.125, z: 0}
+  P_Hair: {x: 0, y: 0, z: 0}
+  P_HairAcc: {x: 0, y: 0, z: 0}
+  P_Helmet: {x: 0, y: 0, z: 0}

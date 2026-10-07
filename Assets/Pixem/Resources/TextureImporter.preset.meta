@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: b71b8a8686e12054fa31d6dcde03bb54
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2655988077585873504
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 324890
+  packageName: 2D Character Maker - Pixem
+  packageVersion: 1.12
+  assetPath: Assets/Pixem/Resources/TextureImporter.preset
+  uploadId: 887236

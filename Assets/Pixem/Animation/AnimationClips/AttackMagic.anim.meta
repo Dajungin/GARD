@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: e28e2b096c7d4b5428fee9c457c721bd
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 7400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 324890
+  packageName: 2D Character Maker - Pixem
+  packageVersion: 1.12
+  assetPath: Assets/Pixem/Animation/AnimationClips/AttackMagic.anim
+  uploadId: 887236

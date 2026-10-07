@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 6ad8e07fda0231e42ae4f269aba12f3a
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 324890
+  packageName: 2D Character Maker - Pixem
+  packageVersion: 1.12
+  assetPath: Assets/Pixem/Animation/PixemAnimator.controller
+  uploadId: 887236

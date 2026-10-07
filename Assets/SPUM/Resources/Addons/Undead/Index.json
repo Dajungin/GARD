@@ -1,0 +1,881 @@
+{
+    "Name": "Undead",
+    "Path": "Assets/SPUM/Resources/Addons",
+    "Version": "",
+    "CreationDate": "2025-12-04 16:09:49",
+    "SpumAnimationData": [],
+    "SpumTextureData": [
+        {
+            "Name": "Zombie_1",
+            "UnitType": "Unit",
+            "PartType": "Body",
+            "SubType": "Arm_L",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/0_Body/Zombie_1"
+        },
+        {
+            "Name": "Zombie_1",
+            "UnitType": "Unit",
+            "PartType": "Body",
+            "SubType": "Arm_R",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/0_Body/Zombie_1"
+        },
+        {
+            "Name": "Zombie_1",
+            "UnitType": "Unit",
+            "PartType": "Body",
+            "SubType": "Body",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/0_Body/Zombie_1"
+        },
+        {
+            "Name": "Zombie_1",
+            "UnitType": "Unit",
+            "PartType": "Body",
+            "SubType": "Foot_L",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/0_Body/Zombie_1"
+        },
+        {
+            "Name": "Zombie_1",
+            "UnitType": "Unit",
+            "PartType": "Body",
+            "SubType": "Foot_R",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/0_Body/Zombie_1"
+        },
+        {
+            "Name": "Zombie_1",
+            "UnitType": "Unit",
+            "PartType": "Body",
+            "SubType": "Head",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/0_Body/Zombie_1"
+        },
+        {
+            "Name": "Zombie_2",
+            "UnitType": "Unit",
+            "PartType": "Body",
+            "SubType": "Arm_L",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/0_Body/Zombie_2"
+        },
+        {
+            "Name": "Zombie_2",
+            "UnitType": "Unit",
+            "PartType": "Body",
+            "SubType": "Arm_R",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/0_Body/Zombie_2"
+        },
+        {
+            "Name": "Zombie_2",
+            "UnitType": "Unit",
+            "PartType": "Body",
+            "SubType": "Body",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/0_Body/Zombie_2"
+        },
+        {
+            "Name": "Zombie_2",
+            "UnitType": "Unit",
+            "PartType": "Body",
+            "SubType": "Foot_L",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/0_Body/Zombie_2"
+        },
+        {
+            "Name": "Zombie_2",
+            "UnitType": "Unit",
+            "PartType": "Body",
+            "SubType": "Foot_R",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/0_Body/Zombie_2"
+        },
+        {
+            "Name": "Zombie_2",
+            "UnitType": "Unit",
+            "PartType": "Body",
+            "SubType": "Head",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/0_Body/Zombie_2"
+        },
+        {
+            "Name": "Zombie_3",
+            "UnitType": "Unit",
+            "PartType": "Body",
+            "SubType": "Arm_L",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/0_Body/Zombie_3"
+        },
+        {
+            "Name": "Zombie_3",
+            "UnitType": "Unit",
+            "PartType": "Body",
+            "SubType": "Arm_R",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/0_Body/Zombie_3"
+        },
+        {
+            "Name": "Zombie_3",
+            "UnitType": "Unit",
+            "PartType": "Body",
+            "SubType": "Body",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/0_Body/Zombie_3"
+        },
+        {
+            "Name": "Zombie_3",
+            "UnitType": "Unit",
+            "PartType": "Body",
+            "SubType": "Foot_L",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/0_Body/Zombie_3"
+        },
+        {
+            "Name": "Zombie_3",
+            "UnitType": "Unit",
+            "PartType": "Body",
+            "SubType": "Foot_R",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/0_Body/Zombie_3"
+        },
+        {
+            "Name": "Zombie_3",
+            "UnitType": "Unit",
+            "PartType": "Body",
+            "SubType": "Head",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/0_Body/Zombie_3"
+        },
+        {
+            "Name": "Zombie_4",
+            "UnitType": "Unit",
+            "PartType": "Body",
+            "SubType": "Arm_L",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/0_Body/Zombie_4"
+        },
+        {
+            "Name": "Zombie_4",
+            "UnitType": "Unit",
+            "PartType": "Body",
+            "SubType": "Arm_R",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/0_Body/Zombie_4"
+        },
+        {
+            "Name": "Zombie_4",
+            "UnitType": "Unit",
+            "PartType": "Body",
+            "SubType": "Body",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/0_Body/Zombie_4"
+        },
+        {
+            "Name": "Zombie_4",
+            "UnitType": "Unit",
+            "PartType": "Body",
+            "SubType": "Foot_L",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/0_Body/Zombie_4"
+        },
+        {
+            "Name": "Zombie_4",
+            "UnitType": "Unit",
+            "PartType": "Body",
+            "SubType": "Foot_R",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/0_Body/Zombie_4"
+        },
+        {
+            "Name": "Zombie_4",
+            "UnitType": "Unit",
+            "PartType": "Body",
+            "SubType": "Head",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/0_Body/Zombie_4"
+        },
+        {
+            "Name": "Zombie_5",
+            "UnitType": "Unit",
+            "PartType": "Body",
+            "SubType": "Arm_L",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/0_Body/Zombie_5"
+        },
+        {
+            "Name": "Zombie_5",
+            "UnitType": "Unit",
+            "PartType": "Body",
+            "SubType": "Arm_R",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/0_Body/Zombie_5"
+        },
+        {
+            "Name": "Zombie_5",
+            "UnitType": "Unit",
+            "PartType": "Body",
+            "SubType": "Body",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/0_Body/Zombie_5"
+        },
+        {
+            "Name": "Zombie_5",
+            "UnitType": "Unit",
+            "PartType": "Body",
+            "SubType": "Foot_L",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/0_Body/Zombie_5"
+        },
+        {
+            "Name": "Zombie_5",
+            "UnitType": "Unit",
+            "PartType": "Body",
+            "SubType": "Foot_R",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/0_Body/Zombie_5"
+        },
+        {
+            "Name": "Zombie_5",
+            "UnitType": "Unit",
+            "PartType": "Body",
+            "SubType": "Head",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/0_Body/Zombie_5"
+        },
+        {
+            "Name": "Zombie_6",
+            "UnitType": "Unit",
+            "PartType": "Body",
+            "SubType": "Arm_L",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/0_Body/Zombie_6"
+        },
+        {
+            "Name": "Zombie_6",
+            "UnitType": "Unit",
+            "PartType": "Body",
+            "SubType": "Arm_R",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/0_Body/Zombie_6"
+        },
+        {
+            "Name": "Zombie_6",
+            "UnitType": "Unit",
+            "PartType": "Body",
+            "SubType": "Body",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/0_Body/Zombie_6"
+        },
+        {
+            "Name": "Zombie_6",
+            "UnitType": "Unit",
+            "PartType": "Body",
+            "SubType": "Foot_L",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/0_Body/Zombie_6"
+        },
+        {
+            "Name": "Zombie_6",
+            "UnitType": "Unit",
+            "PartType": "Body",
+            "SubType": "Foot_R",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/0_Body/Zombie_6"
+        },
+        {
+            "Name": "Zombie_6",
+            "UnitType": "Unit",
+            "PartType": "Body",
+            "SubType": "Head",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/0_Body/Zombie_6"
+        },
+        {
+            "Name": "Undead_Cloth_01",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Body",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/2_Cloth/Undead_Cloth_01"
+        },
+        {
+            "Name": "Undead_Cloth_01",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Left",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/2_Cloth/Undead_Cloth_01"
+        },
+        {
+            "Name": "Undead_Cloth_01",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Right",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/2_Cloth/Undead_Cloth_01"
+        },
+        {
+            "Name": "Undead_Cloth_02",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Body",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/2_Cloth/Undead_Cloth_02"
+        },
+        {
+            "Name": "Undead_Cloth_02",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Left",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/2_Cloth/Undead_Cloth_02"
+        },
+        {
+            "Name": "Undead_Cloth_02",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Right",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/2_Cloth/Undead_Cloth_02"
+        },
+        {
+            "Name": "Undead_Cloth_03",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Body",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/2_Cloth/Undead_Cloth_03"
+        },
+        {
+            "Name": "Undead_Cloth_03",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Left",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/2_Cloth/Undead_Cloth_03"
+        },
+        {
+            "Name": "Undead_Cloth_03",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Right",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/2_Cloth/Undead_Cloth_03"
+        },
+        {
+            "Name": "Undead_Cloth_04",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Body",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/2_Cloth/Undead_Cloth_04"
+        },
+        {
+            "Name": "Undead_Cloth_04",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Left",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/2_Cloth/Undead_Cloth_04"
+        },
+        {
+            "Name": "Undead_Cloth_04",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Right",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/2_Cloth/Undead_Cloth_04"
+        },
+        {
+            "Name": "Undead_Cloth_05",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Body",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/2_Cloth/Undead_Cloth_05"
+        },
+        {
+            "Name": "Undead_Cloth_05",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Left",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/2_Cloth/Undead_Cloth_05"
+        },
+        {
+            "Name": "Undead_Cloth_05",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Right",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/2_Cloth/Undead_Cloth_05"
+        },
+        {
+            "Name": "Undead_Cloth_06",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Body",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/2_Cloth/Undead_Cloth_06"
+        },
+        {
+            "Name": "Undead_Cloth_06",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Left",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/2_Cloth/Undead_Cloth_06"
+        },
+        {
+            "Name": "Undead_Cloth_06",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Right",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/2_Cloth/Undead_Cloth_06"
+        },
+        {
+            "Name": "Undead_Cloth_07",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Body",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/2_Cloth/Undead_Cloth_07"
+        },
+        {
+            "Name": "Undead_Cloth_07",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Left",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/2_Cloth/Undead_Cloth_07"
+        },
+        {
+            "Name": "Undead_Cloth_07",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Right",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/2_Cloth/Undead_Cloth_07"
+        },
+        {
+            "Name": "Undead_Pant_01",
+            "UnitType": "Unit",
+            "PartType": "Pant",
+            "SubType": "Left",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/3_Pant/Undead_Pant_01"
+        },
+        {
+            "Name": "Undead_Pant_01",
+            "UnitType": "Unit",
+            "PartType": "Pant",
+            "SubType": "Right",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/3_Pant/Undead_Pant_01"
+        },
+        {
+            "Name": "Undead_Pant_02",
+            "UnitType": "Unit",
+            "PartType": "Pant",
+            "SubType": "Left",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/3_Pant/Undead_Pant_02"
+        },
+        {
+            "Name": "Undead_Pant_02",
+            "UnitType": "Unit",
+            "PartType": "Pant",
+            "SubType": "Right",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/3_Pant/Undead_Pant_02"
+        },
+        {
+            "Name": "Undead_Pant_03",
+            "UnitType": "Unit",
+            "PartType": "Pant",
+            "SubType": "Left",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/3_Pant/Undead_Pant_03"
+        },
+        {
+            "Name": "Undead_Pant_03",
+            "UnitType": "Unit",
+            "PartType": "Pant",
+            "SubType": "Right",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/3_Pant/Undead_Pant_03"
+        },
+        {
+            "Name": "Undead_Pant_04",
+            "UnitType": "Unit",
+            "PartType": "Pant",
+            "SubType": "Left",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/3_Pant/Undead_Pant_04"
+        },
+        {
+            "Name": "Undead_Pant_04",
+            "UnitType": "Unit",
+            "PartType": "Pant",
+            "SubType": "Right",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/3_Pant/Undead_Pant_04"
+        },
+        {
+            "Name": "Undead_Pant_05",
+            "UnitType": "Unit",
+            "PartType": "Pant",
+            "SubType": "Left",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/3_Pant/Undead_Pant_05"
+        },
+        {
+            "Name": "Undead_Pant_05",
+            "UnitType": "Unit",
+            "PartType": "Pant",
+            "SubType": "Right",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/3_Pant/Undead_Pant_05"
+        },
+        {
+            "Name": "Undead_Helmet_01",
+            "UnitType": "Unit",
+            "PartType": "Helmet",
+            "SubType": "Undead_Helmet_01",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/4_Helmet/Undead_Helmet_01"
+        },
+        {
+            "Name": "Undead_Helmet_02",
+            "UnitType": "Unit",
+            "PartType": "Helmet",
+            "SubType": "Undead_Helmet_02",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/4_Helmet/Undead_Helmet_02"
+        },
+        {
+            "Name": "Undead_Helmet_03",
+            "UnitType": "Unit",
+            "PartType": "Helmet",
+            "SubType": "Undead_Helmet_03",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/4_Helmet/Undead_Helmet_03"
+        },
+        {
+            "Name": "Undead_Helmet_04",
+            "UnitType": "Unit",
+            "PartType": "Helmet",
+            "SubType": "Undead_Helmet_04",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/4_Helmet/Undead_Helmet_04"
+        },
+        {
+            "Name": "Undead_Helmet_05",
+            "UnitType": "Unit",
+            "PartType": "Helmet",
+            "SubType": "Undead_Helmet_05",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/4_Helmet/Undead_Helmet_05"
+        },
+        {
+            "Name": "Undead_Helmet_06",
+            "UnitType": "Unit",
+            "PartType": "Helmet",
+            "SubType": "Undead_Helmet_06",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/4_Helmet/Undead_Helmet_06"
+        },
+        {
+            "Name": "Undead_Helmet_07",
+            "UnitType": "Unit",
+            "PartType": "Helmet",
+            "SubType": "Undead_Helmet_07",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/4_Helmet/Undead_Helmet_07"
+        },
+        {
+            "Name": "Undead_Armor_01",
+            "UnitType": "Unit",
+            "PartType": "Armor",
+            "SubType": "Body",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/5_Armor/Undead_Armor_01"
+        },
+        {
+            "Name": "Undead_Armor_01",
+            "UnitType": "Unit",
+            "PartType": "Armor",
+            "SubType": "Left",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/5_Armor/Undead_Armor_01"
+        },
+        {
+            "Name": "Undead_Armor_01",
+            "UnitType": "Unit",
+            "PartType": "Armor",
+            "SubType": "Right",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/5_Armor/Undead_Armor_01"
+        },
+        {
+            "Name": "Undead_Armor_02",
+            "UnitType": "Unit",
+            "PartType": "Armor",
+            "SubType": "Body",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/5_Armor/Undead_Armor_02"
+        },
+        {
+            "Name": "Undead_Armor_02",
+            "UnitType": "Unit",
+            "PartType": "Armor",
+            "SubType": "Left",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/5_Armor/Undead_Armor_02"
+        },
+        {
+            "Name": "Undead_Armor_02",
+            "UnitType": "Unit",
+            "PartType": "Armor",
+            "SubType": "Right",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/5_Armor/Undead_Armor_02"
+        },
+        {
+            "Name": "Undead_Armor_03",
+            "UnitType": "Unit",
+            "PartType": "Armor",
+            "SubType": "Body",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/5_Armor/Undead_Armor_03"
+        },
+        {
+            "Name": "Undead_Armor_03",
+            "UnitType": "Unit",
+            "PartType": "Armor",
+            "SubType": "Left",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/5_Armor/Undead_Armor_03"
+        },
+        {
+            "Name": "Undead_Armor_04",
+            "UnitType": "Unit",
+            "PartType": "Armor",
+            "SubType": "Body",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/5_Armor/Undead_Armor_04"
+        },
+        {
+            "Name": "Undead_Armor_04",
+            "UnitType": "Unit",
+            "PartType": "Armor",
+            "SubType": "Left",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/5_Armor/Undead_Armor_04"
+        },
+        {
+            "Name": "Undead_Armor_04",
+            "UnitType": "Unit",
+            "PartType": "Armor",
+            "SubType": "Right",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/5_Armor/Undead_Armor_04"
+        },
+        {
+            "Name": "Undead_Armor_05",
+            "UnitType": "Unit",
+            "PartType": "Armor",
+            "SubType": "Body",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/5_Armor/Undead_Armor_05"
+        },
+        {
+            "Name": "Undead_Armor_05",
+            "UnitType": "Unit",
+            "PartType": "Armor",
+            "SubType": "Left",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/5_Armor/Undead_Armor_05"
+        },
+        {
+            "Name": "Undead_Armor_05",
+            "UnitType": "Unit",
+            "PartType": "Armor",
+            "SubType": "Right",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/5_Armor/Undead_Armor_05"
+        },
+        {
+            "Name": "Undead_Armor_06",
+            "UnitType": "Unit",
+            "PartType": "Armor",
+            "SubType": "Body",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/5_Armor/Undead_Armor_06"
+        },
+        {
+            "Name": "Undead_Armor_06",
+            "UnitType": "Unit",
+            "PartType": "Armor",
+            "SubType": "Left",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/5_Armor/Undead_Armor_06"
+        },
+        {
+            "Name": "Undead_Armor_06",
+            "UnitType": "Unit",
+            "PartType": "Armor",
+            "SubType": "Right",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/5_Armor/Undead_Armor_06"
+        },
+        {
+            "Name": "Undead_Armor_07",
+            "UnitType": "Unit",
+            "PartType": "Armor",
+            "SubType": "Body",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/5_Armor/Undead_Armor_07"
+        },
+        {
+            "Name": "Undead_Armor_07",
+            "UnitType": "Unit",
+            "PartType": "Armor",
+            "SubType": "Left",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/5_Armor/Undead_Armor_07"
+        },
+        {
+            "Name": "Undead_Armor_07",
+            "UnitType": "Unit",
+            "PartType": "Armor",
+            "SubType": "Right",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/5_Armor/Undead_Armor_07"
+        },
+        {
+            "Name": "Undead_Weapon_03",
+            "UnitType": "Unit",
+            "PartType": "Weapons",
+            "SubType": "Undead_Weapon_03",
+            "PartSubType": "Sword",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/6_Weapons/0_Sword/Undead_Weapon_03"
+        },
+        {
+            "Name": "Undead_Weapon_08",
+            "UnitType": "Unit",
+            "PartType": "Weapons",
+            "SubType": "Undead_Weapon_08",
+            "PartSubType": "Sword",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/6_Weapons/0_Sword/Undead_Weapon_08"
+        },
+        {
+            "Name": "Undead_Weapon_10",
+            "UnitType": "Unit",
+            "PartType": "Weapons",
+            "SubType": "Undead_Weapon_10",
+            "PartSubType": "Sword",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/6_Weapons/0_Sword/Undead_Weapon_10"
+        },
+        {
+            "Name": "Undead_Weapon_06",
+            "UnitType": "Unit",
+            "PartType": "Weapons",
+            "SubType": "Undead_Weapon_06",
+            "PartSubType": "Axe",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/6_Weapons/1_Axe/Undead_Weapon_06"
+        },
+        {
+            "Name": "Undead_Weapon_04",
+            "UnitType": "Unit",
+            "PartType": "Weapons",
+            "SubType": "Undead_Weapon_04",
+            "PartSubType": "Bow",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/6_Weapons/2_Bow/Undead_Weapon_04"
+        },
+        {
+            "Name": "Undead_Weapon_05",
+            "UnitType": "Unit",
+            "PartType": "Weapons",
+            "SubType": "Undead_Weapon_05",
+            "PartSubType": "Bow",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/6_Weapons/2_Bow/Undead_Weapon_05"
+        },
+        {
+            "Name": "Undead_Shield_01",
+            "UnitType": "Unit",
+            "PartType": "Weapons",
+            "SubType": "Undead_Shield_01",
+            "PartSubType": "Shield",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/6_Weapons/3_Shield/Undead_Shield_01"
+        },
+        {
+            "Name": "Undead_Shield_02",
+            "UnitType": "Unit",
+            "PartType": "Weapons",
+            "SubType": "Undead_Shield_02",
+            "PartSubType": "Shield",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/6_Weapons/3_Shield/Undead_Shield_02"
+        },
+        {
+            "Name": "Undead_Shield_03",
+            "UnitType": "Unit",
+            "PartType": "Weapons",
+            "SubType": "Undead_Shield_03",
+            "PartSubType": "Shield",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/6_Weapons/3_Shield/Undead_Shield_03"
+        },
+        {
+            "Name": "Undead_Weapon_01",
+            "UnitType": "Unit",
+            "PartType": "Weapons",
+            "SubType": "Undead_Weapon_01",
+            "PartSubType": "Wand",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/6_Weapons/5_Wand/Undead_Weapon_01"
+        },
+        {
+            "Name": "Undead_Weapon_02",
+            "UnitType": "Unit",
+            "PartType": "Weapons",
+            "SubType": "Undead_Weapon_02",
+            "PartSubType": "Wand",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/6_Weapons/5_Wand/Undead_Weapon_02"
+        },
+        {
+            "Name": "Undead_Weapon_07",
+            "UnitType": "Unit",
+            "PartType": "Weapons",
+            "SubType": "Undead_Weapon_07",
+            "PartSubType": "Wand",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/6_Weapons/5_Wand/Undead_Weapon_07"
+        },
+        {
+            "Name": "Undead_Weapon_09",
+            "UnitType": "Unit",
+            "PartType": "Weapons",
+            "SubType": "Undead_Weapon_09",
+            "PartSubType": "Wand",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/6_Weapons/5_Wand/Undead_Weapon_09"
+        },
+        {
+            "Name": "Undead_Back_01",
+            "UnitType": "Unit",
+            "PartType": "Back",
+            "SubType": "Undead_Back_01",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/7_Back/Undead_Back_01"
+        },
+        {
+            "Name": "Undead_Back_02",
+            "UnitType": "Unit",
+            "PartType": "Back",
+            "SubType": "Undead_Back_02",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/7_Back/Undead_Back_02"
+        }
+    ]
+}

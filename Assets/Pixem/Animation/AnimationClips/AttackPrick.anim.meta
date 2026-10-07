@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 0f0824dce32bf4a479e52f82b263dc4f
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 7400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 324890
+  packageName: 2D Character Maker - Pixem
+  packageVersion: 1.12
+  assetPath: Assets/Pixem/Animation/AnimationClips/AttackPrick.anim
+  uploadId: 887236

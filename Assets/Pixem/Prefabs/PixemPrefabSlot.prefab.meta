@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 0cd1c2c260ed3824a84ca0d6a4e200e6
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 324890
+  packageName: 2D Character Maker - Pixem
+  packageVersion: 1.12
+  assetPath: Assets/Pixem/Prefabs/PixemPrefabSlot.prefab
+  uploadId: 887236
