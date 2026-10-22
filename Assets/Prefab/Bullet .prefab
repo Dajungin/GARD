@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4085575558541124623}
   - component: {fileID: 7680150843713604381}
   - component: {fileID: 7160876928902407967}
+  - component: {fileID: -8985597928303871393}
   m_Layer: 0
   m_Name: 'Bullet '
   m_TagString: Untagged
@@ -169,6 +170,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da0104916cab9384881c1b8ca19e83a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bullet
-  speed: 15
-  lifeTime: 3
-  damage: 20
+--- !u!114 &-8985597928303871393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4393448962471360843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2785395b7827c924fbc182c5d6251667, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponProjectile
+  terrainLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  collisionCheckRadius: 0.05
