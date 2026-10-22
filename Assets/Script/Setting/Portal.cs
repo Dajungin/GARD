@@ -104,20 +104,47 @@ public class Portal : MonoBehaviour
     // 플레이어가 포탈에 닿았을 때
     // =========================================
 
+
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!isUnlocked || isLoading)
-            return;
+        Debug.Log(
+            $"[Portal] 충돌 감지: {other.name}, " +
+            $"태그: {other.tag}, 잠금 해제: {isUnlocked}",
+            this
+        );
 
-        // 플레이어 태그 확인
-        if (!other.CompareTag(playerTag) &&
-            !other.transform.root.CompareTag(playerTag))
+        if (!isUnlocked || isLoading)
         {
+            Debug.Log("[Portal] 아직 잠겨 있거나 씬 이동 중입니다.", this);
             return;
         }
 
+        // 충돌한 오브젝트부터 부모 방향으로 플레이어 태그 검색
+        Transform current = other.transform;
+        bool isPlayer = false;
+
+        while (current != null)
+        {
+            if (current.CompareTag(playerTag))
+            {
+                isPlayer = true;
+                break;
+            }
+
+            current = current.parent;
+        }
+
+        if (!isPlayer)
+        {
+            Debug.Log("[Portal] 플레이어가 아닌 오브젝트입니다.", this);
+            return;
+        }
+
+        Debug.Log("[Portal] 플레이어 확인 완료. 씬 이동을 시도합니다.", this);
+
         LoadTargetScene();
     }
+
 
     // =========================================
     // 씬 이동

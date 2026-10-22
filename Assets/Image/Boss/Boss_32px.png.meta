@@ -1,0 +1,697 @@
+fileFormatVersion: 2
+guid: 44f2700b4e3912b4996a8af487711882
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -2269873543249680483
+    second: Boss_32px_0
+  - first:
+      213: -1964604213955204882
+    second: Boss_32px_1
+  - first:
+      213: 216052337432636136
+    second: Boss_32px_2
+  - first:
+      213: 8931516213149901895
+    second: Boss_32px_3
+  - first:
+      213: -4739812210697838264
+    second: Boss_32px_4
+  - first:
+      213: 296558709520032091
+    second: Boss_32px_5
+  - first:
+      213: 7811562679160132579
+    second: Boss_32px_6
+  - first:
+      213: -509480472988048711
+    second: Boss_32px_7
+  - first:
+      213: 7825158813189161297
+    second: Boss_32px_8
+  - first:
+      213: 2381102313241923756
+    second: Boss_32px_9
+  - first:
+      213: 2339464889004426720
+    second: Boss_32px_10
+  - first:
+      213: -7430830307269693301
+    second: Boss_32px_11
+  - first:
+      213: 4562492543047198522
+    second: Boss_32px_12
+  - first:
+      213: 1388201661162120060
+    second: Boss_32px_13
+  - first:
+      213: -1954704069676390216
+    second: Boss_32px_14
+  - first:
+      213: 6577670865806260467
+    second: Boss_32px_15
+  - first:
+      213: -7982034316856483581
+    second: Boss_32px_16
+  - first:
+      213: 4947943489819511333
+    second: Boss_32px_17
+  - first:
+      213: 6289945270253712752
+    second: Boss_32px_18
+  - first:
+      213: -6110074151100525964
+    second: Boss_32px_19
+  - first:
+      213: 6155223650455460111
+    second: Boss_32px_20
+  - first:
+      213: 8288337308209710503
+    second: Boss_32px_21
+  - first:
+      213: 8182986106509538487
+    second: Boss_32px_22
+  - first:
+      213: -3492835907944163430
+    second: Boss_32px_23
+  - first:
+      213: 1520129287932182031
+    second: Boss_32px_24
+  - first:
+      213: 5668010004839975553
+    second: Boss_32px_25
+  - first:
+      213: -3860306453696553035
+    second: Boss_32px_26
+  - first:
+      213: 8831233968380337274
+    second: Boss_32px_27
+  - first:
+      213: -4163921364053173540
+    second: Boss_32px_28
+  - first:
+      213: -5157434429343583356
+    second: Boss_32px_29
+  - first:
+      213: 7998765805506359693
+    second: Boss_32px_30
+  - first:
+      213: 6127456185391660279
+    second: Boss_32px_31
+  - first:
+      213: -1734093817748625863
+    second: Boss_32px_32
+  - first:
+      213: -6477009023264007001
+    second: Boss_32px_33
+  - first:
+      213: 7275923707517610603
+    second: Boss_32px_34
+  - first:
+      213: -6676258511743370362
+    second: Boss_32px_35
+  - first:
+      213: 8060469881703169328
+    second: Boss_32px_36
+  - first:
+      213: -2172273645765715860
+    second: Boss_32px_37
+  - first:
+      213: 7548623929354575676
+    second: Boss_32px_38
+  - first:
+      213: -66606789377255709
+    second: Boss_32px_39
+  - first:
+      213: 5248071823278200364
+    second: Boss_32px_40
+  - first:
+      213: -1872030543326467828
+    second: Boss_32px_41
+  - first:
+      213: -4871736119058997899
+    second: Boss_32px_42
+  - first:
+      213: 2388689388293544616
+    second: Boss_32px_43
+  - first:
+      213: -8780341380193834135
+    second: Boss_32px_44
+  - first:
+      213: -296859377409669495
+    second: Boss_32px_45
+  - first:
+      213: -8088613939768461637
+    second: Boss_32px_46
+  - first:
+      213: -3923638482882466143
+    second: Boss_32px_47
+  - first:
+      213: -8419005851604105259
+    second: Boss_32px_48
+  - first:
+      213: 7397159893068648889
+    second: Boss_32px_49
+  - first:
+      213: 8938937636618770262
+    second: Boss_32px_50
+  - first:
+      213: -5981000943883928087
+    second: Boss_32px_51
+  - first:
+      213: 1724183793816079728
+    second: Boss_32px_52
+  - first:
+      213: -6248543047896997794
+    second: Boss_32px_53
+  - first:
+      213: 2300851533836987276
+    second: Boss_32px_54
+  - first:
+      213: -9094338852762918347
+    second: Boss_32px_55
+  - first:
+      213: -649673352665364856
+    second: Boss_32px_56
+  - first:
+      213: -3048287937102012299
+    second: Boss_32px_57
+  - first:
+      213: -3018427405048705117
+    second: Boss_32px_58
+  - first:
+      213: 688342657921681299
+    second: Boss_32px_59
+  - first:
+      213: -6992550444106146156
+    second: Boss_32px_60
+  - first:
+      213: 5489870543984695659
+    second: Boss_32px_61
+  - first:
+      213: 5783449277319442543
+    second: Boss_32px_62
+  - first:
+      213: 1422445332478350296
+    second: Boss_32px_63
+  - first:
+      213: -1454337925643158557
+    second: Boss_32px_64
+  - first:
+      213: -2194973565835922969
+    second: Boss_32px_65
+  - first:
+      213: -6773010181465586389
+    second: Boss_32px_66
+  - first:
+      213: -7739380067405619765
+    second: Boss_32px_67
+  - first:
+      213: -8305696123876283911
+    second: Boss_32px_68
+  - first:
+      213: -6746414930331247559
+    second: Boss_32px_69
+  - first:
+      213: 7988957355676622175
+    second: Boss_32px_70
+  - first:
+      213: 6849000643011793076
+    second: Boss_32px_71
+  - first:
+      213: 8976019506926021462
+    second: Boss_32px_72
+  - first:
+      213: -4481114347442793147
+    second: Boss_32px_73
+  - first:
+      213: 2675866856298611648
+    second: Boss_32px_74
+  - first:
+      213: 8489829642770181890
+    second: Boss_32px_75
+  - first:
+      213: -7738689392093370363
+    second: Boss_32px_76
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Boss_32px_0
+      rect:
+        serializedVersion: 2
+        x: 1001
+        y: 748
+        width: 270
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d97ab89e90acf70e0800000000000000
+      internalID: -2269873543249680483
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss_32px_1
+      rect:
+        serializedVersion: 2
+        x: 425
+        y: 1191
+        width: 21
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee8e6f650e25cb4e0800000000000000
+      internalID: -1964604213955204882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss_32px_2
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 986
+        width: 156
+        height: 172
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8eaa099c4729ff200800000000000000
+      internalID: 216052337432636136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss_32px_3
+      rect:
+        serializedVersion: 2
+        x: 222
+        y: 988
+        width: 154
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 1, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7442176bcae13fb70800000000000000
+      internalID: 8931516213149901895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss_32px_4
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 988
+        width: 153
+        height: 169
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 841eb4f28edc83eb0800000000000000
+      internalID: -4739812210697838264
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss_32px_5
+      rect:
+        serializedVersion: 2
+        x: 563
+        y: 988
+        width: 158
+        height: 169
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 1, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b516df733969d1400800000000000000
+      internalID: 296558709520032091
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss_32px_6
+      rect:
+        serializedVersion: 2
+        x: 737
+        y: 744
+        width: 251
+        height: 172
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3e3d9088ede386c60800000000000000
+      internalID: 7811562679160132579
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss_32px_7
+      rect:
+        serializedVersion: 2
+        x: 479
+        y: 744
+        width: 240
+        height: 178
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 6, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b2ac8b8536fde8f0800000000000000
+      internalID: -509480472988048711
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss_32px_8
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 751
+        width: 160
+        height: 169
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 151482b2b7c889c60800000000000000
+      internalID: 7825158813189161297
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss_32px_9
+      rect:
+        serializedVersion: 2
+        x: 43
+        y: 751
+        width: 197
+        height: 173
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ca055a230ff5b0120800000000000000
+      internalID: 2381102313241923756
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss_32px_76
+      rect:
+        serializedVersion: 2
+        x: 734
+        y: 26
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 508e03dcff6aa9490800000000000000
+      internalID: -7738689392093370363
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: c0a847935e6e97f4d9a72d5dda3cde0a
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+      - key: SpriteEditor.SliceOnImport
+        value: False
+    nameFileIdTable:
+      Boss_32px_0: -2269873543249680483
+      Boss_32px_1: -1964604213955204882
+      Boss_32px_10: 2339464889004426720
+      Boss_32px_11: -7430830307269693301
+      Boss_32px_12: 4562492543047198522
+      Boss_32px_13: 1388201661162120060
+      Boss_32px_14: -1954704069676390216
+      Boss_32px_15: 6577670865806260467
+      Boss_32px_16: -7982034316856483581
+      Boss_32px_17: 4947943489819511333
+      Boss_32px_18: 6289945270253712752
+      Boss_32px_19: -6110074151100525964
+      Boss_32px_2: 216052337432636136
+      Boss_32px_20: 6155223650455460111
+      Boss_32px_21: 8288337308209710503
+      Boss_32px_22: 8182986106509538487
+      Boss_32px_23: -3492835907944163430
+      Boss_32px_24: 1520129287932182031
+      Boss_32px_25: 5668010004839975553
+      Boss_32px_26: -3860306453696553035
+      Boss_32px_27: 8831233968380337274
+      Boss_32px_28: -4163921364053173540
+      Boss_32px_29: -5157434429343583356
+      Boss_32px_3: 8931516213149901895
+      Boss_32px_30: 7998765805506359693
+      Boss_32px_31: 6127456185391660279
+      Boss_32px_32: -1734093817748625863
+      Boss_32px_33: -6477009023264007001
+      Boss_32px_34: 7275923707517610603
+      Boss_32px_35: -6676258511743370362
+      Boss_32px_36: 8060469881703169328
+      Boss_32px_37: -2172273645765715860
+      Boss_32px_38: 7548623929354575676
+      Boss_32px_39: -66606789377255709
+      Boss_32px_4: -4739812210697838264
+      Boss_32px_40: 5248071823278200364
+      Boss_32px_41: -1872030543326467828
+      Boss_32px_42: -4871736119058997899
+      Boss_32px_43: 2388689388293544616
+      Boss_32px_44: -8780341380193834135
+      Boss_32px_45: -296859377409669495
+      Boss_32px_46: -8088613939768461637
+      Boss_32px_47: -3923638482882466143
+      Boss_32px_48: -8419005851604105259
+      Boss_32px_49: 7397159893068648889
+      Boss_32px_5: 296558709520032091
+      Boss_32px_50: 8938937636618770262
+      Boss_32px_51: -5981000943883928087
+      Boss_32px_52: 1724183793816079728
+      Boss_32px_53: -6248543047896997794
+      Boss_32px_54: 2300851533836987276
+      Boss_32px_55: -9094338852762918347
+      Boss_32px_56: -649673352665364856
+      Boss_32px_57: -3048287937102012299
+      Boss_32px_58: -3018427405048705117
+      Boss_32px_59: 688342657921681299
+      Boss_32px_6: 7811562679160132579
+      Boss_32px_60: -6992550444106146156
+      Boss_32px_61: 5489870543984695659
+      Boss_32px_62: 5783449277319442543
+      Boss_32px_63: 1422445332478350296
+      Boss_32px_64: -1454337925643158557
+      Boss_32px_65: -2194973565835922969
+      Boss_32px_66: -6773010181465586389
+      Boss_32px_67: -7739380067405619765
+      Boss_32px_68: -8305696123876283911
+      Boss_32px_69: -6746414930331247559
+      Boss_32px_7: -509480472988048711
+      Boss_32px_70: 7988957355676622175
+      Boss_32px_71: 6849000643011793076
+      Boss_32px_72: 8976019506926021462
+      Boss_32px_73: -4481114347442793147
+      Boss_32px_74: 2675866856298611648
+      Boss_32px_75: 8489829642770181890
+      Boss_32px_76: -7738689392093370363
+      Boss_32px_8: 7825158813189161297
+      Boss_32px_9: 2381102313241923756
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
