@@ -1,3 +1,4 @@
+
 using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
@@ -28,6 +29,7 @@ public class EnemyAI : MonoBehaviour
     [Header("시야 설정")]
     [SerializeField] private float viewDistance = 6f;
 
+    [Tooltip("시야각입니다. 90이면 정면 기준 좌우 45도씩입니다.")]
     [SerializeField] private float viewAngle = 90f;
 
     [Header("벽 설정")]
@@ -37,7 +39,6 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
 
     private Rigidbody2D rb;
-
     private EnemyState currentState;
 
     private bool movingRight = true;
@@ -45,6 +46,16 @@ public class EnemyAI : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+
+        if (spriteRenderer == null)
+        {
+            spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        }
+
+        if (enemyAttack == null)
+        {
+            enemyAttack = GetComponent<EnemyAttack>();
+        }
     }
 
     private void Start()
@@ -66,15 +77,19 @@ public class EnemyAI : MonoBehaviour
     private void Update()
     {
         if (player == null)
+        {
             return;
+        }
 
         CheckState();
     }
 
     private void FixedUpdate()
     {
-        if (player == null)
+        if (rb == null)
+        {
             return;
+        }
 
         switch (currentState)
         {
@@ -92,70 +107,46 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    // =========================================================
-    // 상태 확인
-    // =========================================================
-
     private void CheckState()
     {
-        if (enemyAttack == null)
-        {
-            if (CanSeePlayer())
-            {
-                currentState = EnemyState.Chase;
-            }
-            else
-            {
-                currentState = EnemyState.Patrol;
-            }
-
-            return;
-        }
-
-        // 공격 중이면 AI가 다른 행동을 하지 않음
-        if (enemyAttack.IsAttacking)
+        // 공격 도중에는 추적이나 순찰로 상태를 바꾸지 않습니다.
+        if (enemyAttack != null && enemyAttack.IsAttacking)
         {
             currentState = EnemyState.Attack;
             return;
         }
 
-        float distanceToPlayer =
-            Vector2.Distance(
-                transform.position,
-                player.position
-            );
-
-        // 공격 범위에 들어왔는지 확인
-        if (distanceToPlayer <= enemyAttack.AttackRange)
+        // 공격 컴포넌트가 없다면 시야에 따라 순찰/추적만 합니다.
+        if (enemyAttack == null)
         {
-            if (CanSeePlayer())
-            {
-                bool attacked =
-                    enemyAttack.TryAttack(player);
+            currentState = CanSeePlayer()
+                ? EnemyState.Chase
+                : EnemyState.Patrol;
 
-                if (attacked)
-                {
-                    currentState = EnemyState.Attack;
-                    return;
-                }
+            return;
+        }
+
+        float distanceToPlayer =
+            Vector2.Distance(transform.position, player.position);
+
+        // 공격 범위 안에 플레이어가 있고 시야에 보이면 공격을 시도합니다.
+        if (distanceToPlayer <= enemyAttack.AttackRange &&
+            CanSeePlayer())
+        {
+            bool attacked = enemyAttack.TryAttack(player);
+
+            if (attacked || enemyAttack.IsAttacking)
+            {
+                currentState = EnemyState.Attack;
+                return;
             }
         }
 
-        // 플레이어가 보이면 추적
-        if (CanSeePlayer())
-        {
-            currentState = EnemyState.Chase;
-        }
-        else
-        {
-            // 플레이어를 놓치면 순찰
-            currentState = EnemyState.Patrol;
-        }
+        // 공격할 수 없으면 플레이어를 추적하거나 순찰합니다.
+        currentState = CanSeePlayer()
+            ? EnemyState.Chase
+            : EnemyState.Patrol;
     }
-
-    // =========================================================
-    // 순찰
-    // =========================================================
 
     private void Patrol()
     {
@@ -165,15 +156,13 @@ public class EnemyAI : MonoBehaviour
             return;
         }
 
-        Vector2 velocity =
-            rb.linearVelocity;
+        Vector2 velocity = rb.linearVelocity;
 
         if (movingRight)
         {
             velocity.x = patrolSpeed;
 
-            if (transform.position.x >=
-                rightPoint.position.x)
+            if (transform.position.x >= rightPoint.position.x)
             {
                 movingRight = false;
             }
@@ -182,48 +171,42 @@ public class EnemyAI : MonoBehaviour
         {
             velocity.x = -patrolSpeed;
 
-            if (transform.position.x <=
-                leftPoint.position.x)
+            if (transform.position.x <= leftPoint.position.x)
             {
                 movingRight = true;
             }
         }
 
         rb.linearVelocity = velocity;
-
         Flip(movingRight);
     }
-
-    // =========================================================
-    // 추적
-    // =========================================================
 
     private void Chase()
     {
         if (player == null)
+        {
+            StopMovement();
             return;
+        }
 
         float directionX =
-            player.position.x -
-            transform.position.x;
+            player.position.x - transform.position.x;
 
-        if (directionX > 0f)
+        if (directionX > 0.05f)
         {
-            rb.linearVelocity =
-                new Vector2(
-                    chaseSpeed,
-                    rb.linearVelocity.y
-                );
+            rb.linearVelocity = new Vector2(
+                chaseSpeed,
+                rb.linearVelocity.y
+            );
 
             Flip(true);
         }
-        else if (directionX < 0f)
+        else if (directionX < -0.05f)
         {
-            rb.linearVelocity =
-                new Vector2(
-                    -chaseSpeed,
-                    rb.linearVelocity.y
-                );
+            rb.linearVelocity = new Vector2(
+                -chaseSpeed,
+                rb.linearVelocity.y
+            );
 
             Flip(false);
         }
@@ -233,96 +216,94 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    // =========================================================
-    // 이동 정지
-    // =========================================================
-
     private void StopMovement()
     {
-        rb.linearVelocity =
-            new Vector2(
-                0f,
-                rb.linearVelocity.y
-            );
-    }
+        if (rb == null)
+        {
+            return;
+        }
 
-    // =========================================================
-    // 플레이어 시야
-    // =========================================================
+        // 좌우 속도만 멈추고 중력에 의한 Y축 속도는 유지합니다.
+        rb.linearVelocity = new Vector2(
+            0f,
+            rb.linearVelocity.y
+        );
+    }
 
     private bool CanSeePlayer()
     {
         if (player == null)
+        {
             return false;
+        }
 
         Vector2 directionToPlayer =
-            player.position - transform.position;
+            (Vector2)player.position - rb.position;
 
-        float distanceToPlayer =
-            directionToPlayer.magnitude;
+        float distanceToPlayer = directionToPlayer.magnitude;
 
         if (distanceToPlayer > viewDistance)
+        {
             return false;
+        }
+
+        if (distanceToPlayer <= 0.001f)
+        {
+            return true;
+        }
 
         directionToPlayer.Normalize();
 
-        Vector2 forward =
-            movingRight
+        Vector2 forward = movingRight
             ? Vector2.right
             : Vector2.left;
 
         float angle =
-            Vector2.Angle(
-                forward,
-                directionToPlayer
-            );
+            Vector2.Angle(forward, directionToPlayer);
 
         if (angle > viewAngle * 0.5f)
+        {
             return false;
+        }
 
-        RaycastHit2D hit =
-            Physics2D.Raycast(
-                transform.position,
-                directionToPlayer,
-                distanceToPlayer,
-                obstacleLayer
-            );
+        // obstacleLayer에 지정한 벽이 시야를 막는지 확인합니다.
+        RaycastHit2D hit = Physics2D.Raycast(
+            rb.position,
+            directionToPlayer,
+            distanceToPlayer,
+            obstacleLayer
+        );
 
         if (hit.collider != null)
+        {
             return false;
+        }
 
         return true;
     }
 
-    // =========================================================
-    // 방향 전환
-    // =========================================================
-
     private void Flip(bool faceRight)
     {
         if (spriteRenderer == null)
+        {
             return;
+        }
 
+        // 원본 스프라이트가 오른쪽을 바라보는 경우를 기준으로 합니다.
         spriteRenderer.flipX = !faceRight;
-    }
 
-    // =========================================================
-    // Scene 표시
-    // =========================================================
+        // 순찰 방향도 시야 판정에 사용하므로 함께 갱신합니다.
+        movingRight = faceRight;
+    }
 
     private void OnDrawGizmosSelected()
     {
         // 시야 거리
         Gizmos.color = Color.yellow;
-
-        Gizmos.DrawWireSphere(
-            transform.position,
-            viewDistance
-        );
+        Gizmos.DrawWireSphere(transform.position, viewDistance);
 
         // 순찰 범위
-        if (leftPoint != null &&
-            rightPoint != null)
+        if (leftPoint != null && rightPoint != null)
         {
             Gizmos.color = Color.cyan;
 
@@ -332,25 +313,18 @@ public class EnemyAI : MonoBehaviour
             );
         }
 
-        // 시야
-        Vector2 forward =
-            movingRight
+        // 시야각
+        Vector2 forward = movingRight
             ? Vector2.right
             : Vector2.left;
 
         Vector2 leftView =
-            Quaternion.Euler(
-                0f,
-                0f,
-                viewAngle * 0.5f
-            ) * forward;
+            Quaternion.Euler(0f, 0f, viewAngle * 0.5f)
+            * forward;
 
         Vector2 rightView =
-            Quaternion.Euler(
-                0f,
-                0f,
-                -viewAngle * 0.5f
-            ) * forward;
+            Quaternion.Euler(0f, 0f, -viewAngle * 0.5f)
+            * forward;
 
         Gizmos.color = Color.red;
 
