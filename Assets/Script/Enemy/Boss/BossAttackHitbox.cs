@@ -9,12 +9,14 @@ public class BossAttackHitbox : MonoBehaviour
     [SerializeField, Min(0)] private int damage = 1;
 
     private Collider2D attackCollider;
+
     private readonly HashSet<PlayerHealth> hitPlayers =
         new HashSet<PlayerHealth>();
 
     private void Awake()
     {
         attackCollider = GetComponent<Collider2D>();
+
         attackCollider.isTrigger = true;
         attackCollider.enabled = false;
     }
@@ -41,12 +43,23 @@ public class BossAttackHitbox : MonoBehaviour
         if (!attackCollider.enabled)
             return;
 
-        PlayerHealth player = other.GetComponentInParent<PlayerHealth>();
+        PlayerHealth player =
+            other.GetComponentInParent<PlayerHealth>();
 
-        if (player == null || hitPlayers.Contains(player))
+        if (player == null)
             return;
 
-        hitPlayers.Add(player);
-        player.TakeDamage(damage);
+        // 한 번의 공격으로 같은 플레이어에게 중복 피해 방지
+        if (!hitPlayers.Add(player))
+            return;
+
+        // 회피 무적 중에는 피해를 주지 않음
+        PlayerMove playerMove =
+            player.GetComponent<PlayerMove>();
+
+        if (playerMove == null || !playerMove.IsInvincible)
+        {
+            player.TakeDamage(damage);
+        }
     }
 }

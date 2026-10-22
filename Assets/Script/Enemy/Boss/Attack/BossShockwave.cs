@@ -14,8 +14,10 @@ public class BossShockwave : MonoBehaviour
 
     private Rigidbody2D rb;
     private Collider2D hitCollider;
+
     private int direction = 1;
     private bool initialized;
+
     private readonly HashSet<PlayerHealth> hitPlayers =
         new HashSet<PlayerHealth>();
 
@@ -25,6 +27,7 @@ public class BossShockwave : MonoBehaviour
         hitCollider = GetComponent<Collider2D>();
 
         hitCollider.isTrigger = true;
+
         rb.gravityScale = 0f;
         rb.freezeRotation = true;
     }
@@ -35,7 +38,11 @@ public class BossShockwave : MonoBehaviour
         initialized = true;
 
         float moveSpeed = phaseTwo ? phaseTwoSpeed : speed;
-        rb.linearVelocity = new Vector2(direction * moveSpeed, 0f);
+
+        rb.linearVelocity = new Vector2(
+            direction * moveSpeed,
+            0f
+        );
 
         Destroy(gameObject, lifetime);
     }
@@ -48,12 +55,23 @@ public class BossShockwave : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        PlayerHealth player = other.GetComponentInParent<PlayerHealth>();
+        PlayerHealth player =
+            other.GetComponentInParent<PlayerHealth>();
 
-        if (player == null || hitPlayers.Contains(player))
+        if (player == null)
             return;
 
-        hitPlayers.Add(player);
-        player.TakeDamage(damage);
+        // 같은 플레이어에게 중복 피해를 주지 않음
+        if (!hitPlayers.Add(player))
+            return;
+
+        // 플레이어의 회피 무적 상태 확인
+        PlayerMove playerMove =
+            player.GetComponent<PlayerMove>();
+
+        if (playerMove == null || !playerMove.IsInvincible)
+        {
+            player.TakeDamage(damage);
+        }
     }
 }

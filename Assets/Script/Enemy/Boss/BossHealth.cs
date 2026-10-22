@@ -7,6 +7,7 @@ public class BossHealth : MonoBehaviour
 {
     [Header("보스 체력")]
     [SerializeField, Min(1)] private int maxHP = 1000;
+
     [SerializeField, Range(0.1f, 0.9f)]
     private float phaseTwoPercent = 0.5f;
 
@@ -22,8 +23,6 @@ public class BossHealth : MonoBehaviour
 
     public event Action OnPhaseTwoStarted;
     public event Action OnBossDied;
-
-    // 체력이 변경될 때 현재 체력과 최대 체력을 전달
     public event Action<int, int> OnHealthChanged;
 
     private int currentHP;
@@ -37,7 +36,6 @@ public class BossHealth : MonoBehaviour
 
     private void Start()
     {
-        // UI가 처음 표시될 때 현재 체력 전달
         OnHealthChanged?.Invoke(currentHP, maxHP);
     }
 
@@ -49,17 +47,19 @@ public class BossHealth : MonoBehaviour
         currentHP = Mathf.Max(0, currentHP - damage);
 
         Debug.Log(
-            $"보스 피격! 피해량: {damage}, 현재 HP: {currentHP}/{maxHP}"
+            $"보스 피격! 피해량: {damage}, HP: {currentHP}/{maxHP}"
         );
 
-        // 체력바 갱신
         OnHealthChanged?.Invoke(currentHP, maxHP);
 
+        // 체력이 설정한 비율 이하라면 2페이즈 시작
         if (!IsPhaseTwo &&
             currentHP <= Mathf.CeilToInt(maxHP * phaseTwoPercent))
         {
             IsPhaseTwo = true;
+
             transitionCoroutine = StartCoroutine(PhaseTransition());
+
             OnPhaseTwoStarted?.Invoke();
         }
 
@@ -88,12 +88,14 @@ public class BossHealth : MonoBehaviour
         deathNotified = true;
 
         if (transitionCoroutine != null)
+        {
             StopCoroutine(transitionCoroutine);
+            transitionCoroutine = null;
+        }
 
         IsTransitioning = false;
 
         Debug.Log("보스 처치!");
-
         OnBossDied?.Invoke();
 
         Destroy(gameObject);

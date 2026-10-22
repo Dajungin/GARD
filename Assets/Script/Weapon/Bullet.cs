@@ -1,3 +1,4 @@
+
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
@@ -13,17 +14,9 @@ public class Bullet : MonoBehaviour
         direction = newDirection.normalized;
 
         float angle =
-            Mathf.Atan2(
-                direction.y,
-                direction.x
-            ) * Mathf.Rad2Deg;
+            Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-        transform.rotation =
-            Quaternion.Euler(
-                0f,
-                0f,
-                angle
-            );
+        transform.rotation = Quaternion.Euler(0f, 0f, angle);
     }
 
     public void SetSpeed(float newSpeed)
@@ -49,26 +42,34 @@ public class Bullet : MonoBehaviour
     private void Update()
     {
         transform.position +=
-            (Vector3)(
-                direction *
-                speed *
-                Time.deltaTime
-            );
+            (Vector3)(direction * speed * Time.deltaTime);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!collision.CompareTag("Enemy"))
-            return;
+        // 보스 본체 또는 자식 오브젝트에서 BossHealth 찾기
+        BossHealth bossHealth =
+            collision.GetComponentInParent<BossHealth>();
 
+        if (bossHealth != null)
+        {
+            Debug.Log($"총알이 보스에게 적중! 피해량: {damage}");
+
+            bossHealth.TakeDamage(damage);
+            Destroy(gameObject);
+            return;
+        }
+
+        // 일반 몬스터 본체 또는 자식 오브젝트에서 EnemyHealth 찾기
         EnemyHealth enemyHealth =
-            collision.GetComponent<EnemyHealth>();
+            collision.GetComponentInParent<EnemyHealth>();
 
         if (enemyHealth != null)
         {
-            enemyHealth.TakeDamage(damage);
-        }
+            Debug.Log($"총알이 적에게 적중! 피해량: {damage}");
 
-        Destroy(gameObject);
+            enemyHealth.TakeDamage(damage);
+            Destroy(gameObject);
+        }
     }
 }
