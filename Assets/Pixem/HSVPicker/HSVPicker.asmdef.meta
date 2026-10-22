@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 413a95a52ca644b7dac76988ad8915af
+AssemblyDefinitionImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 324890
+  packageName: 2D Character Maker - Pixem
+  packageVersion: 1.12
+  assetPath: Assets/Pixem/HSVPicker/HSVPicker.asmdef
+  uploadId: 887236

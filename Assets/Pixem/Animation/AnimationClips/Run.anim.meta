@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 7d49482eca26ce641a8ec16cd2e206f1
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 7400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 324890
+  packageName: 2D Character Maker - Pixem
+  packageVersion: 1.12
+  assetPath: Assets/Pixem/Animation/AnimationClips/Run.anim
+  uploadId: 887236

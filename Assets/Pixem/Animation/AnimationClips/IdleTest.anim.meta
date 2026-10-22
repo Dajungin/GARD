@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 7abc2a2818ae8fc4aa703bea3032222f
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 7400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 324890
+  packageName: 2D Character Maker - Pixem
+  packageVersion: 1.12
+  assetPath: Assets/Pixem/Animation/AnimationClips/IdleTest.anim
+  uploadId: 887236

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: f7bdadddfb5f6dc43a9de9a447ab0629
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 7400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 324890
+  packageName: 2D Character Maker - Pixem
+  packageVersion: 1.12
+  assetPath: Assets/Pixem/Animation/AnimationClips/Death.anim
+  uploadId: 887236

@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: c600592efa0cf25479655321bf4fb08a
+timeCreated: 1442586558
+licenseType: Store
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 324890
+  packageName: 2D Character Maker - Pixem
+  packageVersion: 1.12
+  assetPath: Assets/Pixem/HSVPicker/UI/ColorSlider.cs
+  uploadId: 887236

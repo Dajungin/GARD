@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: 6b10e832a32d2d14facd8a3f489ee8d6
+timeCreated: 1442587803
+licenseType: Store
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 324890
+  packageName: 2D Character Maker - Pixem
+  packageVersion: 1.12
+  assetPath: Assets/Pixem/HSVPicker/UI/ColorLabel.cs
+  uploadId: 887236

@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: f055709034358ad4ca87a4e7ee042d5a
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 324890
+  packageName: 2D Character Maker - Pixem
+  packageVersion: 1.12
+  assetPath: Assets/Pixem/Scripts/Editor/PixemBatchSpriteImporter.cs
+  uploadId: 887236

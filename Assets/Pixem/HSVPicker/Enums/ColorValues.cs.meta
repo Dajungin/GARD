@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: 859a1720e083e504cb68917f781e87c7
+timeCreated: 1442586608
+licenseType: Store
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 324890
+  packageName: 2D Character Maker - Pixem
+  packageVersion: 1.12
+  assetPath: Assets/Pixem/HSVPicker/Enums/ColorValues.cs
+  uploadId: 887236

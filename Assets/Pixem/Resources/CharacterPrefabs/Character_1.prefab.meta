@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 44552259292c20f40a35dd9bfbcab7f3
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 324890
+  packageName: 2D Character Maker - Pixem
+  packageVersion: 1.12
+  assetPath: Assets/Pixem/Resources/CharacterPrefabs/Character_1.prefab
+  uploadId: 887236

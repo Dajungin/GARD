@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 55cf4bea70edc80468538770321ac45f
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 324890
+  packageName: 2D Character Maker - Pixem
+  packageVersion: 1.12
+  assetPath: Assets/Pixem/Prefabs/PixemPartsToggle.prefab
+  uploadId: 887236

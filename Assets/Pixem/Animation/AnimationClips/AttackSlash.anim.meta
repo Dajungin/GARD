@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: ddf44a2b532410b4ca5a665accd2b98d
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 7400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 324890
+  packageName: 2D Character Maker - Pixem
+  packageVersion: 1.12
+  assetPath: Assets/Pixem/Animation/AnimationClips/AttackSlash.anim
+  uploadId: 887236

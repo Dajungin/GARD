@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 8262e4a8322117f4da079921eaa72834
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 324890
+  packageName: 2D Character Maker - Pixem
+  packageVersion: 1.12
+  assetPath: Assets/Pixem/HSVPicker/UI/ColorPicker.cs
+  uploadId: 887236
