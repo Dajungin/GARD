@@ -474,7 +474,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Portal
   targetSceneName: BossRoom
   playerTag: Player
-  hidePortalUntilUnlocked: 1
   portalVisual: {fileID: 2134314128}
   portalCollider: {fileID: 2134314129}
 --- !u!4 &327290450
@@ -1345,6 +1344,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2104072142}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1065967445
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1065967447}
+  - component: {fileID: 1065967446}
+  m_Layer: 0
+  m_Name: StageEnemySetup
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1065967446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1065967445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d87351aa7163394eb393350d8af15f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StageEnemySetup
+--- !u!4 &1065967447
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1065967445}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.39116, y: -0.94663, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1074681785
 GameObject:
   m_ObjectHideFlags: 0
@@ -1556,7 +1599,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83f87762708acbf4f8b7b5efb66d4257, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StageEnemyManager
-  totalEnemies: 2
+  enemySpawningFinished: 0
 --- !u!4 &1223083051
 Transform:
   m_ObjectHideFlags: 0
@@ -2633,7 +2676,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!61 &2134314129
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2664,7 +2707,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -2767,3 +2810,4 @@ SceneRoots:
   - {fileID: 744978171}
   - {fileID: 1223083051}
   - {fileID: 327290450}
+  - {fileID: 1065967447}

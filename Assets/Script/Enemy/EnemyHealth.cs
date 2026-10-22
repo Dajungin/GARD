@@ -1,3 +1,4 @@
+
 using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
@@ -6,28 +7,51 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] private int maxHP = 100;
 
     private int currentHP;
+    private bool isDead;
 
     public int CurrentHP => currentHP;
-    public bool IsDead => currentHP <= 0;
+    public bool IsDead => isDead;
 
     private void Awake()
     {
+        maxHP = Mathf.Max(1, maxHP);
         currentHP = maxHP;
     }
 
-    // =========================================================
+    // =========================================
+    // 적 활성화 시 등록
+    // =========================================
+
+    private void OnEnable()
+    {
+        if (StageEnemyManager.Instance != null)
+        {
+            StageEnemyManager.Instance.RegisterEnemy(this);
+        }
+    }
+
+    // =========================================
+    // 적 비활성화 시 등록 해제
+    // =========================================
+
+    private void OnDisable()
+    {
+        if (StageEnemyManager.Instance != null)
+        {
+            StageEnemyManager.Instance.UnregisterEnemy(this);
+        }
+    }
+
+    // =========================================
     // 데미지 받기
-    // =========================================================
+    // =========================================
 
     public void TakeDamage(int damage)
     {
-        if (IsDead)
+        if (isDead || damage <= 0)
             return;
 
-        damage = Mathf.Max(0, damage);
-
         currentHP -= damage;
-
         currentHP = Mathf.Max(0, currentHP);
 
         Debug.Log(
@@ -44,16 +68,20 @@ public class EnemyHealth : MonoBehaviour
         }
     }
 
+    // =========================================
+    // 사망 처리
+    // =========================================
+
     private void Die()
     {
+        if (isDead)
+            return;
+
+        isDead = true;
+
         Debug.Log(gameObject.name + " 사망");
 
-        if (StageEnemyManager.Instance != null)
-        {
-            StageEnemyManager.Instance.EnemyDied();
-        }
-
-        // 기존 사망 처리 코드
+        // 기존 사망 처리 유지
         Destroy(gameObject);
     }
 }
