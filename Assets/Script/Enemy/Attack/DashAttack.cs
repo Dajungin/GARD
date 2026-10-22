@@ -11,37 +11,46 @@ public class DashAttack : EnemyAttack
     [SerializeField] private float dashSpeed = 12f;
     [SerializeField] private float dashDuration = 0.5f;
 
-    [Header("충돌 피해")]
-    [SerializeField] private int damage = 1;
+    [Header("충돌 설정")]
+    [Tooltip("몬스터 몸통의 Collider를 연결합니다.")]
+    [SerializeField] private Collider2D bodyCollider;
 
-    [Tooltip("콜라이더가 겹치지 않아도 이 거리 이내면 피격 처리합니다.")]
-    [SerializeField] private float hitDistance = 0.1f;
-
-    [Header("충돌 무시 설정")]
-    [Tooltip("돌진 중 플레이어와 몬스터의 물리적 충돌을 무시합니다.")]
-    [SerializeField] private bool ignorePlayerCollisionDuringDash = true;
+    [Tooltip("자식 오브젝트의 공격 판정 Hitbox를 연결합니다.")]
+    [SerializeField] private MonsterAttackHitbox attackHitbox;
 
     [Header("스프라이트")]
     [SerializeField] private SpriteRenderer spriteRenderer;
 
     private Rigidbody2D rb;
-    private Collider2D[] enemyColliders;
 
     private Coroutine dashCoroutine;
+    private Collider2D[] playerColliders;
 
-    private Collider2D[] ignoredPlayerColliders;
-    private bool collisionIgnored;
+    private bool bodyCollisionIgnored;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
 
-        // 몬스터 본체 및 자식 오브젝트의 콜라이더를 가져옵니다.
-        enemyColliders = GetComponentsInChildren<Collider2D>(true);
+        if (bodyCollider == null)
+        {
+            bodyCollider = GetComponent<Collider2D>();
+        }
 
         if (spriteRenderer == null)
         {
             spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        }
+
+        if (attackHitbox == null)
+        {
+            attackHitbox =
+                GetComponentInChildren<MonsterAttackHitbox>(true);
+        }
+
+        if (attackHitbox != null)
+        {
+            attackHitbox.EndAttack();
         }
     }
 
@@ -59,7 +68,7 @@ public class DashAttack : EnemyAttack
     {
         IsAttacking = true;
 
-        // 돌진 시작 시점에 플레이어가 있는 좌우 방향을 결정합니다.
+        // 공격 시작 시점의 플레이어 위치를 기준으로 좌우 방향을 정합니다.
         float directionX = target.position.x - transform.position.x;
 
         if (Mathf.Abs(directionX) < 0.001f)
@@ -72,7 +81,7 @@ public class DashAttack : EnemyAttack
 
         float dashDirectionX = Mathf.Sign(directionX);
 
-        // 공격 준비 중에는 좌우 이동을 멈춥니다.
+        // 준비 중에는 수평 이동을 멈춥니다.
         rb.linearVelocity = new Vector2(
             0f,
             rb.linearVelocity.y
@@ -83,7 +92,7 @@ public class DashAttack : EnemyAttack
             spriteRenderer.flipX = dashDirectionX < 0f;
         }
 
-        // 준비 시간 동안 대기합니다.
+        // 준비 시간
         if (windupTime > 0f)
         {
             yield return new WaitForSeconds(windupTime);
@@ -95,16 +104,17 @@ public class DashAttack : EnemyAttack
             yield break;
         }
 
-        // 플레이어와 몬스터의 충돌을 무시합니다.
-        if (ignorePlayerCollisionDuringDash)
+        // 플레이어의 몸통과 몬스터 몸통 사이의 물리 충돌만 무시합니다.
+        IgnoreBodyCollision(target);
+
+        // 공격 판정은 돌진 시작 시 활성화합니다.
+        if (attackHitbox != null)
         {
-            IgnorePlayerCollision(target);
+            attackHitbox.BeginAttack();
         }
 
         float timer = 0f;
-        bool hasHitPlayer = false;
 
-        // 좌우로만 돌진합니다.
         while (timer < dashDuration)
         {
             if (target == null)
@@ -112,30 +122,11 @@ public class DashAttack : EnemyAttack
                 break;
             }
 
+            // 좌우 방향으로만 돌진하고 Y축 속도는 유지합니다.
             rb.linearVelocity = new Vector2(
                 dashDirectionX * dashSpeed,
                 rb.linearVelocity.y
             );
-
-            // 물리 충돌과 별개로 피해 판정을 확인합니다.
-            if (!hasHitPlayer)
-            {
-                PlayerHealth playerHealth =
-                    target.GetComponentInParent<PlayerHealth>();
-
-                if (playerHealth == null)
-                {
-                    playerHealth =
-                        target.GetComponentInChildren<PlayerHealth>();
-                }
-
-                if (playerHealth != null &&
-                    IsPlayerCloseEnough(target))
-                {
-                    hasHitPlayer = true;
-                    playerHealth.TakeDamage(damage);
-                }
-            }
 
             timer += Time.fixedDeltaTime;
             yield return new WaitForFixedUpdate();
@@ -144,112 +135,74 @@ public class DashAttack : EnemyAttack
         FinishDash();
     }
 
-    private void IgnorePlayerCollision(Transform target)
+    private void IgnoreBodyCollision(Transform target)
     {
-        // Player 오브젝트와 자식에 있는 모든 콜라이더를 찾습니다.
-        ignoredPlayerColliders =
-            target.GetComponentsInChildren<Collider2D>(true);
-
-        collisionIgnored = false;
-
-        foreach (Collider2D enemyCollider in enemyColliders)
-        {
-            if (enemyCollider == null || !enemyCollider.enabled)
-            {
-                continue;
-            }
-
-            foreach (Collider2D playerCollider in ignoredPlayerColliders)
-            {
-                if (playerCollider == null || !playerCollider.enabled)
-                {
-                    continue;
-                }
-
-                Physics2D.IgnoreCollision(
-                    enemyCollider,
-                    playerCollider,
-                    true
-                );
-
-                collisionIgnored = true;
-            }
-        }
-    }
-
-    private bool IsPlayerCloseEnough(Transform target)
-    {
-        // 좌우 돌진 중 플레이어와의 거리를 확인합니다.
-        // IgnoreCollision 상태에서도 피해 판정이 가능합니다.
-        Collider2D[] playerColliders =
-            target.GetComponentsInChildren<Collider2D>(true);
-
-        foreach (Collider2D enemyCollider in enemyColliders)
-        {
-            if (enemyCollider == null || !enemyCollider.enabled)
-            {
-                continue;
-            }
-
-            foreach (Collider2D playerCollider in playerColliders)
-            {
-                if (playerCollider == null || !playerCollider.enabled)
-                {
-                    continue;
-                }
-
-                ColliderDistance2D distance =
-                    Physics2D.Distance(enemyCollider, playerCollider);
-
-                if (distance.isOverlapped ||
-                    distance.distance <= hitDistance)
-                {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
-
-    private void RestorePlayerCollision()
-    {
-        if (!collisionIgnored ||
-            ignoredPlayerColliders == null)
+        if (bodyCollider == null)
         {
             return;
         }
 
-        foreach (Collider2D enemyCollider in enemyColliders)
+        playerColliders =
+            target.GetComponentsInChildren<Collider2D>(true);
+
+        bodyCollisionIgnored = false;
+
+        foreach (Collider2D playerCollider in playerColliders)
         {
-            if (enemyCollider == null)
+            if (playerCollider == null ||
+                !playerCollider.enabled ||
+                playerCollider.isTrigger)
             {
                 continue;
             }
 
-            foreach (Collider2D playerCollider in ignoredPlayerColliders)
-            {
-                if (playerCollider == null)
-                {
-                    continue;
-                }
+            Physics2D.IgnoreCollision(
+                bodyCollider,
+                playerCollider,
+                true
+            );
 
-                Physics2D.IgnoreCollision(
-                    enemyCollider,
-                    playerCollider,
-                    false
-                );
-            }
+            bodyCollisionIgnored = true;
+        }
+    }
+
+    private void RestoreBodyCollision()
+    {
+        if (!bodyCollisionIgnored ||
+            bodyCollider == null ||
+            playerColliders == null)
+        {
+            return;
         }
 
-        ignoredPlayerColliders = null;
-        collisionIgnored = false;
+        foreach (Collider2D playerCollider in playerColliders)
+        {
+            if (playerCollider == null)
+            {
+                continue;
+            }
+
+            Physics2D.IgnoreCollision(
+                bodyCollider,
+                playerCollider,
+                false
+            );
+        }
+
+        playerColliders = null;
+        bodyCollisionIgnored = false;
     }
 
     private void FinishDash()
     {
-        // 플레이어와의 충돌을 다시 활성화합니다.
-        RestorePlayerCollision();
+        // 공격 판정을 먼저 끕니다.
+        if (attackHitbox != null)
+        {
+            attackHitbox.EndAttack();
+        }
+
+        // 몸통 충돌을 복구합니다.
+        RestoreBodyCollision();
 
         if (rb != null)
         {
@@ -271,7 +224,12 @@ public class DashAttack : EnemyAttack
             dashCoroutine = null;
         }
 
-        RestorePlayerCollision();
+        if (attackHitbox != null)
+        {
+            attackHitbox.EndAttack();
+        }
+
+        RestoreBodyCollision();
 
         if (rb != null)
         {

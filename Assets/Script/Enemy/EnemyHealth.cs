@@ -48,6 +48,12 @@ public class EnemyHealth : MonoBehaviour
     {
         Debug.Log(gameObject.name + " 사망");
 
+        if (StageEnemyManager.Instance != null)
+        {
+            StageEnemyManager.Instance.EnemyDied();
+        }
+
+        // 기존 사망 처리 코드
         Destroy(gameObject);
     }
 }
