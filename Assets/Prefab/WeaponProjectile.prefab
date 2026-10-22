@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2813144291427086432}
   - component: {fileID: 3231423239266477151}
   - component: {fileID: 5518871277030352174}
+  - component: {fileID: 74970910200926626}
   m_Layer: 0
   m_Name: WeaponProjectile
   m_TagString: Untagged
@@ -173,3 +174,18 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   collisionCheckRadius: 0.05
+--- !u!114 &74970910200926626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3060230943227834658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdf4b7cbbbd463b42abfcc340a459a1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyProjectile
+  terrainLayer:
+    serializedVersion: 2
+    m_Bits: 64
