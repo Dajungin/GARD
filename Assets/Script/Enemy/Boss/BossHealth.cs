@@ -7,10 +7,12 @@ public class BossHealth : MonoBehaviour
 {
     [Header("보스 체력")]
     [SerializeField, Min(1)] private int maxHP = 1000;
-    [SerializeField, Range(0.1f, 0.9f)] private float phaseTwoPercent = 0.5f;
+    [SerializeField, Range(0.1f, 0.9f)]
+    private float phaseTwoPercent = 0.5f;
 
     [Header("페이즈 전환")]
-    [SerializeField, Min(0f)] private float phaseTransitionDuration = 2f;
+    [SerializeField, Min(0f)]
+    private float phaseTransitionDuration = 2f;
 
     public int MaxHP => maxHP;
     public int CurrentHP => currentHP;
@@ -21,6 +23,9 @@ public class BossHealth : MonoBehaviour
     public event Action OnPhaseTwoStarted;
     public event Action OnBossDied;
 
+    // 체력이 변경될 때 현재 체력과 최대 체력을 전달
+    public event Action<int, int> OnHealthChanged;
+
     private int currentHP;
     private bool deathNotified;
     private Coroutine transitionCoroutine;
@@ -30,6 +35,12 @@ public class BossHealth : MonoBehaviour
         currentHP = maxHP;
     }
 
+    private void Start()
+    {
+        // UI가 처음 표시될 때 현재 체력 전달
+        OnHealthChanged?.Invoke(currentHP, maxHP);
+    }
+
     public void TakeDamage(int damage)
     {
         if (IsDead || IsTransitioning || damage <= 0)
@@ -37,7 +48,12 @@ public class BossHealth : MonoBehaviour
 
         currentHP = Mathf.Max(0, currentHP - damage);
 
-        Debug.Log($"보스 피격! 피해량: {damage}, 현재 HP: {currentHP}/{maxHP}");
+        Debug.Log(
+            $"보스 피격! 피해량: {damage}, 현재 HP: {currentHP}/{maxHP}"
+        );
+
+        // 체력바 갱신
+        OnHealthChanged?.Invoke(currentHP, maxHP);
 
         if (!IsPhaseTwo &&
             currentHP <= Mathf.CeilToInt(maxHP * phaseTwoPercent))
@@ -57,7 +73,6 @@ public class BossHealth : MonoBehaviour
 
         Debug.Log("보스 2페이즈 전환!");
 
-        // 여기서 애니메이션이나 이펙트를 재생할 수 있어.
         if (phaseTransitionDuration > 0f)
             yield return new WaitForSeconds(phaseTransitionDuration);
 
@@ -78,10 +93,9 @@ public class BossHealth : MonoBehaviour
         IsTransitioning = false;
 
         Debug.Log("보스 처치!");
+
         OnBossDied?.Invoke();
 
-        // 보스 사망 애니메이션이 있다면 이 부분을
-        // 애니메이션 종료 후 Destroy로 바꿔도 돼.
         Destroy(gameObject);
     }
 }
