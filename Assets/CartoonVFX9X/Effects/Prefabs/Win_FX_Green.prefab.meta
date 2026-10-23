@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: f03d1bcf4aca05642a9ab86216dc4faa
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 281221
+  packageName: Match3 Game Effect - URP
+  packageVersion: 1.0
+  assetPath: Assets/CartoonVFX9X/Effects/Prefabs/Win_FX_Green.prefab
+  uploadId: 654336

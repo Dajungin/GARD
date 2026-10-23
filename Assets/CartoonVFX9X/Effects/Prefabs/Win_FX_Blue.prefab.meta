@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: bd12f184da127ab45aba615e0046732a
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 281221
+  packageName: Match3 Game Effect - URP
+  packageVersion: 1.0
+  assetPath: Assets/CartoonVFX9X/Effects/Prefabs/Win_FX_Blue.prefab
+  uploadId: 654336

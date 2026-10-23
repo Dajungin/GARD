@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 38a6a31594e813945bc143a675b0d838
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 281221
+  packageName: Match3 Game Effect - URP
+  packageVersion: 1.0
+  assetPath: Assets/CartoonVFX9X/Effects/Materials/Text_Excellent.mat
+  uploadId: 654336

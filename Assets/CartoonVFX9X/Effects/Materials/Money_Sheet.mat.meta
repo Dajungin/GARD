@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 3566a37342fb0394da288d97a2f38741
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 281221
+  packageName: Match3 Game Effect - URP
+  packageVersion: 1.0
+  assetPath: Assets/CartoonVFX9X/Effects/Materials/Money_Sheet.mat
+  uploadId: 654336

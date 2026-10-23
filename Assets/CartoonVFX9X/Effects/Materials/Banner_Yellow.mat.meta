@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 2841d71d2f843594ba12f7488f72d747
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 281221
+  packageName: Match3 Game Effect - URP
+  packageVersion: 1.0
+  assetPath: Assets/CartoonVFX9X/Effects/Materials/Banner_Yellow.mat
+  uploadId: 654336

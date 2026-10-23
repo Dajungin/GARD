@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 472f38cd203384d4480133fe3f5df6ba
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 281221
+  packageName: Match3 Game Effect - URP
+  packageVersion: 1.0
+  assetPath: Assets/CartoonVFX9X/Effects/Prefabs/Glow_Effect_White_3.prefab
+  uploadId: 654336

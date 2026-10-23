@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: b10b2feb53eefc244b73966f7fa7ee3b
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 281221
+  packageName: Match3 Game Effect - URP
+  packageVersion: 1.0
+  assetPath: Assets/CartoonVFX9X/Effects/Materials/Lightning_Fx_Sheet_Red.mat
+  uploadId: 654336

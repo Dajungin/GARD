@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: c2e5a8b60c5a686469e3ef0aa067b316
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 281221
+  packageName: Match3 Game Effect - URP
+  packageVersion: 1.0
+  assetPath: Assets/CartoonVFX9X/Effects/Prefabs/Glow_Effect_Yellow_1.prefab
+  uploadId: 654336

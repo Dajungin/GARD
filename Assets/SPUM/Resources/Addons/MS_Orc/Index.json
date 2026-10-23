@@ -1,0 +1,385 @@
+{
+    "Name": "MS_Orc",
+    "Path": "Assets/SPUM/Resources/Addons",
+    "Version": "",
+    "CreationDate": "2025-12-04 16:09:49",
+    "SpumAnimationData": [],
+    "SpumTextureData": [
+        {
+            "Name": "Orc_Hair_01",
+            "UnitType": "Unit",
+            "PartType": "Hair",
+            "SubType": "Orc_Hair_01",
+            "PartSubType": "",
+            "Path": "Addons/MS_Orc/0_Unit/0_Sprite/0_Hair/Orc_Hair_01"
+        },
+        {
+            "Name": "Orc_Hair_02",
+            "UnitType": "Unit",
+            "PartType": "Hair",
+            "SubType": "Orc_Hair_02",
+            "PartSubType": "",
+            "Path": "Addons/MS_Orc/0_Unit/0_Sprite/0_Hair/Orc_Hair_02"
+        },
+        {
+            "Name": "Orc_Hair_03",
+            "UnitType": "Unit",
+            "PartType": "Hair",
+            "SubType": "Orc_Hair_03",
+            "PartSubType": "",
+            "Path": "Addons/MS_Orc/0_Unit/0_Sprite/0_Hair/Orc_Hair_03"
+        },
+        {
+            "Name": "Orc_Mouse_01 ",
+            "UnitType": "Unit",
+            "PartType": "FaceHair",
+            "SubType": "Orc_Mouse_01 ",
+            "PartSubType": "",
+            "Path": "Addons/MS_Orc/0_Unit/0_Sprite/1_FaceHair/Orc_Mouse_01 "
+        },
+        {
+            "Name": "Orc_Mouse_01",
+            "UnitType": "Unit",
+            "PartType": "FaceHair",
+            "SubType": "Orc_Mouse_01",
+            "PartSubType": "",
+            "Path": "Addons/MS_Orc/0_Unit/0_Sprite/1_FaceHair/Orc_Mouse_01"
+        },
+        {
+            "Name": "Orc_Mouse_02",
+            "UnitType": "Unit",
+            "PartType": "FaceHair",
+            "SubType": "Orc_Mouse_02",
+            "PartSubType": "",
+            "Path": "Addons/MS_Orc/0_Unit/0_Sprite/1_FaceHair/Orc_Mouse_02"
+        },
+        {
+            "Name": "Orc_Mouse_03",
+            "UnitType": "Unit",
+            "PartType": "FaceHair",
+            "SubType": "Orc_Mouse_03",
+            "PartSubType": "",
+            "Path": "Addons/MS_Orc/0_Unit/0_Sprite/1_FaceHair/Orc_Mouse_03"
+        },
+        {
+            "Name": "Orc_Mouse_04",
+            "UnitType": "Unit",
+            "PartType": "FaceHair",
+            "SubType": "Orc_Mouse_04",
+            "PartSubType": "",
+            "Path": "Addons/MS_Orc/0_Unit/0_Sprite/1_FaceHair/Orc_Mouse_04"
+        },
+        {
+            "Name": "Orc_Cloth_01",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Body",
+            "PartSubType": "",
+            "Path": "Addons/MS_Orc/0_Unit/0_Sprite/2_Cloth/Orc_Cloth_01"
+        },
+        {
+            "Name": "Orc_Cloth_02",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Body",
+            "PartSubType": "",
+            "Path": "Addons/MS_Orc/0_Unit/0_Sprite/2_Cloth/Orc_Cloth_02"
+        },
+        {
+            "Name": "Orc_Cloth_03",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Body",
+            "PartSubType": "",
+            "Path": "Addons/MS_Orc/0_Unit/0_Sprite/2_Cloth/Orc_Cloth_03"
+        },
+        {
+            "Name": "Orc_Cloth_04",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Body",
+            "PartSubType": "",
+            "Path": "Addons/MS_Orc/0_Unit/0_Sprite/2_Cloth/Orc_Cloth_04"
+        },
+        {
+            "Name": "Orc_Cloth_05",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Body",
+            "PartSubType": "",
+            "Path": "Addons/MS_Orc/0_Unit/0_Sprite/2_Cloth/Orc_Cloth_05"
+        },
+        {
+            "Name": "Orc_Pant_01",
+            "UnitType": "Unit",
+            "PartType": "Pant",
+            "SubType": "Left",
+            "PartSubType": "",
+            "Path": "Addons/MS_Orc/0_Unit/0_Sprite/3_Pant/Orc_Pant_01"
+        },
+        {
+            "Name": "Orc_Pant_01",
+            "UnitType": "Unit",
+            "PartType": "Pant",
+            "SubType": "Right",
+            "PartSubType": "",
+            "Path": "Addons/MS_Orc/0_Unit/0_Sprite/3_Pant/Orc_Pant_01"
+        },
+        {
+            "Name": "Orc_Pant_02",
+            "UnitType": "Unit",
+            "PartType": "Pant",
+            "SubType": "Left",
+            "PartSubType": "",
+            "Path": "Addons/MS_Orc/0_Unit/0_Sprite/3_Pant/Orc_Pant_02"
+        },
+        {
+            "Name": "Orc_Pant_02",
+            "UnitType": "Unit",
+            "PartType": "Pant",
+            "SubType": "Right",
+            "PartSubType": "",
+            "Path": "Addons/MS_Orc/0_Unit/0_Sprite/3_Pant/Orc_Pant_02"
+        },
+        {
+            "Name": "Orc_Pant_03",
+            "UnitType": "Unit",
+            "PartType": "Pant",
+            "SubType": "Left",
+            "PartSubType": "",
+            "Path": "Addons/MS_Orc/0_Unit/0_Sprite/3_Pant/Orc_Pant_03"
+        },
+        {
+            "Name": "Orc_Pant_03",
+            "UnitType": "Unit",
+            "PartType": "Pant",
+            "SubType": "Right",
+            "PartSubType": "",
+            "Path": "Addons/MS_Orc/0_Unit/0_Sprite/3_Pant/Orc_Pant_03"
+        },
+        {
+            "Name": "Orc_Pant_04",
+            "UnitType": "Unit",
+            "PartType": "Pant",
+            "SubType": "Left",
+            "PartSubType": "",
+            "Path": "Addons/MS_Orc/0_Unit/0_Sprite/3_Pant/Orc_Pant_04"
+        },
+        {
+            "Name": "Orc_Pant_04",
+            "UnitType": "Unit",
+            "PartType": "Pant",
+            "SubType": "Right",
+            "PartSubType": "",
+            "Path": "Addons/MS_Orc/0_Unit/0_Sprite/3_Pant/Orc_Pant_04"
+        },
+        {
+            "Name": "Orc_Helmet_02",
+            "UnitType": "Unit",
+            "PartType": "Helmet",
+            "SubType": "Orc_Helmet_02",
+            "PartSubType": "",
+            "Path": "Addons/MS_Orc/0_Unit/0_Sprite/4_Helmet/Orc_Helmet_02"
+        },
+        {
+            "Name": "Orc_Helmet_03",
+            "UnitType": "Unit",
+            "PartType": "Helmet",
+            "SubType": "Orc_Helmet_03",
+            "PartSubType": "",
+            "Path": "Addons/MS_Orc/0_Unit/0_Sprite/4_Helmet/Orc_Helmet_03"
+        },
+        {
+            "Name": "Orc_Helmet_04",
+            "UnitType": "Unit",
+            "PartType": "Helmet",
+            "SubType": "Orc_Helmet_04",
+            "PartSubType": "",
+            "Path": "Addons/MS_Orc/0_Unit/0_Sprite/4_Helmet/Orc_Helmet_04"
+        },
+        {
+            "Name": "Orc_Helmet_05",
+            "UnitType": "Unit",
+            "PartType": "Helmet",
+            "SubType": "Orc_Helmet_05",
+            "PartSubType": "",
+            "Path": "Addons/MS_Orc/0_Unit/0_Sprite/4_Helmet/Orc_Helmet_05"
+        },
+        {
+            "Name": "Orc_Helmet_06",
+            "UnitType": "Unit",
+            "PartType": "Helmet",
+            "SubType": "Orc_Helmet_06",
+            "PartSubType": "",
+            "Path": "Addons/MS_Orc/0_Unit/0_Sprite/4_Helmet/Orc_Helmet_06"
+        },
+        {
+            "Name": "Orc_Armor_01",
+            "UnitType": "Unit",
+            "PartType": "Armor",
+            "SubType": "Body",
+            "PartSubType": "",
+            "Path": "Addons/MS_Orc/0_Unit/0_Sprite/5_Armor/Orc_Armor_01"
+        },
+        {
+            "Name": "Orc_Armor_01",
+            "UnitType": "Unit",
+            "PartType": "Armor",
+            "SubType": "Left",
+            "PartSubType": "",
+            "Path": "Addons/MS_Orc/0_Unit/0_Sprite/5_Armor/Orc_Armor_01"
+        },
+        {
+            "Name": "Orc_Armor_02",
+            "UnitType": "Unit",
+            "PartType": "Armor",
+            "SubType": "Body",
+            "PartSubType": "",
+            "Path": "Addons/MS_Orc/0_Unit/0_Sprite/5_Armor/Orc_Armor_02"
+        },
+        {
+            "Name": "Orc_Armor_02",
+            "UnitType": "Unit",
+            "PartType": "Armor",
+            "SubType": "Left",
+            "PartSubType": "",
+            "Path": "Addons/MS_Orc/0_Unit/0_Sprite/5_Armor/Orc_Armor_02"
+        },
+        {
+            "Name": "Orc_Armor_02",
+            "UnitType": "Unit",
+            "PartType": "Armor",
+            "SubType": "Right",
+            "PartSubType": "",
+            "Path": "Addons/MS_Orc/0_Unit/0_Sprite/5_Armor/Orc_Armor_02"
+        },
+        {
+            "Name": "Orc_Armor_03",
+            "UnitType": "Unit",
+            "PartType": "Armor",
+            "SubType": "Body",
+            "PartSubType": "",
+            "Path": "Addons/MS_Orc/0_Unit/0_Sprite/5_Armor/Orc_Armor_03"
+        },
+        {
+            "Name": "Orc_Armor_03",
+            "UnitType": "Unit",
+            "PartType": "Armor",
+            "SubType": "Left",
+            "PartSubType": "",
+            "Path": "Addons/MS_Orc/0_Unit/0_Sprite/5_Armor/Orc_Armor_03"
+        },
+        {
+            "Name": "Orc_Armor_04",
+            "UnitType": "Unit",
+            "PartType": "Armor",
+            "SubType": "Body",
+            "PartSubType": "",
+            "Path": "Addons/MS_Orc/0_Unit/0_Sprite/5_Armor/Orc_Armor_04"
+        },
+        {
+            "Name": "Orc_Weapon_05",
+            "UnitType": "Unit",
+            "PartType": "Weapons",
+            "SubType": "Orc_Weapon_05",
+            "PartSubType": "Sword",
+            "Path": "Addons/MS_Orc/0_Unit/0_Sprite/6_Weapons/0_Sword/Orc_Weapon_05"
+        },
+        {
+            "Name": "Orc_Weapon_02",
+            "UnitType": "Unit",
+            "PartType": "Weapons",
+            "SubType": "Orc_Weapon_02",
+            "PartSubType": "Axe",
+            "Path": "Addons/MS_Orc/0_Unit/0_Sprite/6_Weapons/1_Axe/Orc_Weapon_02"
+        },
+        {
+            "Name": "Orc_Weapon_06",
+            "UnitType": "Unit",
+            "PartType": "Weapons",
+            "SubType": "Orc_Weapon_06",
+            "PartSubType": "Axe",
+            "Path": "Addons/MS_Orc/0_Unit/0_Sprite/6_Weapons/1_Axe/Orc_Weapon_06"
+        },
+        {
+            "Name": "Orc_Weapon_07",
+            "UnitType": "Unit",
+            "PartType": "Weapons",
+            "SubType": "Orc_Weapon_07",
+            "PartSubType": "Axe",
+            "Path": "Addons/MS_Orc/0_Unit/0_Sprite/6_Weapons/1_Axe/Orc_Weapon_07"
+        },
+        {
+            "Name": "Orc_Weapon_03",
+            "UnitType": "Unit",
+            "PartType": "Weapons",
+            "SubType": "Orc_Weapon_03",
+            "PartSubType": "Bow",
+            "Path": "Addons/MS_Orc/0_Unit/0_Sprite/6_Weapons/2_Bow/Orc_Weapon_03"
+        },
+        {
+            "Name": "Orc_Shield_01",
+            "UnitType": "Unit",
+            "PartType": "Weapons",
+            "SubType": "Orc_Shield_01",
+            "PartSubType": "Shield",
+            "Path": "Addons/MS_Orc/0_Unit/0_Sprite/6_Weapons/3_Shield/Orc_Shield_01"
+        },
+        {
+            "Name": "Orc_Weapon_04",
+            "UnitType": "Unit",
+            "PartType": "Weapons",
+            "SubType": "Orc_Weapon_04",
+            "PartSubType": "Wand",
+            "Path": "Addons/MS_Orc/0_Unit/0_Sprite/6_Weapons/5_Wand/Orc_Weapon_04"
+        },
+        {
+            "Name": "Orc_Weapon_08",
+            "UnitType": "Unit",
+            "PartType": "Weapons",
+            "SubType": "Orc_Weapon_08",
+            "PartSubType": "Wand",
+            "Path": "Addons/MS_Orc/0_Unit/0_Sprite/6_Weapons/5_Wand/Orc_Weapon_08"
+        },
+        {
+            "Name": "Orc_Weapon_09",
+            "UnitType": "Unit",
+            "PartType": "Weapons",
+            "SubType": "Orc_Weapon_09",
+            "PartSubType": "Wand",
+            "Path": "Addons/MS_Orc/0_Unit/0_Sprite/6_Weapons/5_Wand/Orc_Weapon_09"
+        },
+        {
+            "Name": "Orc_Weapon_01",
+            "UnitType": "Unit",
+            "PartType": "Weapons",
+            "SubType": "Orc_Weapon_01",
+            "PartSubType": "Mace",
+            "Path": "Addons/MS_Orc/0_Unit/0_Sprite/6_Weapons/8_Mace/Orc_Weapon_01"
+        },
+        {
+            "Name": "Orc_Back_01",
+            "UnitType": "Unit",
+            "PartType": "Back",
+            "SubType": "Orc_Back_01",
+            "PartSubType": "",
+            "Path": "Addons/MS_Orc/0_Unit/0_Sprite/7_Back/Orc_Back_01"
+        },
+        {
+            "Name": "Orc_Back_02",
+            "UnitType": "Unit",
+            "PartType": "Back",
+            "SubType": "Orc_Back_02",
+            "PartSubType": "",
+            "Path": "Addons/MS_Orc/0_Unit/0_Sprite/7_Back/Orc_Back_02"
+        },
+        {
+            "Name": "Orc_Back_03",
+            "UnitType": "Unit",
+            "PartType": "Back",
+            "SubType": "Orc_Back_03",
+            "PartSubType": "",
+            "Path": "Addons/MS_Orc/0_Unit/0_Sprite/7_Back/Orc_Back_03"
+        }
+    ]
+}

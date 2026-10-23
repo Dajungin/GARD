@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: e8427e5d17b9a3c4480f9606f6b7e7a7
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 281221
+  packageName: Match3 Game Effect - URP
+  packageVersion: 1.0
+  assetPath: Assets/CartoonVFX9X/Effects/Materials/Lightning_Fx_Sheet_Blue.mat
+  uploadId: 654336

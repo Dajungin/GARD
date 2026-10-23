@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 07e307301c2aa2843b557a0479219ac9
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 281221
+  packageName: Match3 Game Effect - URP
+  packageVersion: 1.0
+  assetPath: Assets/CartoonVFX9X/Effects/Materials/Flare_Light_Red.mat
+  uploadId: 654336

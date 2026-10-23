@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: b185aa4103ec62949920149ca1a31d4b
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 281221
+  packageName: Match3 Game Effect - URP
+  packageVersion: 1.0
+  assetPath: Assets/CartoonVFX9X/Effects/Prefabs/Glow_Effect_Red_3.prefab
+  uploadId: 654336

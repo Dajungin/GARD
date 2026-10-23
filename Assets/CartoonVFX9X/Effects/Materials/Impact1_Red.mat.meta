@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: c28a12ff3c864f54793e9a4190d57fb3
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 281221
+  packageName: Match3 Game Effect - URP
+  packageVersion: 1.0
+  assetPath: Assets/CartoonVFX9X/Effects/Materials/Impact1_Red.mat
+  uploadId: 654336
