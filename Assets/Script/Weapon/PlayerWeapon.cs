@@ -27,7 +27,7 @@ public class PlayerWeapon : MonoBehaviour
 
     private void Awake()
     {
-        mainCamera = Camera.main;
+        RefreshCamera();
 
         currentMeleeWeapon = dagger;
         currentRangedWeapon = pistol;
@@ -39,18 +39,28 @@ public class PlayerWeapon : MonoBehaviour
             smg.SetTriggerHeld(false);
     }
 
+    private void OnEnable()
+    {
+        RefreshCamera();
+    }
+
     private void Update()
     {
+        // 씬 전환으로 카메라가 교체되었으면 다시 찾음
+        RefreshCamera();
+
         if (Mouse.current == null)
             return;
-
-        // 카메라가 교체되거나 활성 카메라가 바뀌어도 갱신
-        if (Camera.main != null)
-            mainCamera = Camera.main;
 
         UpdateMouseDirection();
         HandleWeaponSelection();
         HandleAttackInput();
+    }
+
+    private void RefreshCamera()
+    {
+        if (mainCamera == null || !mainCamera.isActiveAndEnabled)
+            mainCamera = Camera.main;
     }
 
     private void HandleWeaponSelection()
@@ -76,15 +86,11 @@ public class PlayerWeapon : MonoBehaviour
 
     private void SelectMeleeWeapon(WeaponBase weapon)
     {
-        if (weapon != null)
-            currentMeleeWeapon = weapon;
+        currentMeleeWeapon = weapon;
     }
 
     private void SelectRangedWeapon(WeaponBase weapon)
     {
-        if (weapon == null)
-            return;
-
         if (rayGun != null)
             rayGun.SetTriggerHeld(false);
 
@@ -97,14 +103,13 @@ public class PlayerWeapon : MonoBehaviour
     private void HandleAttackInput()
     {
         bool leftHeld = Mouse.current.leftButton.isPressed;
-        bool rightPressed =
-            Mouse.current.rightButton.wasPressedThisFrame;
+        bool rightPressed = Mouse.current.rightButton.wasPressedThisFrame;
 
-        // 오른쪽 클릭: 근접 무기
+        // 오른쪽 클릭: 근접 공격
         if (rightPressed && currentMeleeWeapon != null)
             currentMeleeWeapon.TryAttack();
 
-        // 레일건: 충전 발사
+        // 레일건 충전
         if (currentRangedWeapon == rayGun)
         {
             if (rayGun != null)
@@ -116,7 +121,7 @@ public class PlayerWeapon : MonoBehaviour
         if (rayGun != null)
             rayGun.SetTriggerHeld(false);
 
-        // 기관단총: 연사
+        // 기관단총 연사
         if (currentRangedWeapon == smg)
         {
             if (smg != null)
@@ -128,7 +133,7 @@ public class PlayerWeapon : MonoBehaviour
         if (smg != null)
             smg.SetTriggerHeld(false);
 
-        // 권총 등: 클릭 시 한 발 발사
+        // 권총 등 일반 원거리 공격
         if (Mouse.current.leftButton.wasPressedThisFrame &&
             currentRangedWeapon != null)
         {
@@ -138,24 +143,29 @@ public class PlayerWeapon : MonoBehaviour
 
     private void UpdateMouseDirection()
     {
-        if (mainCamera == null)
+        if (mainCamera == null || playerSprite == null)
             return;
 
-        Vector3 mouseScreenPosition =
+        Vector2 mouseScreenPosition =
             Mouse.current.position.ReadValue();
 
-        // 플레이어와 카메라 사이의 깊이를 설정
-        mouseScreenPosition.z = Mathf.Abs(
+        // 카메라와 플레이어 사이의 깊이를 지정하여 월드 좌표로 변환
+        float depth = Mathf.Abs(
             mainCamera.transform.position.z - transform.position.z
         );
 
+        Vector3 screenPosition = new Vector3(
+            mouseScreenPosition.x,
+            mouseScreenPosition.y,
+            depth
+        );
+
         Vector3 mouseWorldPosition =
-            mainCamera.ScreenToWorldPoint(mouseScreenPosition);
+            mainCamera.ScreenToWorldPoint(screenPosition);
 
         float directionX =
             mouseWorldPosition.x - transform.position.x;
 
-        // 플레이어와 마우스가 거의 같은 X 위치면 방향 유지
         if (directionX > 0.01f)
             SetFacingDirection(true);
         else if (directionX < -0.01f)
@@ -169,17 +179,16 @@ public class PlayerWeapon : MonoBehaviour
 
         facingRight = faceRight;
 
-        // 캐릭터 스프라이트 좌우 반전
+        // 원본 스프라이트가 오른쪽을 바라보는 기준
         if (playerSprite != null)
             playerSprite.flipX = !faceRight;
 
-        // 무기와 총구도 캐릭터 방향에 맞게 반전
+        // 무기 위치도 플레이어 방향에 맞춰 반전
         if (weaponRoot != null)
         {
             Vector3 scale = weaponRoot.localScale;
 
-            scale.x = Mathf.Abs(scale.x) *
-                      (faceRight ? 1f : -1f);
+            scale.x = Mathf.Abs(scale.x) * (faceRight ? 1f : -1f);
 
             weaponRoot.localScale = scale;
         }
