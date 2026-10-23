@@ -6,14 +6,17 @@ public class AxeWeapon : WeaponBase
 {
     [Header("도끼 공격 설정")]
     [SerializeField] private Transform attackPoint;
-    [SerializeField] private float attackRadius = 1.2f;
+    [SerializeField, Min(0.01f)] private float attackRadius = 1.2f;
     [SerializeField] private LayerMask enemyLayer;
 
     protected override void Attack()
     {
         if (attackPoint == null)
         {
-            Debug.LogWarning("AxeWeapon: Attack Point가 연결되지 않았습니다.", this);
+            Debug.LogWarning(
+                "AxeWeapon: Attack Point가 연결되지 않았습니다.",
+                this
+            );
             return;
         }
 
@@ -23,12 +26,36 @@ public class AxeWeapon : WeaponBase
             enemyLayer
         );
 
-        // 적이 여러 Collider를 가지고 있어도 중복 피해 방지
-        HashSet<EnemyHealth> damagedEnemies = new HashSet<EnemyHealth>();
+        HashSet<EnemyHealth> damagedEnemies =
+            new HashSet<EnemyHealth>();
+
+        HashSet<BossHealth> damagedBosses =
+            new HashSet<BossHealth>();
 
         foreach (Collider2D hit in hits)
         {
-            EnemyHealth enemy = hit.GetComponentInParent<EnemyHealth>();
+            // 먼저 보스인지 확인
+            BossHealth boss =
+                hit.GetComponentInParent<BossHealth>();
+
+            if (boss != null)
+            {
+                if (boss.IsDead || !damagedBosses.Add(boss))
+                    continue;
+
+                boss.TakeDamage(damage);
+
+                Debug.Log(
+                    $"도끼가 보스를 공격했습니다! 피해량: {damage}",
+                    boss
+                );
+
+                continue;
+            }
+
+            // 일반 몬스터 확인
+            EnemyHealth enemy =
+                hit.GetComponentInParent<EnemyHealth>();
 
             if (enemy == null || enemy.IsDead)
                 continue;
@@ -46,6 +73,9 @@ public class AxeWeapon : WeaponBase
             return;
 
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(attackPoint.position, attackRadius);
+        Gizmos.DrawWireSphere(
+            attackPoint.position,
+            attackRadius
+        );
     }
 }

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4917300974205174848}
   - component: {fileID: 7259056030879042346}
   - component: {fileID: 6286254397296529714}
+  - component: {fileID: 4263560397392865937}
   m_Layer: 0
   m_Name: BossProjectile
   m_TagString: Untagged
@@ -171,3 +172,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BossProjectile
   damage: 1
   lifetime: 4
+--- !u!114 &4263560397392865937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8617639737133915906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2785395b7827c924fbc182c5d6251667, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponProjectile
+  terrainLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  collisionCheckRadius: 0.05
