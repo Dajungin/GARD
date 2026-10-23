@@ -12,6 +12,7 @@ public class PlayerWeapon : MonoBehaviour
     [SerializeField] private WeaponBase pistol;
     [SerializeField] private RayGunWeapon rayGun;
     [SerializeField] private SMGWeapon smg;
+    [SerializeField] private ShotgunWeapon shotgun;
 
     [Header("플레이어 방향")]
     [SerializeField] private SpriteRenderer playerSprite;
@@ -82,6 +83,10 @@ public class PlayerWeapon : MonoBehaviour
 
         if (Keyboard.current.digit5Key.wasPressedThisFrame)
             SelectRangedWeapon(smg);
+        if (Keyboard.current.digit6Key.wasPressedThisFrame)
+        {
+            SelectRangedWeapon(shotgun);
+        }
     }
 
     private void SelectMeleeWeapon(WeaponBase weapon)
