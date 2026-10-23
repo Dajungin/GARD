@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 6a160ace92d5f0144b0dfe271ec577c9
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 625f186215c104763be7675aa2d941aa, type: 3}
+AssetOrigin:
+  serializedVersion: 1
+  productId: 261387
+  packageName: Action Game VFX Collection URP
+  packageVersion: 1.0
+  assetPath: "Assets/CartoonVFX9X[\uC774\uD399\uD2B8]/Effects/Shaders/CartoonVFX9X_Shader1_Alpha.shadergraph"
+  uploadId: 603202

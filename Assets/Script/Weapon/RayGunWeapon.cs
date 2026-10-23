@@ -11,11 +11,14 @@ public class RayGunWeapon : WeaponBase
     [Header("발사 설정")]
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private Transform gunPoint;
-    [SerializeField] private float projectileSpeed = 15f;
-    [SerializeField] private float projectileLifeTime = 3f;
+    [SerializeField, Min(0f)] private float projectileSpeed = 15f;
+    [SerializeField, Min(0.1f)] private float projectileLifeTime = 3f;
 
     [Header("조준 설정")]
     [SerializeField] private Camera aimCamera;
+
+    [Header("디버그")]
+    [SerializeField] private bool showDebugLogs = true;
 
     private float currentChargeTime;
     private bool charging;
@@ -23,7 +26,9 @@ public class RayGunWeapon : WeaponBase
     private bool previousTriggerHeld;
 
     public float ChargeProgress =>
-        charging ? Mathf.Clamp01(currentChargeTime / chargeTime) : 0f;
+        charging
+            ? Mathf.Clamp01(currentChargeTime / chargeTime)
+            : 0f;
 
     protected override void Update()
     {
@@ -32,7 +37,7 @@ public class RayGunWeapon : WeaponBase
         if (Mouse.current == null)
             return;
 
-        // 버튼을 놓으면 충전을 취소하고 다시 충전할 수 있게 한다.
+        // 버튼을 놓으면 다음 충전을 준비한다.
         if (!triggerHeld)
         {
             currentChargeTime = 0f;
@@ -42,7 +47,7 @@ public class RayGunWeapon : WeaponBase
             return;
         }
 
-        // 버튼을 누른 첫 프레임에 충전을 시작한다.
+        // 버튼을 누르기 시작한 순간
         if (!previousTriggerHeld)
         {
             previousTriggerHeld = true;
@@ -52,21 +57,33 @@ public class RayGunWeapon : WeaponBase
             {
                 charging = true;
                 currentChargeTime = 0f;
+
+                if (showDebugLogs)
+                    Debug.Log("레일건 충전 시작", this);
+            }
+            else
+            {
+                if (showDebugLogs)
+                    Debug.Log("레일건 공격 불가: CanAttack이 false입니다.", this);
+
+                return;
             }
         }
 
-        // 버튼을 계속 누르고 있는 동안 충전한다.
         if (!charging || firedThisHold)
             return;
 
         currentChargeTime += Time.deltaTime;
 
-        // 충전 시간이 끝나면 발사한다.
+        // 충전 완료
         if (currentChargeTime >= chargeTime)
         {
             currentChargeTime = chargeTime;
             charging = false;
             firedThisHold = true;
+
+            if (showDebugLogs)
+                Debug.Log("레일건 충전 완료! 발사를 시도합니다.", this);
 
             TryAttack();
         }
@@ -74,10 +91,19 @@ public class RayGunWeapon : WeaponBase
 
     protected override void Attack()
     {
-        if (projectilePrefab == null || gunPoint == null)
+        if (projectilePrefab == null)
         {
             Debug.LogWarning(
-                "레일건: Projectile Prefab 또는 Gun Point가 연결되지 않았습니다.",
+                "레일건: Projectile Prefab이 연결되지 않았습니다.",
+                this
+            );
+            return;
+        }
+
+        if (gunPoint == null)
+        {
+            Debug.LogWarning(
+                "레일건: Gun Point가 연결되지 않았습니다.",
                 this
             );
             return;
@@ -87,12 +113,22 @@ public class RayGunWeapon : WeaponBase
 
         if (cam == null)
         {
-            Debug.LogWarning("레일건: 조준용 카메라를 찾을 수 없습니다.", this);
+            Debug.LogWarning(
+                "레일건: 조준용 카메라를 찾을 수 없습니다.",
+                this
+            );
             return;
         }
 
+        if (Mouse.current == null)
+            return;
+
         Vector3 mouseScreenPosition =
             Mouse.current.position.ReadValue();
+
+        // 2D 게임에서 카메라와 플레이어 사이의 깊이를 지정한다.
+        mouseScreenPosition.z =
+            Mathf.Abs(cam.transform.position.z - gunPoint.position.z);
 
         Vector3 mouseWorldPosition =
             cam.ScreenToWorldPoint(mouseScreenPosition);
@@ -101,7 +137,9 @@ public class RayGunWeapon : WeaponBase
             (Vector2)(mouseWorldPosition - gunPoint.position);
 
         if (direction.sqrMagnitude < 0.0001f)
+        {
             direction = Vector2.right;
+        }
 
         direction.Normalize();
 
@@ -117,7 +155,7 @@ public class RayGunWeapon : WeaponBase
         if (projectile == null)
         {
             Debug.LogError(
-                "레일건 투사체에 WeaponProjectile 컴포넌트가 없습니다.",
+                "레일건 투사체 프리팹에 WeaponProjectile 컴포넌트가 없습니다.",
                 projectileObject
             );
 
@@ -125,7 +163,6 @@ public class RayGunWeapon : WeaponBase
             return;
         }
 
-        // 마지막 true는 적 관통 기능을 의미한다.
         projectile.Initialize(
             direction,
             projectileSpeed,
@@ -133,5 +170,13 @@ public class RayGunWeapon : WeaponBase
             projectileLifeTime,
             true
         );
+
+        if (showDebugLogs)
+        {
+            Debug.Log(
+                $"레일건 발사 성공! 방향: {direction}, 속도: {projectileSpeed}",
+                projectileObject
+            );
+        }
     }
 }

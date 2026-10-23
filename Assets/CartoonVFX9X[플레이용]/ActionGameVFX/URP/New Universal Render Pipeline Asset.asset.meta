@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 674a8f1299513f9409ed91af78f5f250
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 261387
+  packageName: Action Game VFX Collection URP
+  packageVersion: 1.0
+  assetPath: Assets/CartoonVFX9X/ActionGameVFX/URP/New Universal Render Pipeline
+    Asset.asset
+  uploadId: 603202

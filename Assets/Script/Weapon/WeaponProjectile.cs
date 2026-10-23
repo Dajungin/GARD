@@ -27,9 +27,11 @@ public class WeaponProjectile : MonoBehaviour
     private bool hasPreviousPosition;
     private bool isDestroyed;
 
-    // 이미 피해를 준 적에게 중복 피해를 주지 않도록 기록
     private readonly HashSet<EnemyHealth> damagedEnemies =
         new HashSet<EnemyHealth>();
+
+    private readonly HashSet<BossHealth> damagedBosses =
+        new HashSet<BossHealth>();
 
     private void Awake()
     {
@@ -50,29 +52,24 @@ public class WeaponProjectile : MonoBehaviour
         canPierceEnemies = pierceEnemies;
         moveDirection = direction.normalized;
 
-        // 투사체 물리 설정
         rb.gravityScale = 0f;
         rb.bodyType = RigidbodyType2D.Kinematic;
         rb.linearVelocity = moveDirection * moveSpeed;
-        rb.collisionDetectionMode =
-            CollisionDetectionMode2D.Continuous;
+        rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
 
-        // 회전 방향 설정
         if (moveDirection.sqrMagnitude > 0f)
         {
             float angle =
                 Mathf.Atan2(moveDirection.y, moveDirection.x)
                 * Mathf.Rad2Deg;
 
-            transform.rotation =
-                Quaternion.Euler(0f, 0f, angle);
+            transform.rotation = Quaternion.Euler(0f, 0f, angle);
         }
 
         previousPosition = rb.position;
         hasPreviousPosition = true;
         initialized = true;
 
-        // 수명 종료 시 자동 파괴
         Destroy(gameObject, lifeTime);
     }
 
@@ -82,11 +79,9 @@ public class WeaponProjectile : MonoBehaviour
             return;
 
         Vector2 currentPosition = rb.position;
-
         Vector2 movement = currentPosition - previousPosition;
         float distance = movement.magnitude;
 
-        // 이전 위치에서 현재 위치까지 지형 충돌 검사
         if (distance > 0.0001f)
         {
             Vector2 direction = movement / distance;
@@ -101,8 +96,18 @@ public class WeaponProjectile : MonoBehaviour
 
             if (hit.collider != null)
             {
-                DestroyProjectile();
-                return;
+                // Cast가 보스를 먼저 만났을 경우에는 지형으로 취급하지 않음.
+                BossHealth boss =
+                    hit.collider.GetComponentInParent<BossHealth>();
+
+                EnemyHealth enemy =
+                    hit.collider.GetComponentInParent<EnemyHealth>();
+
+                if (boss == null && enemy == null)
+                {
+                    DestroyProjectile();
+                    return;
+                }
             }
         }
 
@@ -114,29 +119,40 @@ public class WeaponProjectile : MonoBehaviour
         if (!initialized || isDestroyed)
             return;
 
-        // 1. 지형에 닿으면 파괴
-        if (IsTerrain(other.gameObject))
+        // 1. 보스 확인
+        BossHealth boss = other.GetComponentInParent<BossHealth>();
+
+        if (boss != null)
         {
-            DestroyProjectile();
+            if (boss.IsDead || !damagedBosses.Add(boss))
+                return;
+
+            boss.TakeDamage(damage);
+
+            if (!canPierceEnemies)
+                DestroyProjectile();
+
             return;
         }
 
-        // 2. 적인지 확인
-        EnemyHealth enemy =
-            other.GetComponentInParent<EnemyHealth>();
+        // 2. 일반 몬스터 확인
+        EnemyHealth enemy = other.GetComponentInParent<EnemyHealth>();
 
-        if (enemy == null || enemy.IsDead)
+        if (enemy != null)
+        {
+            if (enemy.IsDead || !damagedEnemies.Add(enemy))
+                return;
+
+            enemy.TakeDamage(damage);
+
+            if (!canPierceEnemies)
+                DestroyProjectile();
+
             return;
+        }
 
-        // 3. 이미 피해를 준 적이라면 무시
-        if (!damagedEnemies.Add(enemy))
-            return;
-
-        // 4. 적에게 피해 적용
-        enemy.TakeDamage(damage);
-
-        // 5. 관통 기능이 없으면 적에게 맞은 뒤 파괴
-        if (!canPierceEnemies)
+        // 3. 지형에 닿으면 파괴
+        if (IsTerrain(other.gameObject))
         {
             DestroyProjectile();
         }
@@ -147,8 +163,16 @@ public class WeaponProjectile : MonoBehaviour
         if (!initialized || isDestroyed)
             return;
 
-        // Trigger가 아닌 충돌 방식으로 설정된 지형도 처리
-        if (IsTerrain(collision.gameObject))
+        GameObject target = collision.gameObject;
+
+        // 적이나 보스와의 충돌은 Trigger에서 처리
+        if (target.GetComponentInParent<BossHealth>() != null ||
+            target.GetComponentInParent<EnemyHealth>() != null)
+        {
+            return;
+        }
+
+        if (IsTerrain(target))
         {
             DestroyProjectile();
         }
@@ -157,7 +181,6 @@ public class WeaponProjectile : MonoBehaviour
     private bool IsTerrain(GameObject target)
     {
         int targetLayerMask = 1 << target.layer;
-
         return (terrainLayer.value & targetLayerMask) != 0;
     }
 
