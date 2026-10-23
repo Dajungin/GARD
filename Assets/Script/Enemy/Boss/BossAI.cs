@@ -81,6 +81,9 @@ public class BossAI : MonoBehaviour
 
         if (attackHitbox != null)
             attackHitbox.SetAttackActive(false);
+
+        if (rb != null)
+            rb.linearVelocity = Vector2.zero;
     }
 
     private void Update()
@@ -133,7 +136,7 @@ public class BossAI : MonoBehaviour
 
         rb.linearVelocity = Vector2.zero;
 
-        // 가까우면 돌진, 거리가 있으면 원거리 공격을 섞어서 사용
+        // 가까우면 돌진, 그 외에는 충격파와 마법탄을 섞어 사용
         int choice = Random.Range(0, 3);
 
         if (distance <= stopDistance * 0.65f || choice == 0)
@@ -154,6 +157,9 @@ public class BossAI : MonoBehaviour
 
     private void FaceTarget()
     {
+        if (target == null)
+            return;
+
         if (target.position.x >= transform.position.x)
             facingDirection = 1;
         else
@@ -165,9 +171,7 @@ public class BossAI : MonoBehaviour
         if (attackHitbox != null)
         {
             Vector3 p = attackHitbox.transform.localPosition;
-
             p.x = Mathf.Abs(p.x) * facingDirection;
-
             attackHitbox.transform.localPosition = p;
         }
     }
@@ -181,7 +185,6 @@ public class BossAI : MonoBehaviour
         isAttacking = true;
         rb.linearVelocity = Vector2.zero;
 
-        // 돌진 예고
         yield return new WaitForSeconds(dashTelegraph);
 
         if (bossHealth.IsDead || bossHealth.IsTransitioning)
@@ -190,7 +193,7 @@ public class BossAI : MonoBehaviour
             yield break;
         }
 
-        // 돌진 방향도 돌진 시작 시점의 방향으로 고정
+        // 돌진 시작 시점의 방향으로 고정
         int dashDirection = facingDirection;
 
         if (attackHitbox != null)
@@ -236,6 +239,7 @@ public class BossAI : MonoBehaviour
         {
             SpawnShockwaves();
 
+            // 2페이즈에서는 두 번째 충격파 추가 발사
             if (bossHealth.IsPhaseTwo)
             {
                 yield return new WaitForSeconds(secondWaveDelay);
@@ -315,16 +319,14 @@ public class BossAI : MonoBehaviour
             ? projectileSpawnPoint.position
             : transform.position;
 
-        // ★ 실제 발사 직전에 조준 방향을 한 번만 계산
-        // 이후 연사 도중에는 target 위치를 다시 읽지 않음
+        // 발사 직전에 플레이어 방향을 한 번만 계산
         Vector2 lockedAimDirection =
             ((Vector2)target.position -
              (Vector2)spawnPosition).normalized;
 
         if (lockedAimDirection.sqrMagnitude <= 0.0001f)
         {
-            lockedAimDirection =
-                new Vector2(facingDirection, 0f);
+            lockedAimDirection = new Vector2(facingDirection, 0f);
         }
 
         int count = bossHealth.IsPhaseTwo ? 5 : 3;
@@ -335,7 +337,7 @@ public class BossAI : MonoBehaviour
             if (bossHealth.IsDead || bossHealth.IsTransitioning)
                 break;
 
-            // 고정 조준 방향을 중심으로 탄환을 좌우로 분산
+            // 고정 조준 방향을 기준으로 좌우 분산
             float angle = count == 1
                 ? 0f
                 : Mathf.Lerp(
@@ -353,14 +355,18 @@ public class BossAI : MonoBehaviour
                 Quaternion.identity
             );
 
-            // 마법탄에 고정된 방향과 속도를 전달
+            if (projectile == null)
+                continue;
+
+            // 핵심 수정:
+            // 현재 보스의 Collider와만 충돌을 무시한다.
+            projectile.IgnoreCollisionWithBoss(gameObject);
+
+            // 발사 방향과 속도를 전달
             projectile.Initialize(direction, projectileSpeed);
 
-            // 다음 발사까지 대기
             if (projectileInterval > 0f && i < count - 1)
-            {
                 yield return new WaitForSeconds(projectileInterval);
-            }
         }
 
         if (!bossHealth.IsDead && !bossHealth.IsTransitioning)
@@ -369,7 +375,6 @@ public class BossAI : MonoBehaviour
         FinishAttack();
     }
 
-    // 방향 벡터를 지정한 각도만큼 회전
     private Vector2 RotateDirection(Vector2 direction, float degrees)
     {
         float radians = degrees * Mathf.Deg2Rad;
@@ -384,17 +389,22 @@ public class BossAI : MonoBehaviour
     }
 
     // ==========================================
-    // 페이즈 및 공격 종료
+    // 페이즈 전환
     // ==========================================
 
     private void HandlePhaseTwo()
     {
-        Debug.Log("보스 2페이즈: 강화된 공격 패턴!");
+        Debug.Log("보스 2페이즈: 강화된 공격 패턴!", this);
     }
+
+    // ==========================================
+    // 공격 종료
+    // ==========================================
 
     private void FinishAttack()
     {
-        rb.linearVelocity = Vector2.zero;
+        if (rb != null)
+            rb.linearVelocity = Vector2.zero;
 
         if (attackHitbox != null)
             attackHitbox.SetAttackActive(false);
