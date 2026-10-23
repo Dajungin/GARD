@@ -13,6 +13,7 @@ public class BossProjectile : MonoBehaviour
     private Rigidbody2D rb;
     private Collider2D hitCollider;
 
+    // 발사 순간 결정한 방향을 계속 유지
     private Vector2 moveDirection;
     private float moveSpeed;
     private bool initialized;
@@ -27,32 +28,35 @@ public class BossProjectile : MonoBehaviour
 
         rb.gravityScale = 0f;
         rb.freezeRotation = true;
+        rb.bodyType = RigidbodyType2D.Kinematic;
 
         hitCollider.isTrigger = true;
     }
 
     public void Initialize(Vector2 direction, float speed)
     {
-        moveDirection = direction.normalized;
-        moveSpeed = Mathf.Max(0f, speed);
-
-        if (moveDirection.sqrMagnitude <= 0f)
+        // 방향은 Initialize 호출 시 한 번만 저장
+        if (direction.sqrMagnitude <= 0.0001f)
         {
             Debug.LogWarning("마법탄의 이동 방향이 0입니다.", this);
             Destroy(gameObject);
             return;
         }
 
-        float angle =
-            Mathf.Atan2(moveDirection.y, moveDirection.x)
-            * Mathf.Rad2Deg;
+        moveDirection = direction.normalized;
+        moveSpeed = Mathf.Max(0f, speed);
+
+        float angle = Mathf.Atan2(
+            moveDirection.y,
+            moveDirection.x
+        ) * Mathf.Rad2Deg;
 
         transform.rotation = Quaternion.Euler(0f, 0f, angle);
 
         initialized = true;
 
         Debug.Log(
-            $"마법탄 발사! 방향: {moveDirection}, 속도: {moveSpeed}",
+            $"마법탄 발사! 고정 방향: {moveDirection}, 속도: {moveSpeed}",
             this
         );
 
@@ -64,10 +68,11 @@ public class BossProjectile : MonoBehaviour
         if (!initialized)
             return;
 
+        // 플레이어의 위치를 다시 확인하지 않고 고정 방향으로 이동
         Vector2 movement =
             moveDirection * moveSpeed * Time.fixedDeltaTime;
 
-        rb.position += movement;
+        rb.MovePosition(rb.position + movement);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -75,26 +80,22 @@ public class BossProjectile : MonoBehaviour
         if (!initialized)
             return;
 
-        // 플레이어 또는 플레이어의 자식 오브젝트인지 확인
         PlayerHealth player =
             other.GetComponentInParent<PlayerHealth>();
 
         if (player != null)
         {
-            // 같은 플레이어와 중복 충돌하는 것을 방지
             if (!hitPlayers.Add(player))
                 return;
 
-            // 플레이어의 회피 무적 상태 확인
             PlayerMove playerMove =
-                player.GetComponent<PlayerMove>();
+                player.GetComponentInParent<PlayerMove>();
 
             if (playerMove == null || !playerMove.IsInvincible)
             {
                 player.TakeDamage(damage);
             }
 
-            // 무적 중이어도 마법탄은 충돌하면 사라짐
             Destroy(gameObject);
             return;
         }

@@ -42,6 +42,7 @@ public class BossAI : MonoBehaviour
     private Rigidbody2D rb;
     private BossHealth bossHealth;
     private Coroutine attackRoutine;
+
     private bool isAttacking;
     private float cooldownTimer;
     private int facingDirection = 1;
@@ -65,7 +66,9 @@ public class BossAI : MonoBehaviour
     {
         if (target == null)
         {
-            GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+            GameObject playerObject =
+                GameObject.FindGameObjectWithTag("Player");
+
             if (playerObject != null)
                 target = playerObject.transform;
         }
@@ -89,9 +92,15 @@ public class BossAI : MonoBehaviour
         }
 
         if (target == null)
+        {
+            rb.linearVelocity = Vector2.zero;
             return;
+        }
 
-        float distance = Vector2.Distance(transform.position, target.position);
+        float distance = Vector2.Distance(
+            transform.position,
+            target.position
+        );
 
         if (distance > activationDistance)
         {
@@ -116,13 +125,15 @@ public class BossAI : MonoBehaviour
             Vector2 direction =
                 ((Vector2)target.position - rb.position).normalized;
 
-            rb.linearVelocity = new Vector2(direction.x * approachSpeed, 0f);
+            rb.linearVelocity =
+                new Vector2(direction.x * approachSpeed, 0f);
+
             return;
         }
 
         rb.linearVelocity = Vector2.zero;
 
-        // 가까이 있으면 돌진, 거리가 있으면 원거리 패턴을 섞어 사용
+        // 가까우면 돌진, 거리가 있으면 원거리 공격을 섞어서 사용
         int choice = Random.Range(0, 3);
 
         if (distance <= stopDistance * 0.65f || choice == 0)
@@ -154,10 +165,16 @@ public class BossAI : MonoBehaviour
         if (attackHitbox != null)
         {
             Vector3 p = attackHitbox.transform.localPosition;
+
             p.x = Mathf.Abs(p.x) * facingDirection;
+
             attackHitbox.transform.localPosition = p;
         }
     }
+
+    // ==========================================
+    // 돌진 공격
+    // ==========================================
 
     private IEnumerator DashAttack()
     {
@@ -173,22 +190,40 @@ public class BossAI : MonoBehaviour
             yield break;
         }
 
-        attackHitbox?.SetAttackActive(true);
+        // 돌진 방향도 돌진 시작 시점의 방향으로 고정
+        int dashDirection = facingDirection;
+
+        if (attackHitbox != null)
+            attackHitbox.SetAttackActive(true);
 
         float elapsed = 0f;
+
         while (elapsed < dashDuration)
         {
-            rb.linearVelocity = new Vector2(facingDirection * dashSpeed, 0f);
+            if (bossHealth.IsDead || bossHealth.IsTransitioning)
+                break;
+
+            rb.linearVelocity =
+                new Vector2(dashDirection * dashSpeed, 0f);
+
             elapsed += Time.deltaTime;
             yield return null;
         }
 
         rb.linearVelocity = Vector2.zero;
-        attackHitbox?.SetAttackActive(false);
 
-        yield return new WaitForSeconds(dashRecovery);
+        if (attackHitbox != null)
+            attackHitbox.SetAttackActive(false);
+
+        if (!bossHealth.IsDead && !bossHealth.IsTransitioning)
+            yield return new WaitForSeconds(dashRecovery);
+
         FinishAttack();
     }
+
+    // ==========================================
+    // 별의 심판 - 충격파
+    // ==========================================
 
     private IEnumerator ShockwaveAttack()
     {
@@ -205,12 +240,14 @@ public class BossAI : MonoBehaviour
             {
                 yield return new WaitForSeconds(secondWaveDelay);
 
-                if (!bossHealth.IsDead)
+                if (!bossHealth.IsDead && !bossHealth.IsTransitioning)
                     SpawnShockwaves();
             }
         }
 
-        yield return new WaitForSeconds(attackCooldown);
+        if (!bossHealth.IsDead && !bossHealth.IsTransitioning)
+            yield return new WaitForSeconds(attackCooldown);
+
         FinishAttack();
     }
 
@@ -218,7 +255,11 @@ public class BossAI : MonoBehaviour
     {
         if (shockwavePrefab == null)
         {
-            Debug.LogWarning("BossAI: Shockwave Prefab이 연결되지 않았어.");
+            Debug.LogWarning(
+                "BossAI: Shockwave Prefab이 연결되지 않았어.",
+                this
+            );
+
             return;
         }
 
@@ -233,16 +274,24 @@ public class BossAI : MonoBehaviour
     private void SpawnOneShockwave(Vector3 position, int direction)
     {
         BossShockwave wave = Instantiate(
-            shockwavePrefab, position, Quaternion.identity);
+            shockwavePrefab,
+            position,
+            Quaternion.identity
+        );
 
         wave.Initialize(direction, bossHealth.IsPhaseTwo);
     }
+
+    // ==========================================
+    // 별빛 연사 - 마법탄
+    // ==========================================
 
     private IEnumerator ProjectileVolley()
     {
         isAttacking = true;
         rb.linearVelocity = Vector2.zero;
 
+        // 발사 전 예고
         yield return new WaitForSeconds(volleyTelegraph);
 
         if (bossHealth.IsDead || bossHealth.IsTransitioning)
@@ -251,9 +300,13 @@ public class BossAI : MonoBehaviour
             yield break;
         }
 
-        if (projectilePrefab == null)
+        if (target == null || projectilePrefab == null)
         {
-            Debug.LogWarning("BossAI: Projectile Prefab이 연결되지 않았어.");
+            Debug.LogWarning(
+                "BossAI: Target 또는 Projectile Prefab이 연결되지 않았어.",
+                this
+            );
+
             FinishAttack();
             yield break;
         }
@@ -262,38 +315,65 @@ public class BossAI : MonoBehaviour
             ? projectileSpawnPoint.position
             : transform.position;
 
-        Vector2 aimDirection =
-            ((Vector2)target.position - (Vector2)spawnPosition).normalized;
+        // ★ 실제 발사 직전에 조준 방향을 한 번만 계산
+        // 이후 연사 도중에는 target 위치를 다시 읽지 않음
+        Vector2 lockedAimDirection =
+            ((Vector2)target.position -
+             (Vector2)spawnPosition).normalized;
 
-        // 조준 방향을 공격 시작 시 한 번만 계산해.
-        // 발사 도중 플레이어를 따라 꺾이지 않아 피할 수 있어.
+        if (lockedAimDirection.sqrMagnitude <= 0.0001f)
+        {
+            lockedAimDirection =
+                new Vector2(facingDirection, 0f);
+        }
+
         int count = bossHealth.IsPhaseTwo ? 5 : 3;
         float spread = projectileSpreadAngle;
 
         for (int i = 0; i < count; i++)
         {
+            if (bossHealth.IsDead || bossHealth.IsTransitioning)
+                break;
+
+            // 고정 조준 방향을 중심으로 탄환을 좌우로 분산
             float angle = count == 1
                 ? 0f
-                : Mathf.Lerp(-spread, spread, i / (float)(count - 1));
+                : Mathf.Lerp(
+                    -spread,
+                    spread,
+                    i / (float)(count - 1)
+                );
 
-            Vector2 direction = RotateDirection(aimDirection, angle);
+            Vector2 direction =
+                RotateDirection(lockedAimDirection, angle);
 
             BossProjectile projectile = Instantiate(
-                projectilePrefab, spawnPosition, Quaternion.identity);
+                projectilePrefab,
+                spawnPosition,
+                Quaternion.identity
+            );
 
+            // 마법탄에 고정된 방향과 속도를 전달
             projectile.Initialize(direction, projectileSpeed);
 
+            // 다음 발사까지 대기
             if (projectileInterval > 0f && i < count - 1)
+            {
                 yield return new WaitForSeconds(projectileInterval);
+            }
         }
 
-        yield return new WaitForSeconds(attackCooldown);
+        if (!bossHealth.IsDead && !bossHealth.IsTransitioning)
+            yield return new WaitForSeconds(attackCooldown);
+
         FinishAttack();
     }
 
+    // 방향 벡터를 지정한 각도만큼 회전
     private Vector2 RotateDirection(Vector2 direction, float degrees)
     {
         float radians = degrees * Mathf.Deg2Rad;
+
         float sin = Mathf.Sin(radians);
         float cos = Mathf.Cos(radians);
 
@@ -302,6 +382,10 @@ public class BossAI : MonoBehaviour
             direction.x * sin + direction.y * cos
         ).normalized;
     }
+
+    // ==========================================
+    // 페이즈 및 공격 종료
+    // ==========================================
 
     private void HandlePhaseTwo()
     {
