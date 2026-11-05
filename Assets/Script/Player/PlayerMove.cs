@@ -25,6 +25,9 @@ public class PlayerMove : MonoBehaviour
     [SerializeField, Min(0f)] private float dodgeCooldown = 1f;
     [SerializeField, Min(0f)] private float dodgeInvincibleDuration = 0.3f;
 
+    [Header("애니메이션")]
+    [SerializeField] private Animator animator;
+
     private Rigidbody2D rb;
     private Vector2 moveInput;
 
@@ -32,23 +35,25 @@ public class PlayerMove : MonoBehaviour
     private bool isDodging;
     private bool isInvincible;
 
+    private bool isRunning;
+
     private float dodgeTimer;
     private float invincibleTimer;
     private float dodgeCooldownTimer;
 
-    // 다른 스크립트에서 회피 무적 여부를 확인할 때 사용
     public bool IsInvincible => isInvincible;
     public bool IsDodging => isDodging;
 
-    // 회피 중 사용할 방향
     private Vector2 dodgeDirection;
-
-    // 마지막으로 이동한 방향
     private Vector2 lastMoveDirection = Vector2.right;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+
+        // Inspector에 Animator를 연결하지 않았다면 자동으로 찾기
+        if (animator == null)
+            animator = GetComponent<Animator>();
     }
 
     private void Update()
@@ -60,18 +65,20 @@ public class PlayerMove : MonoBehaviour
         CheckGround();
 
         // W로 점프
-        if (Keyboard.current.wKey.wasPressedThisFrame && isGrounded
-            && !isDodging)
+        if (Keyboard.current.wKey.wasPressedThisFrame &&
+            isGrounded && !isDodging)
         {
             Jump();
         }
 
-        // Shift를 누르고 있는 동안 달리기
-        // Space는 회피 전용
+        // Space로 구르기
         if (Keyboard.current.spaceKey.wasPressedThisFrame)
         {
             TryDodge();
         }
+
+        // 애니메이션 갱신
+        UpdateAnimation();
 
         UpdateTimers();
     }
@@ -80,7 +87,6 @@ public class PlayerMove : MonoBehaviour
     {
         if (isDodging)
         {
-            // 회피 중에는 일반 이동이 속도를 덮어쓰지 않음
             rb.linearVelocity = dodgeDirection * dodgeSpeed;
             return;
         }
@@ -88,7 +94,8 @@ public class PlayerMove : MonoBehaviour
         float currentSpeed = moveSpeed;
 
         if (Keyboard.current != null &&
-            Keyboard.current.leftShiftKey.isPressed)
+            (Keyboard.current.leftShiftKey.isPressed ||
+             Keyboard.current.rightShiftKey.isPressed))
         {
             currentSpeed *= runMultiplier;
         }
@@ -102,7 +109,6 @@ public class PlayerMove : MonoBehaviour
     private void ReadMovementInput()
     {
         float horizontal = 0f;
-        float vertical = 0f;
 
         if (Keyboard.current.aKey.isPressed)
             horizontal -= 1f;
@@ -110,18 +116,42 @@ public class PlayerMove : MonoBehaviour
         if (Keyboard.current.dKey.isPressed)
             horizontal += 1f;
 
-        if (Keyboard.current.wKey.isPressed)
-            vertical += 1f;
-
-        if (Keyboard.current.sKey.isPressed)
-            vertical -= 1f;
-
-        moveInput = new Vector2(horizontal, vertical).normalized;
+        // W는 점프 전용, A/D는 좌우 이동 전용
+        moveInput = new Vector2(horizontal, 0f);
 
         if (moveInput.sqrMagnitude > 0.01f)
         {
-            lastMoveDirection = moveInput;
+            lastMoveDirection = moveInput.normalized;
         }
+
+        isRunning =
+            Keyboard.current.leftShiftKey.isPressed ||
+            Keyboard.current.rightShiftKey.isPressed;
+    }
+
+    private void UpdateAnimation()
+    {
+        if (animator == null)
+            return;
+
+        // 지면 여부 전달
+        animator.SetBool("IsGrounded", isGrounded);
+
+        // 회피 중에는 걷기/달리기 애니메이션을 실행하지 않음
+        if (isDodging)
+        {
+            animator.SetFloat("Speed", 0f);
+            return;
+        }
+
+        float animationSpeed = 0f;
+
+        if (Mathf.Abs(moveInput.x) > 0.01f)
+        {
+            animationSpeed = isRunning ? 2f : 1f;
+        }
+
+        animator.SetFloat("Speed", animationSpeed);
     }
 
     private void CheckGround()
@@ -144,12 +174,9 @@ public class PlayerMove : MonoBehaviour
         if (isDodging || dodgeCooldownTimer > 0f)
             return;
 
-        // 이동 입력이 있으면 해당 방향, 없으면 마지막 이동 방향
         dodgeDirection = moveInput.sqrMagnitude > 0.01f
-            ? moveInput
+            ? moveInput.normalized
             : lastMoveDirection;
-
-        dodgeDirection.Normalize();
 
         isDodging = true;
         isInvincible = true;
@@ -158,8 +185,14 @@ public class PlayerMove : MonoBehaviour
         invincibleTimer = dodgeInvincibleDuration;
         dodgeCooldownTimer = dodgeCooldown;
 
-        // 회피 시작 시 기존 속도 제거
         rb.linearVelocity = Vector2.zero;
+
+        // 구르기 애니메이션 실행
+        if (animator != null)
+        {
+            animator.ResetTrigger("Roll");
+            animator.SetTrigger("Roll");
+        }
     }
 
     private void UpdateTimers()
@@ -203,12 +236,23 @@ public class PlayerMove : MonoBehaviour
         );
     }
 
+    // 나중에 대시 기능을 만들 때 호출할 애니메이션 함수
+    public void PlayDashAnimation()
+    {
+        if (animator == null)
+            return;
+
+        animator.ResetTrigger("Dash");
+        animator.SetTrigger("Dash");
+    }
+
     private void OnDrawGizmosSelected()
     {
         if (groundCheck == null)
             return;
 
         Gizmos.color = Color.green;
+
         Gizmos.DrawWireSphere(
             groundCheck.position,
             groundCheckRadius

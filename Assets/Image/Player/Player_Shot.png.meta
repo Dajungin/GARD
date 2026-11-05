@@ -1,0 +1,751 @@
+fileFormatVersion: 2
+guid: d654631734da177449530d5a8c00c842
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 8488043825978051773
+    second: Player_Sh9t 1_0
+  - first:
+      213: -5631364120695742879
+    second: Player_Sh9t 1_1
+  - first:
+      213: 334823900501429554
+    second: Player_Sh9t 1_2
+  - first:
+      213: -3748908549601434947
+    second: Player_Sh9t 1_3
+  - first:
+      213: -343411730168745853
+    second: Player_Sh9t 1_4
+  - first:
+      213: 3692648151009193370
+    second: Player_Sh9t 1_5
+  - first:
+      213: -5754010187113661031
+    second: Player_Sh9t 1_6
+  - first:
+      213: 7537900857458041318
+    second: Player_Sh9t 1_7
+  - first:
+      213: 2276427731194861232
+    second: Player_Sh9t 1_8
+  - first:
+      213: 8140941145393438977
+    second: Player_Sh9t 1_9
+  - first:
+      213: -6385410358480415674
+    second: Player_Sh9t 1_10
+  - first:
+      213: -3318538774704400733
+    second: Player_Sh9t 1_11
+  - first:
+      213: 5291266242345240877
+    second: Player_Sh9t 1_12
+  - first:
+      213: -8488305748444581107
+    second: Player_Sh9t 1_13
+  - first:
+      213: 3278328374101103331
+    second: Player_Sh9t 1_14
+  - first:
+      213: -804868609476554401
+    second: Player_Sh9t 1_15
+  - first:
+      213: -3952194524757188959
+    second: Player_Sh9t 1_16
+  - first:
+      213: -1520198813635188240
+    second: Player_Sh9t 1_17
+  - first:
+      213: 1077827190966608155
+    second: Player_Sh9t 1_18
+  - first:
+      213: 1291420610477493077
+    second: Player_Sh9t 1_19
+  - first:
+      213: 5174291987295844505
+    second: Player_Sh9t 1_20
+  - first:
+      213: 993537809465963202
+    second: Player_Sh9t 1_21
+  - first:
+      213: -3600133767559998863
+    second: Player_Sh9t 1_22
+  - first:
+      213: -787239489759951829
+    second: Player_Sh9t 1_23
+  - first:
+      213: 3590149871341064332
+    second: Player_Sh9t 1_24
+  - first:
+      213: -1328706351106919999
+    second: Player_Sh9t 1_25
+  - first:
+      213: 3076923795622473211
+    second: Player_Sh9t 1_26
+  - first:
+      213: 8735581977041858237
+    second: Player_Sh9t 1_27
+  - first:
+      213: 8083395488133676381
+    second: Player_Sh9t 1_28
+  - first:
+      213: -4040153625665824974
+    second: Player_Sh9t 1_29
+  - first:
+      213: 2561758338654725608
+    second: Player_Sh9t 1_30
+  - first:
+      213: 1270338471611817206
+    second: Player_Sh9t 1_31
+  - first:
+      213: 8413293622629154880
+    second: Player_Sh9t 1_32
+  - first:
+      213: 4354674412301726529
+    second: Player_Sh9t 1_33
+  - first:
+      213: 6209061414849659900
+    second: Player_Sh9t 1_34
+  - first:
+      213: -6256807165720939639
+    second: Player_Sh9t 1_35
+  - first:
+      213: -304319229471041579
+    second: Player_Sh9t 1_36
+  - first:
+      213: 3782189446762363437
+    second: Player_Sh9t 1_37
+  - first:
+      213: 4154937561670565167
+    second: Player_Sh9t 1_38
+  - first:
+      213: 7667236627612582542
+    second: Player_Sh9t 1_39
+  - first:
+      213: 9217593485306968670
+    second: Player_Sh9t 1_40
+  - first:
+      213: -7598657216023704438
+    second: Player_Sh9t 1_41
+  - first:
+      213: 6599024573965465689
+    second: Player_Sh9t 1_42
+  - first:
+      213: -24197112114524678
+    second: Player_Sh9t 1_43
+  - first:
+      213: -4519499712399291532
+    second: Player_Sh9t 1_44
+  - first:
+      213: 8659934915701436716
+    second: Player_Sh9t 1_45
+  - first:
+      213: -3638539322318124818
+    second: Player_Sh9t 1_46
+  - first:
+      213: -6193912674805913363
+    second: Player_Sh9t 1_47
+  - first:
+      213: 6822037843848399163
+    second: Player_Sh9t 1_48
+  - first:
+      213: 3703416990144035118
+    second: Player_Sh9t 1_49
+  - first:
+      213: -4288800149195305531
+    second: Player_Sh9t 1_50
+  - first:
+      213: 6965687780242803952
+    second: Player_Sh9t 1_51
+  - first:
+      213: -929760981108668776
+    second: Player_Sh9t 1_52
+  - first:
+      213: -7266560386126240768
+    second: Player_Sh9t 1_53
+  - first:
+      213: -3306178238786648959
+    second: Player_Sh9t 1_54
+  - first:
+      213: 7010099998715746339
+    second: Player_Sh9t 1_55
+  - first:
+      213: 6611839139440470020
+    second: Player_Sh9t 1_56
+  - first:
+      213: 4064601243280140010
+    second: Player_Sh9t 1_57
+  - first:
+      213: -6977991927075369752
+    second: Player_Sh9t 1_58
+  - first:
+      213: -2315060472704190151
+    second: Player_Sh9t 1_59
+  - first:
+      213: -6399641102605554090
+    second: Player_Sh9t 1_60
+  - first:
+      213: -4029154866773293426
+    second: Player_Sh9t 1_61
+  - first:
+      213: 9052489076300144049
+    second: Player_Sh9t 1_62
+  - first:
+      213: -3752979854527581103
+    second: Player_Sh9t 1_63
+  - first:
+      213: -2576393212230823462
+    second: Player_Sh9t 1_64
+  - first:
+      213: -2524260145584788773
+    second: Player_Sh9t 1_65
+  - first:
+      213: 802949220876023590
+    second: Player_Sh9t 1_66
+  - first:
+      213: 5061716527592360233
+    second: Player_Sh9t 1_67
+  - first:
+      213: 5434542288983959351
+    second: Player_Sh9t 1_68
+  - first:
+      213: -3518249323625462057
+    second: Player_Sh9t 1_69
+  - first:
+      213: 5716631194248846701
+    second: Player_Sh9t 1_70
+  - first:
+      213: 3510357985864770349
+    second: Player_Sh9t 1_71
+  - first:
+      213: 5118113848905887737
+    second: Player_Sh9t 1_72
+  - first:
+      213: 3263844452159383465
+    second: Player_Sh9t 1_73
+  - first:
+      213: 4645944950085982308
+    second: Player_Sh9t 1_74
+  - first:
+      213: 7234747438947603468
+    second: Player_Sh9t 1_75
+  - first:
+      213: -5245034113177838647
+    second: Player_Sh9t 1_76
+  - first:
+      213: 2525521314227362631
+    second: Player_Sh9t 1_77
+  - first:
+      213: -1068507023184222034
+    second: Player_Sh9t 1_78
+  - first:
+      213: 6444899025473433055
+    second: Player_Sh9t 1_79
+  - first:
+      213: 928267941474989245
+    second: Player_Sh9t 1_80
+  - first:
+      213: -6759184620690509349
+    second: Player_Sh9t 1_81
+  - first:
+      213: 4940474057884728419
+    second: Player_Sh9t 1_82
+  - first:
+      213: -1142649261106909620
+    second: Player_Sh9t 1_83
+  - first:
+      213: -3279631608607670406
+    second: Player_Sh9t 1_84
+  - first:
+      213: -3662479484729397890
+    second: Player_Sh9t 1_85
+  - first:
+      213: 981664690533625212
+    second: Player_Sh9t 1_86
+  - first:
+      213: 3272061922945978608
+    second: Player_Sh9t 1_87
+  - first:
+      213: -9006120569014526945
+    second: Player_Sh9t 1_88
+  - first:
+      213: -8036722099098125514
+    second: Player_Sh9t 1_89
+  - first:
+      213: 2359605602055347304
+    second: Player_Sh9t 1_90
+  - first:
+      213: -7000076681039454107
+    second: Player_Sh9t 1_91
+  - first:
+      213: 1844472675502075192
+    second: Player_Sh9t 1_92
+  - first:
+      213: -5877455070783949322
+    second: Player_Sh9t 1_93
+  - first:
+      213: 331056437897691505
+    second: Player_Sh9t 1_94
+  - first:
+      213: 2614975569978661690
+    second: Player_Sh9t 1_95
+  - first:
+      213: -788146840882714493
+    second: Player_Sh9t 1_96
+  - first:
+      213: -4055737186370197199
+    second: Player_Sh9t 1_97
+  - first:
+      213: -8323826348137352767
+    second: Player_Sh9t 1_98
+  - first:
+      213: 4533008683003683771
+    second: Player_Sh9t 1_99
+  - first:
+      213: -3631296491691199596
+    second: Player_Sh9t 1_100
+  - first:
+      213: 353556047037292701
+    second: Player_Sh9t 1_101
+  - first:
+      213: 7304669105504923862
+    second: Player_Sh9t 1_102
+  - first:
+      213: -6248565326429084073
+    second: Player_Sh9t 1_103
+  - first:
+      213: 7382055436983278481
+    second: Player_Sh9t 1_104
+  - first:
+      213: 4982666823862496866
+    second: Player_Sh9t 1_105
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Player_Shot_0
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 150
+        width: 127
+        height: 109
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 27b6f8c320243254fa707ba44abd1ce1
+      internalID: -1434185213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Shot_1
+      rect:
+        serializedVersion: 2
+        x: 177
+        y: 176
+        width: 123
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc73c2de528968e4fbdd52e9a4aa99e5
+      internalID: 1112251507
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Shot_2
+      rect:
+        serializedVersion: 2
+        x: 359
+        y: 156
+        width: 129
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c0c1e9ceac3c644da9751ec40fe74bf
+      internalID: 1155436471
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Shot_3
+      rect:
+        serializedVersion: 2
+        x: 545
+        y: 155
+        width: 141
+        height: 98
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f97c9f31eb0727f4f9af2625521c627f
+      internalID: -1321767813
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Shot_4
+      rect:
+        serializedVersion: 2
+        x: 747
+        y: 151
+        width: 154
+        height: 106
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad80d834df4c4f545aa4abc14e603c3f
+      internalID: 703952298
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Shot_5
+      rect:
+        serializedVersion: 2
+        x: 968
+        y: 143
+        width: 139
+        height: 121
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a59b37b76b0b104e9df922ecb5a755c
+      internalID: -1043030071
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Shot_6
+      rect:
+        serializedVersion: 2
+        x: 1188
+        y: 138
+        width: 153
+        height: 126
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0840db1654609db40a4b574b60e16dee
+      internalID: 1778873899
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Shot_7
+      rect:
+        serializedVersion: 2
+        x: 1404
+        y: 131
+        width: 141
+        height: 135
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a6f733b088363347ab436582d99f564
+      internalID: -203133972
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: df5aca1523def554e8c75e5a4d51158e
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Player_Sh9t 1_0: 8488043825978051773
+      Player_Sh9t 1_1: -5631364120695742879
+      Player_Sh9t 1_10: -6385410358480415674
+      Player_Sh9t 1_100: -3631296491691199596
+      Player_Sh9t 1_101: 353556047037292701
+      Player_Sh9t 1_102: 7304669105504923862
+      Player_Sh9t 1_103: -6248565326429084073
+      Player_Sh9t 1_104: 7382055436983278481
+      Player_Sh9t 1_105: 4982666823862496866
+      Player_Sh9t 1_11: -3318538774704400733
+      Player_Sh9t 1_12: 5291266242345240877
+      Player_Sh9t 1_13: -8488305748444581107
+      Player_Sh9t 1_14: 3278328374101103331
+      Player_Sh9t 1_15: -804868609476554401
+      Player_Sh9t 1_16: -3952194524757188959
+      Player_Sh9t 1_17: -1520198813635188240
+      Player_Sh9t 1_18: 1077827190966608155
+      Player_Sh9t 1_19: 1291420610477493077
+      Player_Sh9t 1_2: 334823900501429554
+      Player_Sh9t 1_20: 5174291987295844505
+      Player_Sh9t 1_21: 993537809465963202
+      Player_Sh9t 1_22: -3600133767559998863
+      Player_Sh9t 1_23: -787239489759951829
+      Player_Sh9t 1_24: 3590149871341064332
+      Player_Sh9t 1_25: -1328706351106919999
+      Player_Sh9t 1_26: 3076923795622473211
+      Player_Sh9t 1_27: 8735581977041858237
+      Player_Sh9t 1_28: 8083395488133676381
+      Player_Sh9t 1_29: -4040153625665824974
+      Player_Sh9t 1_3: -3748908549601434947
+      Player_Sh9t 1_30: 2561758338654725608
+      Player_Sh9t 1_31: 1270338471611817206
+      Player_Sh9t 1_32: 8413293622629154880
+      Player_Sh9t 1_33: 4354674412301726529
+      Player_Sh9t 1_34: 6209061414849659900
+      Player_Sh9t 1_35: -6256807165720939639
+      Player_Sh9t 1_36: -304319229471041579
+      Player_Sh9t 1_37: 3782189446762363437
+      Player_Sh9t 1_38: 4154937561670565167
+      Player_Sh9t 1_39: 7667236627612582542
+      Player_Sh9t 1_4: -343411730168745853
+      Player_Sh9t 1_40: 9217593485306968670
+      Player_Sh9t 1_41: -7598657216023704438
+      Player_Sh9t 1_42: 6599024573965465689
+      Player_Sh9t 1_43: -24197112114524678
+      Player_Sh9t 1_44: -4519499712399291532
+      Player_Sh9t 1_45: 8659934915701436716
+      Player_Sh9t 1_46: -3638539322318124818
+      Player_Sh9t 1_47: -6193912674805913363
+      Player_Sh9t 1_48: 6822037843848399163
+      Player_Sh9t 1_49: 3703416990144035118
+      Player_Sh9t 1_5: 3692648151009193370
+      Player_Sh9t 1_50: -4288800149195305531
+      Player_Sh9t 1_51: 6965687780242803952
+      Player_Sh9t 1_52: -929760981108668776
+      Player_Sh9t 1_53: -7266560386126240768
+      Player_Sh9t 1_54: -3306178238786648959
+      Player_Sh9t 1_55: 7010099998715746339
+      Player_Sh9t 1_56: 6611839139440470020
+      Player_Sh9t 1_57: 4064601243280140010
+      Player_Sh9t 1_58: -6977991927075369752
+      Player_Sh9t 1_59: -2315060472704190151
+      Player_Sh9t 1_6: -5754010187113661031
+      Player_Sh9t 1_60: -6399641102605554090
+      Player_Sh9t 1_61: -4029154866773293426
+      Player_Sh9t 1_62: 9052489076300144049
+      Player_Sh9t 1_63: -3752979854527581103
+      Player_Sh9t 1_64: -2576393212230823462
+      Player_Sh9t 1_65: -2524260145584788773
+      Player_Sh9t 1_66: 802949220876023590
+      Player_Sh9t 1_67: 5061716527592360233
+      Player_Sh9t 1_68: 5434542288983959351
+      Player_Sh9t 1_69: -3518249323625462057
+      Player_Sh9t 1_7: 7537900857458041318
+      Player_Sh9t 1_70: 5716631194248846701
+      Player_Sh9t 1_71: 3510357985864770349
+      Player_Sh9t 1_72: 5118113848905887737
+      Player_Sh9t 1_73: 3263844452159383465
+      Player_Sh9t 1_74: 4645944950085982308
+      Player_Sh9t 1_75: 7234747438947603468
+      Player_Sh9t 1_76: -5245034113177838647
+      Player_Sh9t 1_77: 2525521314227362631
+      Player_Sh9t 1_78: -1068507023184222034
+      Player_Sh9t 1_79: 6444899025473433055
+      Player_Sh9t 1_8: 2276427731194861232
+      Player_Sh9t 1_80: 928267941474989245
+      Player_Sh9t 1_81: -6759184620690509349
+      Player_Sh9t 1_82: 4940474057884728419
+      Player_Sh9t 1_83: -1142649261106909620
+      Player_Sh9t 1_84: -3279631608607670406
+      Player_Sh9t 1_85: -3662479484729397890
+      Player_Sh9t 1_86: 981664690533625212
+      Player_Sh9t 1_87: 3272061922945978608
+      Player_Sh9t 1_88: -9006120569014526945
+      Player_Sh9t 1_89: -8036722099098125514
+      Player_Sh9t 1_9: 8140941145393438977
+      Player_Sh9t 1_90: 2359605602055347304
+      Player_Sh9t 1_91: -7000076681039454107
+      Player_Sh9t 1_92: 1844472675502075192
+      Player_Sh9t 1_93: -5877455070783949322
+      Player_Sh9t 1_94: 331056437897691505
+      Player_Sh9t 1_95: 2614975569978661690
+      Player_Sh9t 1_96: -788146840882714493
+      Player_Sh9t 1_97: -4055737186370197199
+      Player_Sh9t 1_98: -8323826348137352767
+      Player_Sh9t 1_99: 4533008683003683771
+      Player_Shot_0: -1434185213
+      Player_Shot_1: 1112251507
+      Player_Shot_2: 1155436471
+      Player_Shot_3: -1321767813
+      Player_Shot_4: 703952298
+      Player_Shot_5: -1043030071
+      Player_Shot_6: 1778873899
+      Player_Shot_7: -203133972
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

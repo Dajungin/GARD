@@ -7,7 +7,8 @@ public class EnemyAI : MonoBehaviour
     {
         Patrol,
         Chase,
-        Attack
+        Attack,
+        Search
     }
 
     [Header("플레이어")]
@@ -26,6 +27,9 @@ public class EnemyAI : MonoBehaviour
     [Header("추적 설정")]
     [SerializeField] private float chaseSpeed = 4f;
 
+    [Tooltip("공격받은 적이 플레이어를 추적하는 시간입니다.")]
+    [SerializeField] private float searchDuration = 5f;
+
     [Header("시야 설정")]
     [SerializeField] private float viewDistance = 6f;
 
@@ -42,6 +46,15 @@ public class EnemyAI : MonoBehaviour
     private EnemyState currentState;
 
     private bool movingRight = true;
+
+    // 공격받았을 때 추적하는지 여부
+    private bool isAlerted;
+
+    // 마지막으로 확인한 플레이어 위치
+    private Vector2 lastKnownPlayerPosition;
+
+    // 추적 기억 시간
+    private float searchTimer;
 
     private void Awake()
     {
@@ -62,23 +75,28 @@ public class EnemyAI : MonoBehaviour
     {
         currentState = EnemyState.Patrol;
 
-        if (player == null)
-        {
-            GameObject playerObject =
-                GameObject.FindGameObjectWithTag("Player");
-
-            if (playerObject != null)
-            {
-                player = playerObject.transform;
-            }
-        }
+        FindPlayer();
     }
 
     private void Update()
     {
         if (player == null)
         {
-            return;
+            FindPlayer();
+        }
+
+        UpdateSearchTimer();
+
+        if (player != null && CanSeePlayer())
+        {
+            // 플레이어를 직접 발견하면 위치 갱신
+            lastKnownPlayerPosition = player.position;
+
+            // 시야로 발견한 경우에도 기존처럼 추적
+            if (!isAlerted)
+            {
+                currentState = EnemyState.Chase;
+            }
         }
 
         CheckState();
@@ -87,9 +105,7 @@ public class EnemyAI : MonoBehaviour
     private void FixedUpdate()
     {
         if (rb == null)
-        {
             return;
-        }
 
         switch (currentState)
         {
@@ -104,49 +120,170 @@ public class EnemyAI : MonoBehaviour
             case EnemyState.Attack:
                 StopMovement();
                 break;
+
+            case EnemyState.Search:
+                SearchLastPosition();
+                break;
         }
     }
 
+    // =========================================
+    // 플레이어 찾기
+    // =========================================
+
+    private void FindPlayer()
+    {
+        GameObject playerObject =
+            GameObject.FindGameObjectWithTag("Player");
+
+        if (playerObject != null)
+        {
+            player = playerObject.transform;
+        }
+    }
+
+    // =========================================
+    // 공격받았을 때 호출할 함수
+    // =========================================
+
+    public void AlertFromDamage(Transform attacker)
+    {
+        if (attacker == null)
+            return;
+
+        // 공격한 대상이 플레이어인지 확인
+        if (!attacker.CompareTag("Player"))
+        {
+            Transform playerParent =
+                attacker.root;
+
+            if (!playerParent.CompareTag("Player"))
+                return;
+
+            attacker = playerParent;
+        }
+
+        // 공격한 플레이어를 타겟으로 지정
+        player = attacker;
+
+        // 플레이어 위치 기억
+        lastKnownPlayerPosition = player.position;
+
+        // 적을 경계 상태로 변경
+        isAlerted = true;
+
+        // 추적 시간 초기화
+        searchTimer = searchDuration;
+
+        // 즉시 추적 시작
+        currentState = EnemyState.Chase;
+
+        Debug.Log(gameObject.name + " 공격받음! 플레이어 추적 시작!");
+    }
+
+    // =========================================
+    // 추적 기억 시간
+    // =========================================
+
+    private void UpdateSearchTimer()
+    {
+        if (!isAlerted)
+            return;
+
+        // 플레이어를 다시 발견하면 기억 시간 갱신
+        if (player != null && CanSeePlayer())
+        {
+            lastKnownPlayerPosition = player.position;
+            searchTimer = searchDuration;
+            currentState = EnemyState.Chase;
+            return;
+        }
+
+        // 플레이어를 놓쳤다면 기억 시간 감소
+        searchTimer -= Time.deltaTime;
+
+        if (searchTimer <= 0f)
+        {
+            isAlerted = false;
+            currentState = EnemyState.Patrol;
+
+            Debug.Log(gameObject.name + " 플레이어 추적 종료");
+        }
+    }
+
+    // =========================================
+    // 상태 확인
+    // =========================================
+
     private void CheckState()
     {
-        // 공격 도중에는 추적이나 순찰로 상태를 바꾸지 않습니다.
+        // 공격 중이면 다른 상태로 바꾸지 않음
         if (enemyAttack != null && enemyAttack.IsAttacking)
         {
             currentState = EnemyState.Attack;
             return;
         }
 
-        // 공격 컴포넌트가 없다면 시야에 따라 순찰/추적만 합니다.
-        if (enemyAttack == null)
+        // 공격받은 적은 시야와 관계없이 추적
+        if (isAlerted)
         {
-            currentState = CanSeePlayer()
-                ? EnemyState.Chase
-                : EnemyState.Patrol;
+            if (player != null)
+            {
+                float distance =
+                    Vector2.Distance(transform.position, player.position);
 
+                if (CanSeePlayer() &&
+                    enemyAttack != null &&
+                    distance <= enemyAttack.AttackRange)
+                {
+                    bool attacked = enemyAttack.TryAttack(player);
+
+                    if (attacked || enemyAttack.IsAttacking)
+                    {
+                        currentState = EnemyState.Attack;
+                        return;
+                    }
+                }
+            }
+
+            currentState = EnemyState.Chase;
             return;
         }
 
-        float distanceToPlayer =
-            Vector2.Distance(transform.position, player.position);
-
-        // 공격 범위 안에 플레이어가 있고 시야에 보이면 공격을 시도합니다.
-        if (distanceToPlayer <= enemyAttack.AttackRange &&
-            CanSeePlayer())
+        if (player == null)
         {
-            bool attacked = enemyAttack.TryAttack(player);
+            currentState = EnemyState.Patrol;
+            return;
+        }
 
-            if (attacked || enemyAttack.IsAttacking)
+        // 기존 공격 기능
+        if (enemyAttack != null)
+        {
+            float distance =
+                Vector2.Distance(transform.position, player.position);
+
+            if (distance <= enemyAttack.AttackRange &&
+                CanSeePlayer())
             {
-                currentState = EnemyState.Attack;
-                return;
+                bool attacked = enemyAttack.TryAttack(player);
+
+                if (attacked || enemyAttack.IsAttacking)
+                {
+                    currentState = EnemyState.Attack;
+                    return;
+                }
             }
         }
 
-        // 공격할 수 없으면 플레이어를 추적하거나 순찰합니다.
+        // 기존 시야 감지
         currentState = CanSeePlayer()
             ? EnemyState.Chase
             : EnemyState.Patrol;
     }
+
+    // =========================================
+    // 순찰
+    // =========================================
 
     private void Patrol()
     {
@@ -181,10 +318,20 @@ public class EnemyAI : MonoBehaviour
         Flip(movingRight);
     }
 
+    // =========================================
+    // 플레이어 추적
+    // =========================================
+
     private void Chase()
     {
         if (player == null)
         {
+            if (isAlerted)
+            {
+                currentState = EnemyState.Search;
+                return;
+            }
+
             StopMovement();
             return;
         }
@@ -192,6 +339,33 @@ public class EnemyAI : MonoBehaviour
         float directionX =
             player.position.x - transform.position.x;
 
+        MoveTowards(directionX);
+    }
+
+    // =========================================
+    // 마지막 위치 탐색
+    // =========================================
+
+    private void SearchLastPosition()
+    {
+        float directionX =
+            lastKnownPlayerPosition.x - transform.position.x;
+
+        if (Mathf.Abs(directionX) <= 0.1f)
+        {
+            StopMovement();
+            return;
+        }
+
+        MoveTowards(directionX);
+    }
+
+    // =========================================
+    // 좌우 이동
+    // =========================================
+
+    private void MoveTowards(float directionX)
+    {
         if (directionX > 0.05f)
         {
             rb.linearVelocity = new Vector2(
@@ -216,26 +390,29 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
+    // =========================================
+    // 이동 정지
+    // =========================================
+
     private void StopMovement()
     {
         if (rb == null)
-        {
             return;
-        }
 
-        // 좌우 속도만 멈추고 중력에 의한 Y축 속도는 유지합니다.
         rb.linearVelocity = new Vector2(
             0f,
             rb.linearVelocity.y
         );
     }
 
+    // =========================================
+    // 플레이어 시야 확인
+    // =========================================
+
     private bool CanSeePlayer()
     {
-        if (player == null)
-        {
+        if (player == null || rb == null)
             return false;
-        }
 
         Vector2 directionToPlayer =
             (Vector2)player.position - rb.position;
@@ -243,14 +420,10 @@ public class EnemyAI : MonoBehaviour
         float distanceToPlayer = directionToPlayer.magnitude;
 
         if (distanceToPlayer > viewDistance)
-        {
             return false;
-        }
 
         if (distanceToPlayer <= 0.001f)
-        {
             return true;
-        }
 
         directionToPlayer.Normalize();
 
@@ -262,11 +435,8 @@ public class EnemyAI : MonoBehaviour
             Vector2.Angle(forward, directionToPlayer);
 
         if (angle > viewAngle * 0.5f)
-        {
             return false;
-        }
 
-        // obstacleLayer에 지정한 벽이 시야를 막는지 확인합니다.
         RaycastHit2D hit = Physics2D.Raycast(
             rb.position,
             directionToPlayer,
@@ -275,34 +445,34 @@ public class EnemyAI : MonoBehaviour
         );
 
         if (hit.collider != null)
-        {
             return false;
-        }
 
         return true;
     }
 
+    // =========================================
+    // 스프라이트 방향 변경
+    // =========================================
+
     private void Flip(bool faceRight)
     {
         if (spriteRenderer == null)
-        {
             return;
-        }
 
-        // 원본 스프라이트가 오른쪽을 바라보는 경우를 기준으로 합니다.
         spriteRenderer.flipX = !faceRight;
 
-        // 순찰 방향도 시야 판정에 사용하므로 함께 갱신합니다.
         movingRight = faceRight;
     }
 
+    // =========================================
+    // 시각화
+    // =========================================
+
     private void OnDrawGizmosSelected()
     {
-        // 시야 거리
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, viewDistance);
 
-        // 순찰 범위
         if (leftPoint != null && rightPoint != null)
         {
             Gizmos.color = Color.cyan;
@@ -313,7 +483,6 @@ public class EnemyAI : MonoBehaviour
             );
         }
 
-        // 시야각
         Vector2 forward = movingRight
             ? Vector2.right
             : Vector2.left;
@@ -337,5 +506,15 @@ public class EnemyAI : MonoBehaviour
             transform.position,
             rightView * viewDistance
         );
+
+        if (isAlerted)
+        {
+            Gizmos.color = Color.magenta;
+
+            Gizmos.DrawLine(
+                transform.position,
+                lastKnownPlayerPosition
+            );
+        }
     }
 }

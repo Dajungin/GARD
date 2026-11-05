@@ -3,11 +3,13 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
-    [Header("적 체력")]
+    [Header("체력 설정")]
     [SerializeField] private int maxHP = 100;
 
     private int currentHP;
     private bool isDead;
+
+    private EnemyAI enemyAI;
 
     public int CurrentHP => currentHP;
     public bool IsDead => isDead;
@@ -16,11 +18,9 @@ public class EnemyHealth : MonoBehaviour
     {
         maxHP = Mathf.Max(1, maxHP);
         currentHP = maxHP;
-    }
 
-    // =========================================
-    // 적 활성화 시 등록
-    // =========================================
+        enemyAI = GetComponent<EnemyAI>();
+    }
 
     private void OnEnable()
     {
@@ -30,10 +30,6 @@ public class EnemyHealth : MonoBehaviour
         }
     }
 
-    // =========================================
-    // 적 비활성화 시 등록 해제
-    // =========================================
-
     private void OnDisable()
     {
         if (StageEnemyManager.Instance != null)
@@ -42,35 +38,34 @@ public class EnemyHealth : MonoBehaviour
         }
     }
 
-    // =========================================
-    // 데미지 받기
-    // =========================================
-
+    // 기존 방식: 데미지만 전달
     public void TakeDamage(int damage)
+    {
+        TakeDamage(damage, null);
+    }
+
+    // 새로운 방식: 데미지와 공격자 위치 전달
+    public void TakeDamage(int damage, Transform attacker)
     {
         if (isDead || damage <= 0)
             return;
 
-        currentHP -= damage;
-        currentHP = Mathf.Max(0, currentHP);
+        // 공격받으면 플레이어를 인식하도록 EnemyAI에 전달
+        if (enemyAI != null && attacker != null)
+        {
+            enemyAI.AlertFromDamage(attacker);
+        }
 
-        Debug.Log(
-            gameObject.name
-            + " 피격! 데미지 : "
-            + damage
-            + " / 현재 HP : "
-            + currentHP
-        );
+        currentHP -= damage;
+        currentHP = Mathf.Max(currentHP, 0);
+
+        Debug.Log("적이 피해를 입었습니다! 현재 체력: " + currentHP);
 
         if (currentHP <= 0)
         {
             Die();
         }
     }
-
-    // =========================================
-    // 사망 처리
-    // =========================================
 
     private void Die()
     {
@@ -79,9 +74,8 @@ public class EnemyHealth : MonoBehaviour
 
         isDead = true;
 
-        Debug.Log(gameObject.name + " 사망");
+        Debug.Log("적이 사망했습니다.");
 
-        // 기존 사망 처리 유지
         Destroy(gameObject);
     }
 }

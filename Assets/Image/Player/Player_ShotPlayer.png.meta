@@ -1,0 +1,387 @@
+fileFormatVersion: 2
+guid: 14e2c2f4ebb58504caf7e61362fec2d8
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -6801744271826880670
+    second: Player_Stay_0
+  - first:
+      213: 7946955507366631133
+    second: Player_Stay_1
+  - first:
+      213: 6771657679362540807
+    second: Player_Stay_2
+  - first:
+      213: -4567654819129906602
+    second: Player_Stay_3
+  - first:
+      213: 45966337852359251
+    second: Player_Stay_4
+  - first:
+      213: 3919335342337315592
+    second: Player_Stay_5
+  - first:
+      213: -5887386797077601659
+    second: Player_Stay_6
+  - first:
+      213: -8133937493324967462
+    second: Player_Stay_7
+  - first:
+      213: -5742598338543579229
+    second: Player_Stay_8
+  - first:
+      213: -3954187581359470344
+    second: Player_Stay_9
+  - first:
+      213: -6584742271152611100
+    second: Player_Stay_10
+  - first:
+      213: -7808893742648196603
+    second: Player_Stay_11
+  - first:
+      213: -359198079386821891
+    second: Player_Stay_12
+  - first:
+      213: 8045075746777964510
+    second: Player_Stay_13
+  - first:
+      213: -6721658969224863020
+    second: Player_Stay_14
+  - first:
+      213: 7171209180939308725
+    second: Player_Stay_15
+  - first:
+      213: 1652446906007234621
+    second: Player_Stay_16
+  - first:
+      213: 4269009199474886083
+    second: Player_Stay_17
+  - first:
+      213: -389878752655847068
+    second: Player_Stay_18
+  - first:
+      213: -7687543031825919363
+    second: Player_Stay_19
+  - first:
+      213: -880016651008266382
+    second: Player_Stay_20
+  - first:
+      213: 7669821363115908713
+    second: Player_Stay_21
+  - first:
+      213: -1646102416785640305
+    second: Player_Stay_22
+  - first:
+      213: 8205037505227163935
+    second: Player_Stay_23
+  - first:
+      213: -835970705271566102
+    second: Player_Stay_24
+  - first:
+      213: -1774145861021951204
+    second: Player_Stay_25
+  - first:
+      213: 3879582624196916810
+    second: Player_Stay_26
+  - first:
+      213: -9184012464657889273
+    second: Player_Stay_27
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Player_Stay_0
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 439
+        width: 212
+        height: 241
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6f466514afb0b7f46a6f64a86a25f6fd
+      internalID: -6801744271826880670
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Stay_1
+      rect:
+        serializedVersion: 2
+        x: 238
+        y: 438
+        width: 214
+        height: 239
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 12b5c5f3adb041745a6af270ccc47cc7
+      internalID: 7946955507366631133
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Stay_2
+      rect:
+        serializedVersion: 2
+        x: 466
+        y: 437
+        width: 217
+        height: 240
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c09f0ded5eedd64f92b923edb0de728
+      internalID: 6771657679362540807
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Stay_3
+      rect:
+        serializedVersion: 2
+        x: 1232
+        y: 434
+        width: 217
+        height: 240
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b1c77ec119c534549b49604e9d807b06
+      internalID: -4567654819129906602
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Stay_4
+      rect:
+        serializedVersion: 2
+        x: 1480
+        y: 434
+        width: 207
+        height: 239
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 113051801bc04b344a9a04879151b851
+      internalID: 45966337852359251
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Stay_5
+      rect:
+        serializedVersion: 2
+        x: 1717
+        y: 434
+        width: 213
+        height: 240
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 07f96485380a51e4c83806df8e5c8c14
+      internalID: 3919335342337315592
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: c9fbe8a9b07223448b23b4bbc9842ef4
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Player_Stay_0: -6801744271826880670
+      Player_Stay_1: 7946955507366631133
+      Player_Stay_10: -6584742271152611100
+      Player_Stay_11: -7808893742648196603
+      Player_Stay_12: -359198079386821891
+      Player_Stay_13: 8045075746777964510
+      Player_Stay_14: -6721658969224863020
+      Player_Stay_15: 7171209180939308725
+      Player_Stay_16: 1652446906007234621
+      Player_Stay_17: 4269009199474886083
+      Player_Stay_18: -389878752655847068
+      Player_Stay_19: -7687543031825919363
+      Player_Stay_2: 6771657679362540807
+      Player_Stay_20: -880016651008266382
+      Player_Stay_21: 7669821363115908713
+      Player_Stay_22: -1646102416785640305
+      Player_Stay_23: 8205037505227163935
+      Player_Stay_24: -835970705271566102
+      Player_Stay_25: -1774145861021951204
+      Player_Stay_26: 3879582624196916810
+      Player_Stay_27: -9184012464657889273
+      Player_Stay_3: -4567654819129906602
+      Player_Stay_4: 45966337852359251
+      Player_Stay_5: 3919335342337315592
+      Player_Stay_6: -5887386797077601659
+      Player_Stay_7: -8133937493324967462
+      Player_Stay_8: -5742598338543579229
+      Player_Stay_9: -3954187581359470344
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
