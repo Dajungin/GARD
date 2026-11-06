@@ -17,6 +17,9 @@ public class RayGunWeapon : WeaponBase
     [Header("조준 설정")]
     [SerializeField] private Camera aimCamera;
 
+    [Header("애니메이션")]
+    [SerializeField] private Animator playerAnimator;
+
     [Header("디버그")]
     [SerializeField] private bool showDebugLogs = true;
 
@@ -24,6 +27,12 @@ public class RayGunWeapon : WeaponBase
     private bool charging;
     private bool firedThisHold;
     private bool previousTriggerHeld;
+
+    private static readonly int IsRailgunChargingHash =
+        Animator.StringToHash("IsRailgunCharging");
+
+    private static readonly int RailgunFireHash =
+        Animator.StringToHash("RailgunFire");
 
     public float ChargeProgress =>
         charging
@@ -37,17 +46,13 @@ public class RayGunWeapon : WeaponBase
         if (Mouse.current == null)
             return;
 
-        // 버튼을 놓으면 다음 충전을 준비한다.
         if (!triggerHeld)
         {
-            currentChargeTime = 0f;
-            charging = false;
-            firedThisHold = false;
-            previousTriggerHeld = false;
+            ResetCharge();
             return;
         }
 
-        // 버튼을 누르기 시작한 순간
+        // 버튼을 처음 누른 순간
         if (!previousTriggerHeld)
         {
             previousTriggerHeld = true;
@@ -58,13 +63,15 @@ public class RayGunWeapon : WeaponBase
                 charging = true;
                 currentChargeTime = 0f;
 
+                SetChargingAnimation(true);
+
                 if (showDebugLogs)
                     Debug.Log("레일건 충전 시작", this);
             }
             else
             {
                 if (showDebugLogs)
-                    Debug.Log("레일건 공격 불가: CanAttack이 false입니다.", this);
+                    Debug.Log("레일건 공격 대기 중", this);
 
                 return;
             }
@@ -82,11 +89,43 @@ public class RayGunWeapon : WeaponBase
             charging = false;
             firedThisHold = true;
 
+            SetChargingAnimation(false);
+
             if (showDebugLogs)
-                Debug.Log("레일건 충전 완료! 발사를 시도합니다.", this);
+                Debug.Log("레일건 충전 완료! 발사!", this);
 
             TryAttack();
         }
+    }
+
+    private void SetChargingAnimation(bool value)
+    {
+        if (playerAnimator != null)
+        {
+            playerAnimator.SetBool(
+                IsRailgunChargingHash,
+                value
+            );
+        }
+    }
+
+    private void PlayFireAnimation()
+    {
+        if (playerAnimator == null)
+            return;
+
+        playerAnimator.ResetTrigger(RailgunFireHash);
+        playerAnimator.SetTrigger(RailgunFireHash);
+    }
+
+    private void ResetCharge()
+    {
+        currentChargeTime = 0f;
+        charging = false;
+        firedThisHold = false;
+        previousTriggerHeld = false;
+
+        SetChargingAnimation(false);
     }
 
     protected override void Attack()
@@ -111,22 +150,12 @@ public class RayGunWeapon : WeaponBase
 
         Camera cam = aimCamera != null ? aimCamera : Camera.main;
 
-        if (cam == null)
-        {
-            Debug.LogWarning(
-                "레일건: 조준용 카메라를 찾을 수 없습니다.",
-                this
-            );
-            return;
-        }
-
-        if (Mouse.current == null)
+        if (cam == null || Mouse.current == null)
             return;
 
         Vector3 mouseScreenPosition =
             Mouse.current.position.ReadValue();
 
-        // 2D 게임에서 카메라와 플레이어 사이의 깊이를 지정한다.
         mouseScreenPosition.z =
             Mathf.Abs(cam.transform.position.z - gunPoint.position.z);
 
@@ -137,9 +166,7 @@ public class RayGunWeapon : WeaponBase
             (Vector2)(mouseWorldPosition - gunPoint.position);
 
         if (direction.sqrMagnitude < 0.0001f)
-        {
             direction = Vector2.right;
-        }
 
         direction.Normalize();
 
@@ -155,7 +182,7 @@ public class RayGunWeapon : WeaponBase
         if (projectile == null)
         {
             Debug.LogError(
-                "레일건 투사체 프리팹에 WeaponProjectile 컴포넌트가 없습니다.",
+                "레일건 투사체에 WeaponProjectile이 없습니다.",
                 projectileObject
             );
 
@@ -171,12 +198,29 @@ public class RayGunWeapon : WeaponBase
             true
         );
 
+        // 실제 투사체 생성에 성공했을 때 발사 애니메이션 실행
+        PlayFireAnimation();
+
         if (showDebugLogs)
         {
             Debug.Log(
-                $"레일건 발사 성공! 방향: {direction}, 속도: {projectileSpeed}",
+                $"레일건 발사 성공! 방향: {direction}",
                 projectileObject
             );
         }
+    }
+
+    public override void SetTriggerHeld(bool held)
+    {
+        triggerHeld = held;
+
+        if (!held)
+            ResetCharge();
+    }
+
+    private void OnDisable()
+    {
+        triggerHeld = false;
+        ResetCharge();
     }
 }

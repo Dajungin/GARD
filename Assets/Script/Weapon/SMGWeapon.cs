@@ -10,14 +10,28 @@ public class SMGWeapon : WeaponBase
     [SerializeField] private float projectileSpeed = 16f;
     [SerializeField] private float projectileLifeTime = 2f;
 
-    private bool triggerHeld;
+    [Header("애니메이션")]
+    [SerializeField] private Animator playerAnimator;
+
+    private bool isFiring;
+
+    private static readonly int IsSMGFiringHash =
+        Animator.StringToHash("IsSMGFiring");
+
+    private bool IsSMGFiring
+    {
+        set
+        {
+            if (playerAnimator != null)
+                playerAnimator.SetBool(IsSMGFiringHash, value);
+        }
+    }
 
     protected override void Update()
     {
-        // 공통 쿨타임 갱신
         base.Update();
 
-        // 마우스 버튼을 누르는 동안 발사
+        // 누르고 있는 동안 연사
         if (triggerHeld && CanAttack)
         {
             TryAttack();
@@ -27,6 +41,14 @@ public class SMGWeapon : WeaponBase
     public override void SetTriggerHeld(bool held)
     {
         triggerHeld = held;
+
+        // 버튼을 누르면 연사 애니메이션 시작
+        // 버튼을 놓으면 연사 애니메이션 종료
+        if (isFiring != held)
+        {
+            isFiring = held;
+            IsSMGFiring = held;
+        }
     }
 
     protected override void Attack()
@@ -44,6 +66,13 @@ public class SMGWeapon : WeaponBase
             return;
 
         Vector3 mousePosition = Mouse.current.position.ReadValue();
+
+        float depth = Mathf.Abs(
+            Camera.main.transform.position.z - gunPoint.position.z
+        );
+
+        mousePosition.z = depth;
+
         Vector3 mouseWorldPosition =
             Camera.main.ScreenToWorldPoint(mousePosition);
 
@@ -83,5 +112,12 @@ public class SMGWeapon : WeaponBase
             damage,
             projectileLifeTime
         );
+    }
+
+    private void OnDisable()
+    {
+        triggerHeld = false;
+        isFiring = false;
+        IsSMGFiring = false;
     }
 }
