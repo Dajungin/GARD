@@ -74,7 +74,6 @@ public class EnemyAI : MonoBehaviour
     private void Start()
     {
         currentState = EnemyState.Patrol;
-
         FindPlayer();
     }
 
@@ -83,6 +82,13 @@ public class EnemyAI : MonoBehaviour
         if (player == null)
         {
             FindPlayer();
+        }
+
+        // 공격 중에는 AI 상태 변경을 하지 않음
+        if (enemyAttack != null && enemyAttack.IsAttacking)
+        {
+            currentState = EnemyState.Attack;
+            return;
         }
 
         UpdateSearchTimer();
@@ -105,6 +111,11 @@ public class EnemyAI : MonoBehaviour
     private void FixedUpdate()
     {
         if (rb == null)
+            return;
+
+        // 공격 중에는 GroundSlamAttack 등 공격 스크립트가
+        // Rigidbody2D 이동을 직접 제어하도록 함
+        if (enemyAttack != null && enemyAttack.IsAttacking)
             return;
 
         switch (currentState)
@@ -154,8 +165,7 @@ public class EnemyAI : MonoBehaviour
         // 공격한 대상이 플레이어인지 확인
         if (!attacker.CompareTag("Player"))
         {
-            Transform playerParent =
-                attacker.root;
+            Transform playerParent = attacker.root;
 
             if (!playerParent.CompareTag("Player"))
                 return;
