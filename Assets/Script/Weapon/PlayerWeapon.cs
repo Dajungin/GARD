@@ -48,13 +48,14 @@ public class PlayerWeapon : MonoBehaviour
         if (animator == null)
             animator = GetComponent<Animator>();
 
-        // 기본 무기: 권총
+        // 기본 무기는 권총
         SetWeaponType(0);
 
-        // 특수 무기 입력 초기화
+        // 레일건 충전 입력 초기화
         if (rayGun != null)
             rayGun.SetTriggerHeld(false);
 
+        // 기관단총 연사 입력 초기화
         if (smg != null)
             smg.SetTriggerHeld(false);
     }
@@ -66,25 +67,29 @@ public class PlayerWeapon : MonoBehaviour
 
     private void Update()
     {
-        // 씬 전환으로 카메라가 교체되었으면 다시 찾음
         RefreshCamera();
 
         if (Mouse.current == null)
             return;
 
         UpdateMouseDirection();
+
         HandleWeaponSelection();
+
         HandleAttackInput();
     }
 
-    // 카메라 갱신
+    // 카메라 확인
     private void RefreshCamera()
     {
         if (mainCamera == null || !mainCamera.isActiveAndEnabled)
             mainCamera = Camera.main;
     }
 
+    // =====================================
     // 무기 선택
+    // =====================================
+
     private void HandleWeaponSelection()
     {
         if (Keyboard.current == null)
@@ -121,6 +126,9 @@ public class PlayerWeapon : MonoBehaviour
         if (weapon == null)
             return;
 
+        // 이전 원거리 무기의 충전 및 연사 해제
+        StopSpecialWeapons();
+
         currentMeleeWeapon = weapon;
 
         if (weapon == dagger)
@@ -137,12 +145,7 @@ public class PlayerWeapon : MonoBehaviour
         if (weapon == null)
             return;
 
-        // 기존 충전 및 연사 입력 해제
-        if (rayGun != null)
-            rayGun.SetTriggerHeld(false);
-
-        if (smg != null)
-            smg.SetTriggerHeld(false);
+        StopSpecialWeapons();
 
         currentRangedWeapon = weapon;
 
@@ -158,16 +161,26 @@ public class PlayerWeapon : MonoBehaviour
         Debug.Log("원거리 무기 선택: " + weapon.name);
     }
 
-    // 무기 종류를 Animator에 전달
+    // 레일건 충전과 기관단총 연사 중지
+    private void StopSpecialWeapons()
+    {
+        if (rayGun != null)
+            rayGun.SetTriggerHeld(false);
+
+        if (smg != null)
+            smg.SetTriggerHeld(false);
+    }
+
+    // =====================================
+    // Animator 제어
+    // =====================================
+
     private void SetWeaponType(int weaponType)
     {
         if (animator != null)
-        {
             animator.SetInteger(WeaponTypeHash, weaponType);
-        }
     }
 
-    // 공격 애니메이션 실행
     private void PlayAttackAnimation(int weaponType)
     {
         if (animator == null)
@@ -179,36 +192,43 @@ public class PlayerWeapon : MonoBehaviour
         animator.SetTrigger(AttackHash);
     }
 
-    // 공격 입력 처리
+    // =====================================
+    // 공격 입력
+    // =====================================
+
     private void HandleAttackInput()
     {
-        bool leftHeld = Mouse.current.leftButton.isPressed;
-        bool leftPressed = Mouse.current.leftButton.wasPressedThisFrame;
-        bool rightPressed = Mouse.current.rightButton.wasPressedThisFrame;
+        bool leftHeld =
+            Mouse.current.leftButton.isPressed;
 
-        // =================================
-        // 오른쪽 클릭: 근접 공격
-        // =================================
+        bool leftPressed =
+            Mouse.current.leftButton.wasPressedThisFrame;
+
+        bool rightPressed =
+            Mouse.current.rightButton.wasPressedThisFrame;
+
+        // -----------------------------
+        // 오른쪽 클릭: 근접 무기 공격
+        // -----------------------------
+
         if (rightPressed && currentMeleeWeapon != null)
         {
             if (currentMeleeWeapon.CanAttack)
             {
                 if (currentMeleeWeapon == dagger)
-                {
                     PlayAttackAnimation(4);
-                }
+
                 else if (currentMeleeWeapon == axe)
-                {
                     PlayAttackAnimation(5);
-                }
 
                 currentMeleeWeapon.TryAttack();
             }
         }
 
-        // =================================
-        // 레일건: 충전 입력 전달
-        // =================================
+        // -----------------------------
+        // 4번: 레일건
+        // -----------------------------
+
         if (currentRangedWeapon == rayGun)
         {
             if (rayGun != null)
@@ -220,9 +240,10 @@ public class PlayerWeapon : MonoBehaviour
         if (rayGun != null)
             rayGun.SetTriggerHeld(false);
 
-        // =================================
-        // 기관단총: 연사 입력 전달
-        // =================================
+        // -----------------------------
+        // 5번: 기관단총
+        // -----------------------------
+
         if (currentRangedWeapon == smg)
         {
             if (smg != null)
@@ -234,9 +255,10 @@ public class PlayerWeapon : MonoBehaviour
         if (smg != null)
             smg.SetTriggerHeld(false);
 
-        // =================================
-        // 권총: 한 번 클릭하면 발사
-        // =================================
+        // -----------------------------
+        // 3번: 권총
+        // -----------------------------
+
         if (currentRangedWeapon == pistol && leftPressed)
         {
             if (pistol != null && pistol.CanAttack)
@@ -248,9 +270,10 @@ public class PlayerWeapon : MonoBehaviour
             return;
         }
 
-        // =================================
-        // 샷건: 한 번 클릭하면 발사
-        // =================================
+        // -----------------------------
+        // 6번: 샷건
+        // -----------------------------
+
         if (currentRangedWeapon == shotgun && leftPressed)
         {
             if (shotgun != null && shotgun.CanAttack)
@@ -261,7 +284,10 @@ public class PlayerWeapon : MonoBehaviour
         }
     }
 
-    // 마우스 방향에 따라 플레이어 회전
+    // =====================================
+    // 마우스 방향 전환
+    // =====================================
+
     private void UpdateMouseDirection()
     {
         if (mainCamera == null || playerSprite == null)
@@ -271,7 +297,8 @@ public class PlayerWeapon : MonoBehaviour
             Mouse.current.position.ReadValue();
 
         float depth = Mathf.Abs(
-            mainCamera.transform.position.z - transform.position.z
+            mainCamera.transform.position.z -
+            transform.position.z
         );
 
         Vector3 screenPosition = new Vector3(
@@ -288,11 +315,11 @@ public class PlayerWeapon : MonoBehaviour
 
         if (directionX > 0.01f)
             SetFacingDirection(true);
+
         else if (directionX < -0.01f)
             SetFacingDirection(false);
     }
 
-    // 플레이어 방향 변경
     private void SetFacingDirection(bool faceRight)
     {
         if (facingRight == faceRight)
@@ -300,11 +327,11 @@ public class PlayerWeapon : MonoBehaviour
 
         facingRight = faceRight;
 
-        // 플레이어 스프라이트 반전
+        // 플레이어 스프라이트 좌우 반전
         if (playerSprite != null)
             playerSprite.flipX = !faceRight;
 
-        // 무기 위치 반전
+        // 무기 위치 좌우 반전
         if (weaponRoot != null)
         {
             Vector3 scale = weaponRoot.localScale;
@@ -316,13 +343,12 @@ public class PlayerWeapon : MonoBehaviour
         }
     }
 
+    // =====================================
+    // 비활성화 처리
+    // =====================================
+
     private void OnDisable()
     {
-        // 씬 전환이나 오브젝트 비활성화 시 입력 해제
-        if (rayGun != null)
-            rayGun.SetTriggerHeld(false);
-
-        if (smg != null)
-            smg.SetTriggerHeld(false);
+        StopSpecialWeapons();
     }
 }

@@ -1,3 +1,4 @@
+
 using System.Collections;
 using UnityEngine;
 
@@ -12,7 +13,10 @@ public class PlayerHealth : MonoBehaviour
     private int currentHP;
     private bool isInvincible;
 
+    // 외부에서 현재 체력과 최대 체력을 확인할 수 있음
     public int CurrentHP => currentHP;
+    public int MaxHP => maxHP;
+
     public bool IsDead => currentHP <= 0;
     public bool IsInvincible => isInvincible;
 
@@ -27,10 +31,7 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        if (isInvincible)
-            return;
-
-        if (IsDead)
+        if (isInvincible || IsDead)
             return;
 
         // 음수 데미지 방지
@@ -48,7 +49,7 @@ public class PlayerHealth : MonoBehaviour
             + currentHP
         );
 
-        if (currentHP <= 0)
+        if (IsDead)
         {
             Die();
             return;
@@ -68,8 +69,7 @@ public class PlayerHealth : MonoBehaviour
         Debug.Log("플레이어 무적 시작");
 
         // Enemy 레이어와의 충돌을 잠시 무시
-        int enemyLayer =
-            LayerMask.NameToLayer("Enemy");
+        int enemyLayer = LayerMask.NameToLayer("Enemy");
 
         if (enemyLayer != -1)
         {

@@ -11,8 +11,10 @@ public class RayGunWeapon : WeaponBase
     [Header("발사 설정")]
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private Transform gunPoint;
-    [SerializeField, Min(0f)] private float projectileSpeed = 15f;
-    [SerializeField, Min(0.1f)] private float projectileLifeTime = 3f;
+    [SerializeField, Min(0f)]
+    private float projectileSpeed = 15f;
+    [SerializeField, Min(0.1f)]
+    private float projectileLifeTime = 3f;
 
     [Header("조준 설정")]
     [SerializeField] private Camera aimCamera;
@@ -25,14 +27,13 @@ public class RayGunWeapon : WeaponBase
 
     private float currentChargeTime;
     private bool charging;
-    private bool firedThisHold;
     private bool previousTriggerHeld;
 
-    private static readonly int IsRailgunChargingHash =
-        Animator.StringToHash("IsRailgunCharging");
+    private static readonly int WeaponTypeHash =
+        Animator.StringToHash("WeaponType");
 
-    private static readonly int RailgunFireHash =
-        Animator.StringToHash("RailgunFire");
+    private static readonly int AttackHash =
+        Animator.StringToHash("Attack");
 
     public float ChargeProgress =>
         charging
@@ -46,9 +47,12 @@ public class RayGunWeapon : WeaponBase
         if (Mouse.current == null)
             return;
 
+        // 마우스 버튼을 놓으면 충전 취소
         if (!triggerHeld)
         {
-            ResetCharge();
+            currentChargeTime = 0f;
+            charging = false;
+            previousTriggerHeld = false;
             return;
         }
 
@@ -56,28 +60,21 @@ public class RayGunWeapon : WeaponBase
         if (!previousTriggerHeld)
         {
             previousTriggerHeld = true;
-            firedThisHold = false;
 
-            if (CanAttack)
-            {
-                charging = true;
-                currentChargeTime = 0f;
-
-                SetChargingAnimation(true);
-
-                if (showDebugLogs)
-                    Debug.Log("레일건 충전 시작", this);
-            }
-            else
-            {
-                if (showDebugLogs)
-                    Debug.Log("레일건 공격 대기 중", this);
-
+            if (!CanAttack)
                 return;
-            }
+
+            charging = true;
+            currentChargeTime = 0f;
+
+            // 레일건 애니메이션 시작
+            PlayRailgunAnimation();
+
+            if (showDebugLogs)
+                Debug.Log("레일건 충전 시작", this);
         }
 
-        if (!charging || firedThisHold)
+        if (!charging)
             return;
 
         currentChargeTime += Time.deltaTime;
@@ -87,68 +84,54 @@ public class RayGunWeapon : WeaponBase
         {
             currentChargeTime = chargeTime;
             charging = false;
-            firedThisHold = true;
-
-            SetChargingAnimation(false);
 
             if (showDebugLogs)
                 Debug.Log("레일건 충전 완료! 발사!", this);
 
+            // 실제 투사체 발사
             TryAttack();
         }
     }
 
-    private void SetChargingAnimation(bool value)
+    public override void SetTriggerHeld(bool held)
     {
-        if (playerAnimator != null)
+        triggerHeld = held;
+
+        // 버튼을 놓으면 다음 충전을 준비
+        if (!held)
         {
-            playerAnimator.SetBool(
-                IsRailgunChargingHash,
-                value
-            );
+            currentChargeTime = 0f;
+            charging = false;
+            previousTriggerHeld = false;
         }
     }
 
-    private void PlayFireAnimation()
+    private void PlayRailgunAnimation()
     {
         if (playerAnimator == null)
             return;
 
-        playerAnimator.ResetTrigger(RailgunFireHash);
-        playerAnimator.SetTrigger(RailgunFireHash);
-    }
+        // 3번이 아니라 Animator 내부 무기 구분값 3
+        playerAnimator.SetInteger(WeaponTypeHash, 3);
 
-    private void ResetCharge()
-    {
-        currentChargeTime = 0f;
-        charging = false;
-        firedThisHold = false;
-        previousTriggerHeld = false;
-
-        SetChargingAnimation(false);
+        playerAnimator.ResetTrigger(AttackHash);
+        playerAnimator.SetTrigger(AttackHash);
     }
 
     protected override void Attack()
     {
-        if (projectilePrefab == null)
+        if (projectilePrefab == null || gunPoint == null)
         {
             Debug.LogWarning(
-                "레일건: Projectile Prefab이 연결되지 않았습니다.",
+                "레일건: Projectile Prefab 또는 Gun Point가 없습니다.",
                 this
             );
             return;
         }
 
-        if (gunPoint == null)
-        {
-            Debug.LogWarning(
-                "레일건: Gun Point가 연결되지 않았습니다.",
-                this
-            );
-            return;
-        }
-
-        Camera cam = aimCamera != null ? aimCamera : Camera.main;
+        Camera cam = aimCamera != null
+            ? aimCamera
+            : Camera.main;
 
         if (cam == null || Mouse.current == null)
             return;
@@ -157,7 +140,9 @@ public class RayGunWeapon : WeaponBase
             Mouse.current.position.ReadValue();
 
         mouseScreenPosition.z =
-            Mathf.Abs(cam.transform.position.z - gunPoint.position.z);
+            Mathf.Abs(
+                cam.transform.position.z - gunPoint.position.z
+            );
 
         Vector3 mouseWorldPosition =
             cam.ScreenToWorldPoint(mouseScreenPosition);
@@ -198,9 +183,6 @@ public class RayGunWeapon : WeaponBase
             true
         );
 
-        // 실제 투사체 생성에 성공했을 때 발사 애니메이션 실행
-        PlayFireAnimation();
-
         if (showDebugLogs)
         {
             Debug.Log(
@@ -210,17 +192,11 @@ public class RayGunWeapon : WeaponBase
         }
     }
 
-    public override void SetTriggerHeld(bool held)
-    {
-        triggerHeld = held;
-
-        if (!held)
-            ResetCharge();
-    }
-
     private void OnDisable()
     {
         triggerHeld = false;
-        ResetCharge();
+        charging = false;
+        currentChargeTime = 0f;
+        previousTriggerHeld = false;
     }
 }
