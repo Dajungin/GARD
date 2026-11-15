@@ -4,65 +4,72 @@ using UnityEngine.InputSystem;
 
 public class PlayerWeapon : MonoBehaviour
 {
-    [Header("애니메이션")]
-    [SerializeField] private Animator animator;
-
-    [Header("근접 무기")]
+    [Header("무기 설정")]
     [SerializeField] private WeaponBase dagger;
     [SerializeField] private WeaponBase axe;
-
-    [Header("원거리 무기")]
     [SerializeField] private WeaponBase pistol;
     [SerializeField] private RayGunWeapon rayGun;
     [SerializeField] private SMGWeapon smg;
     [SerializeField] private ShotgunWeapon shotgun;
 
-    [Header("플레이어 방향")]
+    [Header("플레이어 설정")]
     [SerializeField] private SpriteRenderer playerSprite;
-
-    [Header("무기 위치")]
     [SerializeField] private Transform weaponRoot;
+    [SerializeField] private Animator animator;
+
+    [Header("카메라")]
+    [SerializeField] private Camera aimCamera;
+
+    [Header("Animator 무기 번호")]
+    [SerializeField] private int pistolAnimationType = 0;
+    [SerializeField] private int smgAnimationType = 1;
+    [SerializeField] private int shotgunAnimationType = 2;
+    [SerializeField] private int railGunAnimationType = 3;
+    [SerializeField] private int daggerAnimationType = 4;
+    [SerializeField] private int axeAnimationType = 5;
+
+    [Header("디버그")]
+    [SerializeField] private bool showDebugLogs = true;
 
     private WeaponBase currentMeleeWeapon;
-    private WeaponBase currentRangedWeapon;
 
-    private bool facingRight = true;
-    private Camera mainCamera;
+    private enum WeaponMode
+    {
+        Dagger,
+        Axe,
+        Pistol,
+        RailGun,
+        SMG,
+        Shotgun
+    }
 
-    // Animator 파라미터
+    private WeaponMode currentWeaponMode = WeaponMode.Dagger;
+
     private static readonly int WeaponTypeHash =
         Animator.StringToHash("WeaponType");
 
     private static readonly int AttackHash =
         Animator.StringToHash("Attack");
 
+    private static readonly int IsSMGFiringHash =
+        Animator.StringToHash("IsSMGFiring");
+
+    private bool animatorReady;
+
     private void Awake()
     {
-        RefreshCamera();
+        FindAnimator();
 
-        // 기본 무기 설정
+        if (aimCamera == null)
+            aimCamera = Camera.main;
+
         currentMeleeWeapon = dagger;
-        currentRangedWeapon = pistol;
 
-        // Animator 자동 연결
-        if (animator == null)
-            animator = GetComponent<Animator>();
+        ValidateAnimator();
 
-        // 기본 무기는 권총
-        SetWeaponType(0);
+        SetWeaponMode(WeaponMode.Dagger);
 
-        // 레일건 충전 입력 초기화
-        if (rayGun != null)
-            rayGun.SetTriggerHeld(false);
-
-        // 기관단총 연사 입력 초기화
-        if (smg != null)
-            smg.SetTriggerHeld(false);
-    }
-
-    private void OnEnable()
-    {
-        RefreshCamera();
+        StopSpecialWeapons();
     }
 
     private void Update()
@@ -73,17 +80,112 @@ public class PlayerWeapon : MonoBehaviour
             return;
 
         UpdateMouseDirection();
-
         HandleWeaponSelection();
-
         HandleAttackInput();
     }
 
-    // 카메라 확인
+    // =====================================
+    // Animator 찾기
+    // =====================================
+
+    private void FindAnimator()
+    {
+        if (animator == null)
+            animator = GetComponent<Animator>();
+
+        if (animator == null)
+            animator = GetComponentInChildren<Animator>(true);
+
+        if (animator == null)
+            animator = GetComponentInParent<Animator>();
+
+        if (animator == null)
+        {
+            animatorReady = false;
+
+            Debug.LogError(
+                "PlayerWeapon: 플레이어 Animator를 찾지 못했습니다. " +
+                "Inspector의 Animator 슬롯에 직접 연결해주세요.",
+                this
+            );
+
+            return;
+        }
+
+        if (animator.runtimeAnimatorController == null)
+        {
+            animatorReady = false;
+
+            Debug.LogError(
+                "PlayerWeapon: Animator Controller가 연결되지 않았습니다!",
+                animator
+            );
+
+            return;
+        }
+
+        animatorReady = true;
+
+        if (showDebugLogs)
+        {
+            Debug.Log(
+                "Animator 연결 성공: " +
+                animator.gameObject.name +
+                " / Controller: " +
+                animator.runtimeAnimatorController.name,
+                animator
+            );
+        }
+    }
+
+    private void ValidateAnimator()
+    {
+        if (!animatorReady)
+            return;
+
+        bool hasWeaponType = false;
+        bool hasAttack = false;
+        bool hasSMG = false;
+
+        foreach (AnimatorControllerParameter parameter
+                 in animator.parameters)
+        {
+            if (parameter.nameHash == WeaponTypeHash &&
+                parameter.type == AnimatorControllerParameterType.Int)
+            {
+                hasWeaponType = true;
+            }
+
+            if (parameter.nameHash == AttackHash &&
+                parameter.type == AnimatorControllerParameterType.Trigger)
+            {
+                hasAttack = true;
+            }
+
+            if (parameter.nameHash == IsSMGFiringHash &&
+                parameter.type == AnimatorControllerParameterType.Bool)
+            {
+                hasSMG = true;
+            }
+        }
+
+        if (!hasWeaponType)
+            Debug.LogError("Animator에 WeaponType (Int)가 없습니다!", animator);
+
+        if (!hasAttack)
+            Debug.LogError("Animator에 Attack (Trigger)가 없습니다!", animator);
+
+        if (!hasSMG)
+            Debug.LogWarning("Animator에 IsSMGFiring (Bool)가 없습니다. SMG 애니메이션을 사용할 경우 추가해주세요.", animator);
+
+        if (hasWeaponType && hasAttack && showDebugLogs)
+            Debug.Log("Animator 필수 파라미터 확인 완료!", animator);
+    }
+
     private void RefreshCamera()
     {
-        if (mainCamera == null || !mainCamera.isActiveAndEnabled)
-            mainCamera = Camera.main;
+        if (aimCamera == null)
+            aimCamera = Camera.main;
     }
 
     // =====================================
@@ -95,101 +197,108 @@ public class PlayerWeapon : MonoBehaviour
         if (Keyboard.current == null)
             return;
 
-        // 1번: 단검
         if (Keyboard.current.digit1Key.wasPressedThisFrame)
-            SelectMeleeWeapon(dagger);
+            SetWeaponMode(WeaponMode.Dagger);
 
-        // 2번: 도끼
         if (Keyboard.current.digit2Key.wasPressedThisFrame)
-            SelectMeleeWeapon(axe);
+            SetWeaponMode(WeaponMode.Axe);
 
-        // 3번: 권총
         if (Keyboard.current.digit3Key.wasPressedThisFrame)
-            SelectRangedWeapon(pistol);
+            SetWeaponMode(WeaponMode.Pistol);
 
-        // 4번: 레일건
         if (Keyboard.current.digit4Key.wasPressedThisFrame)
-            SelectRangedWeapon(rayGun);
+            SetWeaponMode(WeaponMode.RailGun);
 
-        // 5번: 기관단총
         if (Keyboard.current.digit5Key.wasPressedThisFrame)
-            SelectRangedWeapon(smg);
+            SetWeaponMode(WeaponMode.SMG);
 
-        // 6번: 샷건
         if (Keyboard.current.digit6Key.wasPressedThisFrame)
-            SelectRangedWeapon(shotgun);
+            SetWeaponMode(WeaponMode.Shotgun);
     }
 
-    // 근접 무기 선택
-    private void SelectMeleeWeapon(WeaponBase weapon)
+    private void SetWeaponMode(WeaponMode mode)
     {
-        if (weapon == null)
-            return;
-
-        // 이전 원거리 무기의 충전 및 연사 해제
         StopSpecialWeapons();
 
-        currentMeleeWeapon = weapon;
+        currentWeaponMode = mode;
 
-        if (weapon == dagger)
-            SetWeaponType(4);
-        else if (weapon == axe)
-            SetWeaponType(5);
+        int animationType = 0;
 
-        Debug.Log("근접 무기 선택: " + weapon.name);
-    }
+        switch (mode)
+        {
+            case WeaponMode.Dagger:
+                currentMeleeWeapon = dagger;
+                animationType = daggerAnimationType;
+                break;
 
-    // 원거리 무기 선택
-    private void SelectRangedWeapon(WeaponBase weapon)
-    {
-        if (weapon == null)
-            return;
+            case WeaponMode.Axe:
+                currentMeleeWeapon = axe;
+                animationType = axeAnimationType;
+                break;
 
-        StopSpecialWeapons();
+            case WeaponMode.Pistol:
+                currentMeleeWeapon = null;
+                animationType = pistolAnimationType;
+                break;
 
-        currentRangedWeapon = weapon;
+            case WeaponMode.RailGun:
+                currentMeleeWeapon = null;
+                animationType = railGunAnimationType;
+                break;
 
-        if (weapon == pistol)
-            SetWeaponType(0);
-        else if (weapon == smg)
-            SetWeaponType(1);
-        else if (weapon == shotgun)
-            SetWeaponType(2);
-        else if (weapon == rayGun)
-            SetWeaponType(3);
+            case WeaponMode.SMG:
+                currentMeleeWeapon = null;
+                animationType = smgAnimationType;
+                break;
 
-        Debug.Log("원거리 무기 선택: " + weapon.name);
-    }
+            case WeaponMode.Shotgun:
+                currentMeleeWeapon = null;
+                animationType = shotgunAnimationType;
+                break;
+        }
 
-    // 레일건 충전과 기관단총 연사 중지
-    private void StopSpecialWeapons()
-    {
-        if (rayGun != null)
-            rayGun.SetTriggerHeld(false);
+        SetAnimatorWeaponType(animationType);
 
-        if (smg != null)
-            smg.SetTriggerHeld(false);
+        if (showDebugLogs)
+            Debug.Log("무기 선택: " + mode + " / WeaponType: " + animationType, this);
     }
 
     // =====================================
-    // Animator 제어
+    // Animator 파라미터 제어
     // =====================================
 
-    private void SetWeaponType(int weaponType)
+    private void SetAnimatorWeaponType(int weaponType)
     {
-        if (animator != null)
-            animator.SetInteger(WeaponTypeHash, weaponType);
+        if (!animatorReady)
+            return;
+
+        animator.SetInteger(WeaponTypeHash, weaponType);
     }
 
     private void PlayAttackAnimation(int weaponType)
     {
-        if (animator == null)
+        if (!animatorReady)
+        {
+            Debug.LogError(
+                "공격 애니메이션 실패: Animator가 준비되지 않았습니다.",
+                this
+            );
             return;
+        }
 
         animator.SetInteger(WeaponTypeHash, weaponType);
-
         animator.ResetTrigger(AttackHash);
         animator.SetTrigger(AttackHash);
+
+        if (showDebugLogs)
+        {
+            Debug.Log(
+                "공격 애니메이션 요청 / WeaponType: " + weaponType +
+                " / 현재 Animator 상태: " +
+                animator.GetCurrentAnimatorStateInfo(0).shortNameHash,
+                animator
+            );
+        }
     }
 
     // =====================================
@@ -198,154 +307,145 @@ public class PlayerWeapon : MonoBehaviour
 
     private void HandleAttackInput()
     {
+        bool leftPressed =
+            Mouse.current.leftButton.wasPressedThisFrame;
+
         bool leftHeld =
             Mouse.current.leftButton.isPressed;
 
-        bool leftPressed =
-            Mouse.current.leftButton.wasPressedThisFrame;
+        bool leftReleased =
+            Mouse.current.leftButton.wasReleasedThisFrame;
 
         bool rightPressed =
             Mouse.current.rightButton.wasPressedThisFrame;
 
-        // -----------------------------
-        // 오른쪽 클릭: 근접 무기 공격
-        // -----------------------------
+        // 근접 무기: 오른쪽 클릭
+        if (rightPressed)
+            HandleMeleeAttack();
 
-        if (rightPressed && currentMeleeWeapon != null)
+        // 원거리 무기: 왼쪽 클릭
+        switch (currentWeaponMode)
         {
-            if (currentMeleeWeapon.CanAttack)
-            {
-                if (currentMeleeWeapon == dagger)
-                    PlayAttackAnimation(4);
+            case WeaponMode.Pistol:
 
-                else if (currentMeleeWeapon == axe)
-                    PlayAttackAnimation(5);
+                if (leftPressed)
+                {
+                    PlayAttackAnimation(pistolAnimationType);
 
-                currentMeleeWeapon.TryAttack();
-            }
-        }
+                    if (pistol != null)
+                        pistol.TryAttack();
+                }
+                break;
 
-        // -----------------------------
-        // 4번: 레일건
-        // -----------------------------
+            case WeaponMode.Shotgun:
 
-        if (currentRangedWeapon == rayGun)
-        {
-            if (rayGun != null)
-                rayGun.SetTriggerHeld(leftHeld);
+                if (leftPressed)
+                {
+                    PlayAttackAnimation(shotgunAnimationType);
 
-            return;
-        }
+                    if (shotgun != null)
+                        shotgun.TryAttack();
+                }
+                break;
 
-        if (rayGun != null)
-            rayGun.SetTriggerHeld(false);
+            case WeaponMode.RailGun:
 
-        // -----------------------------
-        // 5번: 기관단총
-        // -----------------------------
+                if (rayGun != null)
+                {
+                    if (leftPressed || leftHeld)
+                        rayGun.SetTriggerHeld(leftHeld);
 
-        if (currentRangedWeapon == smg)
-        {
-            if (smg != null)
-                smg.SetTriggerHeld(leftHeld);
+                    if (leftReleased)
+                        rayGun.SetTriggerHeld(false);
+                }
+                break;
 
-            return;
-        }
+            case WeaponMode.SMG:
 
-        if (smg != null)
-            smg.SetTriggerHeld(false);
+                if (smg != null)
+                {
+                    if (leftPressed || leftHeld)
+                        smg.SetTriggerHeld(leftHeld);
 
-        // -----------------------------
-        // 3번: 권총
-        // -----------------------------
-
-        if (currentRangedWeapon == pistol && leftPressed)
-        {
-            if (pistol != null && pistol.CanAttack)
-            {
-                PlayAttackAnimation(0);
-                pistol.TryAttack();
-            }
-
-            return;
-        }
-
-        // -----------------------------
-        // 6번: 샷건
-        // -----------------------------
-
-        if (currentRangedWeapon == shotgun && leftPressed)
-        {
-            if (shotgun != null && shotgun.CanAttack)
-            {
-                PlayAttackAnimation(2);
-                shotgun.TryAttack();
-            }
+                    if (leftReleased)
+                        smg.SetTriggerHeld(false);
+                }
+                break;
         }
     }
 
     // =====================================
-    // 마우스 방향 전환
+    // 근접 공격
+    // =====================================
+
+    private void HandleMeleeAttack()
+    {
+        if (currentMeleeWeapon == null)
+            return;
+
+        int animationType =
+            currentWeaponMode == WeaponMode.Dagger
+                ? daggerAnimationType
+                : axeAnimationType;
+
+        PlayAttackAnimation(animationType);
+
+        currentMeleeWeapon.TryAttack();
+    }
+
+    // =====================================
+    // 마우스 방향
     // =====================================
 
     private void UpdateMouseDirection()
     {
-        if (mainCamera == null || playerSprite == null)
+        if (playerSprite == null || aimCamera == null)
             return;
 
-        Vector2 mouseScreenPosition =
+        Vector2 mousePosition =
             Mouse.current.position.ReadValue();
 
         float depth = Mathf.Abs(
-            mainCamera.transform.position.z -
-            transform.position.z
-        );
-
-        Vector3 screenPosition = new Vector3(
-            mouseScreenPosition.x,
-            mouseScreenPosition.y,
-            depth
+            aimCamera.transform.position.z - transform.position.z
         );
 
         Vector3 mouseWorldPosition =
-            mainCamera.ScreenToWorldPoint(screenPosition);
+            aimCamera.ScreenToWorldPoint(
+                new Vector3(
+                    mousePosition.x,
+                    mousePosition.y,
+                    depth
+                )
+            );
 
-        float directionX =
-            mouseWorldPosition.x - transform.position.x;
+        bool mouseOnRight =
+            mouseWorldPosition.x >= transform.position.x;
 
-        if (directionX > 0.01f)
-            SetFacingDirection(true);
+        playerSprite.flipX = !mouseOnRight;
 
-        else if (directionX < -0.01f)
-            SetFacingDirection(false);
-    }
-
-    private void SetFacingDirection(bool faceRight)
-    {
-        if (facingRight == faceRight)
-            return;
-
-        facingRight = faceRight;
-
-        // 플레이어 스프라이트 좌우 반전
-        if (playerSprite != null)
-            playerSprite.flipX = !faceRight;
-
-        // 무기 위치 좌우 반전
         if (weaponRoot != null)
         {
             Vector3 scale = weaponRoot.localScale;
 
             scale.x = Mathf.Abs(scale.x) *
-                      (faceRight ? 1f : -1f);
+                (mouseOnRight ? 1f : -1f);
 
             weaponRoot.localScale = scale;
         }
     }
 
     // =====================================
-    // 비활성화 처리
+    // 특수 무기 초기화
     // =====================================
+
+    private void StopSpecialWeapons()
+    {
+        if (rayGun != null)
+            rayGun.SetTriggerHeld(false);
+
+        if (smg != null)
+            smg.SetTriggerHeld(false);
+    }
 
     private void OnDisable()
     {
