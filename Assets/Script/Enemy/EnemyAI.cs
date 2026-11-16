@@ -17,12 +17,12 @@ public class EnemyAI : MonoBehaviour
     [Header("공격")]
     [SerializeField] private EnemyAttack enemyAttack;
 
-    [Header("순찰 구역")]
-    [SerializeField] private Transform leftPoint;
-    [SerializeField] private Transform rightPoint;
-
     [Header("순찰 설정")]
+    [Tooltip("몬스터의 좌우 순찰 속도")]
     [SerializeField] private float patrolSpeed = 2f;
+
+    [Tooltip("최초 생성 위치에서 좌우로 이동할 거리")]
+    [SerializeField, Min(0.1f)] private float patrolDistance = 3f;
 
     [Header("추적 설정")]
     [SerializeField] private float chaseSpeed = 4f;
@@ -45,7 +45,11 @@ public class EnemyAI : MonoBehaviour
     private Rigidbody2D rb;
     private EnemyState currentState;
 
+    // 현재 바라보는 방향
     private bool movingRight = true;
+
+    // 몬스터가 처음 생성된 위치
+    private Vector2 spawnPosition;
 
     // 공격받았을 때 추적하는지 여부
     private bool isAlerted;
@@ -73,8 +77,17 @@ public class EnemyAI : MonoBehaviour
 
     private void Start()
     {
+        // 몬스터가 생성된 위치를 순찰 기준점으로 저장
+        spawnPosition = rb != null ? rb.position : transform.position;
+
         currentState = EnemyState.Patrol;
+
+        movingRight = true;
+
         FindPlayer();
+
+        // 처음 생성된 순간 오른쪽을 바라보도록 설정
+        Flip(true);
     }
 
     private void Update()
@@ -98,7 +111,7 @@ public class EnemyAI : MonoBehaviour
             // 플레이어를 직접 발견하면 위치 갱신
             lastKnownPlayerPosition = player.position;
 
-            // 시야로 발견한 경우에도 기존처럼 추적
+            // 공격받은 상태가 아니라면 일반 추적
             if (!isAlerted)
             {
                 currentState = EnemyState.Chase;
@@ -113,8 +126,7 @@ public class EnemyAI : MonoBehaviour
         if (rb == null)
             return;
 
-        // 공격 중에는 GroundSlamAttack 등 공격 스크립트가
-        // Rigidbody2D 이동을 직접 제어하도록 함
+        // 공격 중에는 공격 스크립트가 Rigidbody2D 이동을 제어
         if (enemyAttack != null && enemyAttack.IsAttacking)
             return;
 
@@ -297,34 +309,32 @@ public class EnemyAI : MonoBehaviour
 
     private void Patrol()
     {
-        if (leftPoint == null || rightPoint == null)
+        // 최초 생성 위치를 기준으로 좌우 이동 범위 계산
+        float leftLimit = spawnPosition.x - patrolDistance;
+        float rightLimit = spawnPosition.x + patrolDistance;
+
+        float currentX = rb.position.x;
+
+        // 오른쪽 끝에 도달하면 왼쪽으로 전환
+        if (movingRight && currentX >= rightLimit)
         {
-            StopMovement();
-            return;
+            movingRight = false;
+        }
+        // 왼쪽 끝에 도달하면 오른쪽으로 전환
+        else if (!movingRight && currentX <= leftLimit)
+        {
+            movingRight = true;
         }
 
-        Vector2 velocity = rb.linearVelocity;
+        // 이동 방향에 따른 속도 설정
+        float direction = movingRight ? 1f : -1f;
 
-        if (movingRight)
-        {
-            velocity.x = patrolSpeed;
+        rb.linearVelocity = new Vector2(
+            direction * patrolSpeed,
+            rb.linearVelocity.y
+        );
 
-            if (transform.position.x >= rightPoint.position.x)
-            {
-                movingRight = false;
-            }
-        }
-        else
-        {
-            velocity.x = -patrolSpeed;
-
-            if (transform.position.x <= leftPoint.position.x)
-            {
-                movingRight = true;
-            }
-        }
-
-        rb.linearVelocity = velocity;
+        // 스프라이트 방향 변경
         Flip(movingRight);
     }
 
@@ -480,19 +490,36 @@ public class EnemyAI : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
+        // 시야 범위
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, viewDistance);
 
-        if (leftPoint != null && rightPoint != null)
-        {
-            Gizmos.color = Color.cyan;
+        // 순찰 범위
+        Vector2 center = Application.isPlaying
+            ? spawnPosition
+            : (Vector2)transform.position;
 
-            Gizmos.DrawLine(
-                leftPoint.position,
-                rightPoint.position
-            );
-        }
+        float distance = Mathf.Max(0.1f, patrolDistance);
 
+        Gizmos.color = Color.cyan;
+
+        Vector3 left = new Vector3(
+            center.x - distance,
+            center.y,
+            transform.position.z
+        );
+
+        Vector3 right = new Vector3(
+            center.x + distance,
+            center.y,
+            transform.position.z
+        );
+
+        Gizmos.DrawLine(left, right);
+        Gizmos.DrawWireSphere(left, 0.15f);
+        Gizmos.DrawWireSphere(right, 0.15f);
+
+        // 시야 방향
         Vector2 forward = movingRight
             ? Vector2.right
             : Vector2.left;
@@ -517,6 +544,7 @@ public class EnemyAI : MonoBehaviour
             rightView * viewDistance
         );
 
+        // 공격받은 상태의 마지막 플레이어 위치
         if (isAlerted)
         {
             Gizmos.color = Color.magenta;

@@ -21,8 +21,12 @@ public class MonsterSpawner : MonoBehaviour
     [Header("겹침 검사 레이어")]
     [SerializeField] private LayerMask blockingLayers;
 
-    // 한 번만 생성하기 위한 변수
-    private bool hasSpawned = false;
+    private int spawnedCount;
+    private int registeredCount;
+
+    private bool hasSpawned;
+
+    private StageEnemyManager enemyManager;
 
     private void Start()
     {
@@ -31,67 +35,143 @@ public class MonsterSpawner : MonoBehaviour
 
     public void SpawnMonsters()
     {
-        // 이미 생성했다면 다시 실행하지 않음
         if (hasSpawned)
             return;
 
+        if (spawnArea == null ||
+            monsterPrefabs == null ||
+            monsterPrefabs.Length == 0 ||
+            totalSpawnCount <= 0)
+        {
+            Debug.LogError(
+                "[MonsterSpawner] 환경 설정 오류"
+            );
+
+            return;
+        }
+
+        enemyManager = StageEnemyManager.Instance;
+
+        if (enemyManager == null)
+        {
+            Debug.LogError(
+                "[MonsterSpawner] StageEnemyManager가 없습니다."
+            );
+
+            return;
+        }
+
         hasSpawned = true;
 
-        // 스폰 영역 확인
-        if (spawnArea == null)
-        {
-            Debug.LogError("MonsterSpawner: SpawnArea가 등록되지 않았습니다.");
-            return;
-        }
+        spawnedCount = 0;
+        registeredCount = 0;
 
-        // 몬스터 프리팹 확인
-        if (monsterPrefabs == null || monsterPrefabs.Length == 0)
-        {
-            Debug.LogError("MonsterSpawner: 몬스터 프리팹이 없습니다.");
-            return;
-        }
+        // 반드시 몬스터 생성 전에 호출
+        enemyManager.BeginEnemySpawning();
 
-        if (totalSpawnCount <= 0)
-        {
-            Debug.LogWarning("MonsterSpawner: 생성할 몬스터 수가 0 이하입니다.");
-            return;
-        }
-
-        int spawnedCount = 0;
+        Debug.Log("[MonsterSpawner] 몬스터 생성 시작");
 
         for (int i = 0; i < totalSpawnCount; i++)
         {
             GameObject selectedMonster = GetRandomMonster();
 
             if (selectedMonster == null)
-                continue;
-
-            if (TryGetSpawnPosition(out Vector2 spawnPosition))
-            {
-                Instantiate(
-                    selectedMonster,
-                    spawnPosition,
-                    Quaternion.identity
-                );
-
-                spawnedCount++;
-            }
-            else
             {
                 Debug.LogWarning(
-                    $"MonsterSpawner: {i + 1}번째 몬스터의 생성 위치를 찾지 못했습니다."
+                    "사용 가능한 몬스터 프리팹이 없습니다."
+                );
+
+                continue;
+            }
+
+            if (!TryGetSpawnPosition(out Vector2 spawnPosition))
+            {
+                Debug.LogWarning(
+                    $"{i + 1}번째 몬스터의 위치를 찾지 못했습니다."
                 );
 
                 break;
             }
+
+            GameObject monsterInstance = Instantiate(
+                selectedMonster,
+                spawnPosition,
+                Quaternion.identity
+            );
+
+            if (monsterInstance == null)
+                continue;
+
+            EnemyHealth enemyHealth =
+                monsterInstance.GetComponent<EnemyHealth>();
+
+            if (enemyHealth == null)
+            {
+                enemyHealth =
+                    monsterInstance.GetComponentInChildren<EnemyHealth>(true);
+            }
+
+            if (enemyHealth == null)
+            {
+                Debug.LogError(
+                    $"[MonsterSpawner] {monsterInstance.name}에 EnemyHealth가 없습니다."
+                );
+
+                Destroy(monsterInstance);
+                continue;
+            }
+
+            // 생성된 정상 몬스터 수 증가
+            spawnedCount++;
+
+            // 몬스터 스포너 연결 및 등록
+            enemyHealth.SetSpawner(this);
+
+            Debug.Log(
+                $"[MonsterSpawner] 몬스터 생성: {spawnedCount}/{totalSpawnCount}"
+            );
         }
 
         Debug.Log(
-            $"몬스터 생성 완료! {spawnedCount} / {totalSpawnCount}마리"
+            $"[MonsterSpawner] 생성 작업 종료 / 생성: {spawnedCount} / 등록 콜백: {registeredCount}"
+        );
+
+        // 한 마리도 생성되지 않았다면 포탈을 열지 않음
+        if (spawnedCount == 0)
+        {
+            Debug.LogError(
+                "[MonsterSpawner] 생성된 몬스터가 없습니다. 포탈 잠금 유지"
+            );
+
+            return;
+        }
+
+        // 모든 생성 작업이 끝난 후 딱 한 번 호출
+        enemyManager.FinishEnemySpawning();
+
+        Debug.Log(
+            $"[MonsterSpawner] 모든 몬스터 생성 완료: {spawnedCount}마리"
+        );
+
+        if (registeredCount != spawnedCount)
+        {
+            Debug.LogWarning(
+                $"[MonsterSpawner] 등록 콜백 수 확인 필요: {registeredCount}/{spawnedCount}"
+            );
+        }
+    }
+
+    // EnemyHealth에서 호출
+    // 여기서는 생성 완료 판정을 하지 않음
+    public void Registered()
+    {
+        registeredCount++;
+
+        Debug.Log(
+            $"[MonsterSpawner] 몬스터 등록 확인: {registeredCount}/{totalSpawnCount}"
         );
     }
 
-    // 등록한 몬스터 중 랜덤 선택
     private GameObject GetRandomMonster()
     {
         int validCount = 0;
@@ -99,29 +179,30 @@ public class MonsterSpawner : MonoBehaviour
         foreach (GameObject monster in monsterPrefabs)
         {
             if (monster != null)
+            {
                 validCount++;
+            }
         }
 
         if (validCount == 0)
             return null;
 
-        int randomIndex = Random.Range(0, validCount);
+        int index = Random.Range(0, validCount);
 
         foreach (GameObject monster in monsterPrefabs)
         {
             if (monster == null)
                 continue;
 
-            if (randomIndex == 0)
+            if (index == 0)
                 return monster;
 
-            randomIndex--;
+            index--;
         }
 
         return null;
     }
 
-    // 맵 내부에서 겹치지 않는 위치 찾기
     private bool TryGetSpawnPosition(out Vector2 result)
     {
         result = Vector2.zero;
@@ -130,7 +211,6 @@ public class MonsterSpawner : MonoBehaviour
 
         float radius = Mathf.Max(0f, spawnCheckRadius);
 
-        // 몬스터가 맵 경계를 넘어가지 않도록 여유 공간 확보
         float minX = bounds.min.x + radius;
         float maxX = bounds.max.x - radius;
 
@@ -142,40 +222,22 @@ public class MonsterSpawner : MonoBehaviour
 
         for (int i = 0; i < maxAttemptsPerMonster; i++)
         {
-            Vector2 randomPosition = new Vector2(
+            Vector2 position = new Vector2(
                 Random.Range(minX, maxX),
                 Random.Range(minY, maxY)
             );
 
-            // 다른 오브젝트와 겹치는지 검사
-            Collider2D hit = Physics2D.OverlapCircle(
-                randomPosition,
+            if (Physics2D.OverlapCircle(
+                position,
                 radius,
                 blockingLayers
-            );
-
-            // 아무것도 없다면 생성 가능
-            if (hit == null)
+            ) == null)
             {
-                result = randomPosition;
+                result = position;
                 return true;
             }
         }
 
         return false;
-    }
-
-    // 스폰 영역 확인용 Gizmos
-    private void OnDrawGizmosSelected()
-    {
-        if (spawnArea == null)
-            return;
-
-        Gizmos.color = Color.green;
-
-        Gizmos.DrawWireCube(
-            spawnArea.bounds.center,
-            spawnArea.bounds.size
-        );
     }
 }

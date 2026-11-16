@@ -12,13 +12,18 @@ public class CameraFollow : MonoBehaviour
     [SerializeField, Min(1f)]
     private float cameraSize = 7f;
 
-    [Header("플레이어 화면 위치")]
-    [Tooltip("양수일수록 플레이어가 화면 아래쪽에 보입니다.")]
-    [SerializeField] private float verticalOffset = 2f;
+    [Header("Y축 설정")]
+    [Tooltip("체크하면 플레이어의 Y축도 따라갑니다.")]
+    [SerializeField] private bool followTargetY = false;
+
+    [Tooltip("Y축 추적을 끄면 이 위치에 카메라가 고정됩니다.")]
+    [SerializeField] private float fixedYPosition = 0f;
 
     [Header("카메라 움직임")]
     [SerializeField] private Vector3 offset = new Vector3(0f, 0f, -10f);
-    [SerializeField, Min(0f)] private float smoothSpeed = 8f;
+
+    [SerializeField, Min(0f)]
+    private float smoothSpeed = 8f;
 
     private Camera cam;
 
@@ -46,9 +51,13 @@ public class CameraFollow : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        // 씬이 바뀌면 플레이어를 다시 찾습니다.
+        target = null;
+
         FindPlayer();
-        SnapToPlayer();
+
         ApplyCameraSettings();
+        SnapToPlayer();
     }
 
     private void ApplyCameraSettings()
@@ -56,8 +65,11 @@ public class CameraFollow : MonoBehaviour
         if (cam == null)
             cam = GetComponent<Camera>();
 
-        if (cam != null && cam.orthographic)
+        if (cam != null)
+        {
+            cam.orthographic = true;
             cam.orthographicSize = cameraSize;
+        }
     }
 
     private void LateUpdate()
@@ -81,24 +93,30 @@ public class CameraFollow : MonoBehaviour
 
     private Vector3 GetCameraTargetPosition()
     {
-        Vector3 position = target.position + offset;
+        float targetY = followTargetY
+            ? target.position.y + offset.y
+            : fixedYPosition;
 
-        // 카메라가 플레이어보다 위를 바라보게 하여
-        // 플레이어가 화면 아래쪽에 보이도록 함
-        position.y += verticalOffset;
-
-        return position;
+        return new Vector3(
+            target.position.x + offset.x,
+            targetY,
+            offset.z
+        );
     }
 
     private void FindPlayer()
     {
-        if (target != null)
-            return;
-
         GameObject player = GameObject.FindGameObjectWithTag("Player");
 
         if (player != null)
+        {
             target = player.transform;
+        }
+        else
+        {
+            target = null;
+            Debug.LogWarning("[CameraFollow] Player를 찾을 수 없습니다.");
+        }
     }
 
     private void SnapToPlayer()

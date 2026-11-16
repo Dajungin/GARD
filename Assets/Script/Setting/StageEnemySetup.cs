@@ -5,13 +5,17 @@ public class StageEnemySetup : MonoBehaviour
 {
     private void Start()
     {
-        if (StageEnemyManager.Instance != null)
+        if (StageEnemyManager.Instance == null)
         {
-            StageEnemyManager.Instance.FinishEnemySpawning();
+            Debug.LogError(
+                "[StageEnemySetup] StageEnemyManager가 없습니다."
+            );
+
+            return;
         }
-        else
-        {
-            Debug.LogError("StageEnemyManager가 없습니다.");
-        }
+
+        Debug.Log(
+            "[StageEnemySetup] 스테이지 초기화 완료. 몬스터 생성은 MonsterSpawner가 담당합니다."
+        );
     }
 }

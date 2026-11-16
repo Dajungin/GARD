@@ -289,9 +289,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAI
   player: {fileID: 0}
   enemyAttack: {fileID: 8612574289418381633}
-  leftPoint: {fileID: 0}
-  rightPoint: {fileID: 0}
   patrolSpeed: 2
+  patrolDistance: 3
   chaseSpeed: 4
   searchDuration: 5
   viewDistance: 6

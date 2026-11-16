@@ -1,0 +1,29 @@
+fileFormatVersion: 2
+guid: 5e04740160c9deb4aa4debbc8d73848e
+timeCreated: 1500469428
+licenseType: Store
+AudioImporter:
+  serializedVersion: 6
+  defaultSettings:
+    loadType: 0
+    sampleRateSetting: 0
+    sampleRateOverride: 44100
+    compressionFormat: 1
+    quality: 1
+    conversionMode: 0
+  platformSettingOverrides: {}
+  forceToMono: 0
+  normalize: 1
+  preloadAudioData: 1
+  loadInBackground: 0
+  3D: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 50235
+  packageName: Pro Sound Collection
+  packageVersion: 1.3
+  assetPath: Assets/Gamemaster Audio - Pro Sound Collection/Retro_Classic/Footstep_Movement/retro_move_walk_tick_08.wav
+  uploadId: 190852
