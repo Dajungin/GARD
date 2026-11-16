@@ -1,7 +1,9 @@
 
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class PlayerHealth : MonoBehaviour
 {
     [Header("플레이어 체력")]
@@ -10,44 +12,77 @@ public class PlayerHealth : MonoBehaviour
     [Header("피격 후 무적 시간")]
     [SerializeField] private float invincibleTime = 2f;
 
+    [Header("시작 위치")]
+    [SerializeField] private Transform restartPoint;
+
+    private static bool resetAfterSceneLoad;
+
     private int currentHP;
     private bool isInvincible;
+    private bool gameOverStarted;
 
-    // 외부에서 현재 체력과 최대 체력을 확인할 수 있음
+    private Rigidbody2D rb;
+
+    private Vector3 initialPosition;
+    private Quaternion initialRotation;
+
     public int CurrentHP => currentHP;
     public int MaxHP => maxHP;
-
     public bool IsDead => currentHP <= 0;
     public bool IsInvincible => isInvincible;
 
     private void Awake()
     {
+        rb = GetComponent<Rigidbody2D>();
+
         currentHP = maxHP;
+
+        initialPosition = transform.position;
+        initialRotation = transform.rotation;
     }
 
-    // =========================================================
-    // 데미지 받기
-    // =========================================================
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    // 재시작 요청
+    public static void RequestResetAfterSceneLoad()
+    {
+        resetAfterSceneLoad = true;
+    }
+
+    // 게임 씬이 다시 로드되면 실행
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (!resetAfterSceneLoad)
+            return;
+
+        resetAfterSceneLoad = false;
+
+        ResetForRestart();
+
+        Debug.Log("[PlayerHealth] 플레이어 초기화 완료");
+    }
 
     public void TakeDamage(int damage)
     {
-        if (isInvincible || IsDead)
+        if (isInvincible || IsDead || gameOverStarted)
             return;
 
-        // 음수 데미지 방지
         damage = Mathf.Max(0, damage);
 
-        currentHP -= damage;
+        if (damage <= 0)
+            return;
 
-        // HP가 0 아래로 내려가지 않도록
-        currentHP = Mathf.Max(0, currentHP);
+        currentHP = Mathf.Max(0, currentHP - damage);
 
-        Debug.Log(
-            "플레이어 피격! 데미지 : "
-            + damage
-            + " / 현재 HP : "
-            + currentHP
-        );
+        Debug.Log("플레이어 HP : " + currentHP);
 
         if (IsDead)
         {
@@ -58,17 +93,10 @@ public class PlayerHealth : MonoBehaviour
         StartCoroutine(InvincibilityCoroutine());
     }
 
-    // =========================================================
-    // 무적
-    // =========================================================
-
     private IEnumerator InvincibilityCoroutine()
     {
         isInvincible = true;
 
-        Debug.Log("플레이어 무적 시작");
-
-        // Enemy 레이어와의 충돌을 잠시 무시
         int enemyLayer = LayerMask.NameToLayer("Enemy");
 
         if (enemyLayer != -1)
@@ -92,31 +120,79 @@ public class PlayerHealth : MonoBehaviour
         }
 
         isInvincible = false;
-
-        Debug.Log("플레이어 무적 종료");
     }
-
-    // =========================================================
-    // 기존 일반 충돌
-    // =========================================================
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!collision.gameObject.CompareTag("Enemy"))
-            return;
-
-        // 일반 충돌에서는 기본 데미지 1
-        TakeDamage(1);
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            TakeDamage(1);
+        }
     }
-
-    // =========================================================
-    // 사망
-    // =========================================================
 
     private void Die()
     {
-        Debug.Log("플레이어 사망");
+        if (gameOverStarted)
+            return;
 
-        gameObject.SetActive(false);
+        gameOverStarted = true;
+
+        Time.timeScale = 0f;
+
+        SoundSettingsUI gameOverUI =
+            FindFirstObjectByType<SoundSettingsUI>(
+                FindObjectsInactive.Include
+            );
+
+        if (gameOverUI != null)
+        {
+            gameOverUI.ShowGameOver();
+        }
+        else
+        {
+            Debug.LogError(
+                "[PlayerHealth] SoundSettingsUI를 찾을 수 없습니다."
+            );
+        }
     }
+
+    public void ResetForRestart()
+    {
+        StopAllCoroutines();
+
+        currentHP = maxHP;
+        isInvincible = false;
+        gameOverStarted = false;
+
+        if (restartPoint != null)
+        {
+            transform.position = restartPoint.position;
+            transform.rotation = restartPoint.rotation;
+        }
+        else
+        {
+            transform.position = initialPosition;
+            transform.rotation = initialRotation;
+        }
+
+        if (rb == null)
+            rb = GetComponent<Rigidbody2D>();
+
+        rb.linearVelocity = Vector2.zero;
+        rb.angularVelocity = 0f;
+
+        int enemyLayer = LayerMask.NameToLayer("Enemy");
+
+        if (enemyLayer != -1)
+        {
+            Physics2D.IgnoreLayerCollision(
+                gameObject.layer,
+                enemyLayer,
+                false
+            );
+        }
+
+        Debug.Log("[PlayerHealth] HP 초기화: " + currentHP);
+    }
+
 }

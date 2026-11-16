@@ -240,4 +240,14 @@ public class MonsterSpawner : MonoBehaviour
 
         return false;
     }
+    public void ResetForRestart()
+    {
+        StopAllCoroutines();
+
+        // 기존 스폰 진행 횟수 초기화
+        // 예: spawnedCount = 0;
+
+        // 기존 스폰 코루틴 다시 시작
+        // 예: StartCoroutine(SpawnCoroutine());
+    }
 }

@@ -20,7 +20,7 @@ public class StageEnemyManager : MonoBehaviour
 
     public bool IsSpawningFinished => isSpawningFinished;
 
-    // 생성이 끝났고, 살아 있는 몬스터가 없을 때만 true
+    // 생성이 끝났고 살아 있는 몬스터가 없을 때만 true
     public bool AllEnemiesDefeated =>
         isSpawningFinished &&
         !isSpawning &&
@@ -51,7 +51,7 @@ public class StageEnemyManager : MonoBehaviour
         Debug.Log("[StageEnemyManager] 초기화 완료");
     }
 
-    // 몬스터 생성을 시작하기 전에 호출
+    // 몬스터 생성 시작
     public void BeginEnemySpawning()
     {
         isSpawning = true;
@@ -91,7 +91,7 @@ public class StageEnemyManager : MonoBehaviour
         CheckAllEnemiesDefeated();
     }
 
-    // 모든 몬스터의 생성 작업이 끝났을 때 호출
+    // 모든 몬스터 생성 완료
     public void FinishEnemySpawning()
     {
         if (isSpawningFinished)
@@ -110,15 +110,12 @@ public class StageEnemyManager : MonoBehaviour
     // 모든 몬스터 처치 여부 확인
     private void CheckAllEnemiesDefeated()
     {
-        // 생성이 끝나지 않았다면 판정하지 않음
         if (!isSpawningFinished || isSpawning)
             return;
 
-        // 살아 있는 몬스터가 있다면 포탈을 열지 않음
         if (aliveEnemies.Count > 0)
             return;
 
-        // 이벤트 중복 호출 방지
         if (completionNotified)
             return;
 
@@ -127,6 +124,18 @@ public class StageEnemyManager : MonoBehaviour
         Debug.Log("[StageEnemyManager] 모든 몬스터 처치 완료!");
 
         OnAllEnemiesDefeated?.Invoke();
+    }
+
+    // 재시작 초기화
+    public void ResetForRestart()
+    {
+        aliveEnemies.Clear();
+
+        isSpawning = false;
+        isSpawningFinished = false;
+        completionNotified = false;
+
+        Debug.Log("[StageEnemyManager] 재시작 초기화 완료");
     }
 
     private void OnDestroy()

@@ -22,10 +22,11 @@ public class ScreenSettings : MonoBehaviour
     [Tooltip("0: 전체 화면, 1: 테두리 없는 창, 2: 일반 창")]
     [SerializeField] private int defaultScreenMode = 0;
 
-    private List<Vector2Int> availableResolutions =
+    private readonly List<Vector2Int> availableResolutions =
         new List<Vector2Int>();
 
     private Coroutine windowCoroutine;
+    private bool isInitializing;
 
     private const string MODE_KEY = "ScreenMode";
     private const string WIDTH_KEY = "ScreenWidth";
@@ -38,11 +39,33 @@ public class ScreenSettings : MonoBehaviour
             resetSettingsButton == null ||
             windowController == null)
         {
-            Debug.LogError("ScreenSettings Inspector 연결을 확인하세요.");
+            Debug.LogError("[ScreenSettings] Inspector 연결을 확인하세요.");
             return;
         }
 
-        // 화면 모드 목록
+        isInitializing = true;
+
+        CreateModeList();
+        CreateResolutionList();
+
+        screenModeDropdown.onValueChanged.RemoveListener(OnScreenModeChanged);
+        resolutionDropdown.onValueChanged.RemoveListener(OnResolutionChanged);
+        resetSettingsButton.onClick.RemoveListener(ResetSettings);
+
+        screenModeDropdown.onValueChanged.AddListener(OnScreenModeChanged);
+        resolutionDropdown.onValueChanged.AddListener(OnResolutionChanged);
+        resetSettingsButton.onClick.AddListener(ResetSettings);
+
+        LoadSettings();
+
+        isInitializing = false;
+
+        ApplySettings();
+    }
+
+    // 화면 모드 목록
+    private void CreateModeList()
+    {
         screenModeDropdown.ClearOptions();
 
         screenModeDropdown.AddOptions(new List<string>
@@ -51,15 +74,6 @@ public class ScreenSettings : MonoBehaviour
             "테두리 없는 창 모드",
             "일반 창 모드"
         });
-
-        CreateResolutionList();
-
-        // 이벤트 연결
-        screenModeDropdown.onValueChanged.AddListener(OnScreenModeChanged);
-        resolutionDropdown.onValueChanged.AddListener(OnResolutionChanged);
-        resetSettingsButton.onClick.AddListener(ResetSettings);
-
-        LoadSettings();
     }
 
     // 해상도 목록 생성
@@ -115,13 +129,20 @@ public class ScreenSettings : MonoBehaviour
     // 저장된 설정 불러오기
     private void LoadSettings()
     {
-        int mode = PlayerPrefs.GetInt(MODE_KEY, defaultScreenMode);
+        int mode = PlayerPrefs.GetInt(
+            MODE_KEY,
+            defaultScreenMode
+        );
 
         int width = PlayerPrefs.GetInt(
-            WIDTH_KEY, defaultWindowWidth);
+            WIDTH_KEY,
+            defaultWindowWidth
+        );
 
         int height = PlayerPrefs.GetInt(
-            HEIGHT_KEY, defaultWindowHeight);
+            HEIGHT_KEY,
+            defaultWindowHeight
+        );
 
         mode = Mathf.Clamp(mode, 0, 2);
 
@@ -130,10 +151,9 @@ public class ScreenSettings : MonoBehaviour
         int resolutionIndex = FindResolutionIndex(width, height);
 
         resolutionDropdown.SetValueWithoutNotify(resolutionIndex);
-
-        ApplySettings();
     }
 
+    // 해상도 인덱스 찾기
     private int FindResolutionIndex(int width, int height)
     {
         for (int i = 0; i < availableResolutions.Count; i++)
@@ -157,13 +177,21 @@ public class ScreenSettings : MonoBehaviour
         return 0;
     }
 
+    // 화면 모드 변경
     private void OnScreenModeChanged(int index)
     {
+        if (isInitializing)
+            return;
+
         ApplySettings();
     }
 
+    // 해상도 변경
     private void OnResolutionChanged(int index)
     {
+        if (isInitializing)
+            return;
+
         if (screenModeDropdown.value != 0)
         {
             ApplySettings();
@@ -176,7 +204,8 @@ public class ScreenSettings : MonoBehaviour
         if (availableResolutions.Count == 0)
             return;
 
-        int mode = screenModeDropdown.value;
+        int mode = Mathf.Clamp(screenModeDropdown.value, 0, 2);
+
         int resolutionIndex = Mathf.Clamp(
             resolutionDropdown.value,
             0,
@@ -186,10 +215,10 @@ public class ScreenSettings : MonoBehaviour
         int selectedWidth = availableResolutions[resolutionIndex].x;
         int selectedHeight = availableResolutions[resolutionIndex].y;
 
-        // 전체 화면이 아니면 해상도 변경 가능
+        // 전체 화면에서는 해상도 변경 불가
         resolutionDropdown.interactable = mode != 0;
 
-        // 이전 화면 전환 작업만 중지
+        // 이전 화면 전환 작업 중지
         if (windowCoroutine != null)
         {
             StopCoroutine(windowCoroutine);
@@ -198,14 +227,14 @@ public class ScreenSettings : MonoBehaviour
 
         if (mode == 0)
         {
-            // 전체 화면: 모니터 기본 해상도 고정
+            // 전체 화면
             int width = Display.main.systemWidth;
             int height = Display.main.systemHeight;
 
             Screen.SetResolution(
                 width,
                 height,
-                FullScreenMode.FullScreenWindow
+                FullScreenMode.ExclusiveFullScreen
             );
         }
         else if (mode == 1)
@@ -229,7 +258,7 @@ public class ScreenSettings : MonoBehaviour
             );
         }
 
-        // 선택한 창 해상도는 별도로 보존
+        // 설정 저장
         PlayerPrefs.SetInt(MODE_KEY, mode);
         PlayerPrefs.SetInt(WIDTH_KEY, selectedWidth);
         PlayerPrefs.SetInt(HEIGHT_KEY, selectedHeight);
@@ -237,8 +266,8 @@ public class ScreenSettings : MonoBehaviour
         PlayerPrefs.Save();
 
         Debug.Log(
-            $"화면 모드: {mode}, 선택 해상도: " +
-            $"{selectedWidth} x {selectedHeight}"
+            $"[ScreenSettings] 화면 모드: {mode}, " +
+            $"해상도: {selectedWidth} x {selectedHeight}"
         );
     }
 
@@ -258,7 +287,7 @@ public class ScreenSettings : MonoBehaviour
 
         ApplySettings();
 
-        Debug.Log("화면 설정 초기화 완료");
+        Debug.Log("[ScreenSettings] 화면 설정 초기화 완료");
     }
 
     private void OnDestroy()
